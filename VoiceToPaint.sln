@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceToPaint", "VoiceToPaint.csproj", "{CDCEEE5B-F4C6-4200-804A-2F2446FAF09D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDCEEE5B-F4C6-4200-804A-2F2446FAF09D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDCEEE5B-F4C6-4200-804A-2F2446FAF09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDCEEE5B-F4C6-4200-804A-2F2446FAF09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDCEEE5B-F4C6-4200-804A-2F2446FAF09D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93255C7C-1B47-451A-97E0-D876A8C5114A}
+	EndGlobalSection
+EndGlobal
