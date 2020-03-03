@@ -12,6 +12,8 @@ namespace VoiceToPaint.VR
         SpeechRecognitionEngine masterEngine;
         SpeechRecognitionEngine inputListener;
         public String command = "";
+        String[] options = new String[30];
+        options.
         Boolean type = false;
         Boolean color = false;
         Boolean coordinate = false;
@@ -26,7 +28,9 @@ namespace VoiceToPaint.VR
             {
             // master engine recognised lines
             Choices commands = new Choices();
-            commands.Add(new String[] { "draw","b 5", "line" });
+            //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
+            //Could use for loop + contains further down, but this part seems necessarily hardcoded.
+            commands.Add(new String[] { "draw","b 5", "line","triangle","square" });
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(commands);
             Grammar gram = new Grammar(gBuilder);
@@ -37,7 +41,7 @@ namespace VoiceToPaint.VR
 
             //input listener recognised
             Choices inputs = new Choices();
-            inputs.Add(new String[] { "red","at" });
+            inputs.Add(new String[] { "red","blue","yellow","at" });
             GrammarBuilder listenBuilder = new GrammarBuilder();
             gBuilder.Append(inputs);
             Grammar listenGrammar = new Grammar(listenBuilder);
@@ -75,6 +79,28 @@ namespace VoiceToPaint.VR
 
                     break;
 
+                case "triangle":
+                    inputListener.RecognizeAsync(RecognizeMode.Multiple);
+                    masterEngine.RecognizeAsyncCancel();
+                    if (!type)
+                    {
+                        command += e.Result.Text + " ";
+                        type = true;
+                    }
+
+                    break;
+
+                case "square":
+                    inputListener.RecognizeAsync(RecognizeMode.Multiple);
+                    masterEngine.RecognizeAsyncCancel();
+                    if (!type)
+                    {
+                        command += e.Result.Text + " ";
+                        type = true;
+                    }
+
+                    break;
+
                 case "b 5":
                     inputListener.RecognizeAsync(RecognizeMode.Multiple);
                     masterEngine.RecognizeAsyncCancel();
@@ -83,7 +109,7 @@ namespace VoiceToPaint.VR
                         command += e.Result.Text;
                         coordinate = true;
                     }
-                    //return somehow
+                    //return somehow and/or start listening for tone/volume
                     Console.WriteLine(command);
 
                     reset();
@@ -113,7 +139,25 @@ namespace VoiceToPaint.VR
                         command += e.Result.Text+" ";
                         color = true;
                     }
-                    
+
+                case "blue":
+                    masterEngine.RecognizeAsync(RecognizeMode.Multiple);
+                    inputListener.RecognizeAsyncCancel();
+                    if (!color)
+                    {
+                        command += e.Result.Text + " ";
+                        color = true;
+                    }
+
+                case "yellow":
+                    masterEngine.RecognizeAsync(RecognizeMode.Multiple);
+                    inputListener.RecognizeAsyncCancel();
+                    if (!color)
+                    {
+                        command += e.Result.Text + " ";
+                        color = true;
+                    }
+
 
                     break;
 
