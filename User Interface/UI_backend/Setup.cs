@@ -8,10 +8,5 @@ namespace VoiceToPaint.User_Interface.UI_backend
 {
     class Setup
     {
-     
-
-
-
-
     }
 }

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VoiceToPaint;
 
 namespace VoiceToPaint
 {
@@ -37,7 +36,7 @@ namespace VoiceToPaint
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             Graphics g = this.CreateGraphics();
-            Pen p = Backend.Controls.Tools.Pen;
+            Pen p = new Pen(Color.Red, 4);
             Point point1 = new Point(beginX, beginY);
             Point point2 = new Point(e.X, e.Y);
             if (drw == true)
@@ -55,19 +54,9 @@ namespace VoiceToPaint
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-          
-
-
-            Graphics g = this.CreateGraphics();
-            Pen p = new Pen(Color.Red, 4);
-
-
-
-            Point point1 = new Point(10, 100);
-            Point point2 = new Point(10,100);
-
-
+            
+            
+            
         }
     }
 }
