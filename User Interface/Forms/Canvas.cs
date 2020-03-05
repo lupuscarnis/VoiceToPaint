@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace VoiceToPaint
 {
-    public partial class Form1 : Form
+    public partial class Canvas : Form
     {
-        public Form1()
+        public Canvas()
         {
             InitializeComponent();
         }
@@ -36,7 +36,7 @@ namespace VoiceToPaint
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             Graphics g = this.CreateGraphics();
-            Pen p = new Pen(Color.White, 4);
+            Pen p = new Pen(Color.Red, 4);
             Point point1 = new Point(beginX, beginY);
             Point point2 = new Point(e.X, e.Y);
             if (drw == true)
@@ -47,10 +47,16 @@ namespace VoiceToPaint
             }
         }
 
+        private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text = "csharp-console-examples.com";
-            this.BackColor = Color.Black;
+            
+            
+            
         }
     }
 }
