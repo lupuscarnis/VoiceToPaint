@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VoiceToPaint;
-using VoiceToPaint.VR;
+//using VoiceToPaint.VR;
 
 
 namespace VoiceToPaint
@@ -20,8 +20,8 @@ namespace VoiceToPaint
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Canvas());
-            VoiceRecognizer vr = new VoiceRecognizer();
-            vr.startListening();
+           // VoiceRecognizer vr = new VoiceRecognizer();
+            //vr.startListening();
         }
     }
 }

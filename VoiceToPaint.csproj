@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\Tools.cs" />
     <Compile Include="Backend\Commands.cs" />
     <Compile Include="Backend\Drawables.cs" />
     <Compile Include="Backend\Interfaces\I_Commands.cs" />
