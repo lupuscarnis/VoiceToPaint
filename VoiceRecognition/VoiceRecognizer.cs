@@ -15,7 +15,7 @@ namespace VoiceToPaint.VR
         SpeechRecognitionEngine inputListener;
         public String command = "";
         String[] options = new String[30];
-        options.
+        
         Boolean type = false;
         boolean* pType = &type;
         Boolean color = false;
