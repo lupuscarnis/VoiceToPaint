@@ -53,6 +53,7 @@
             this.Name = "Canvas";
             this.Text = "Painting Window";
             this.Load += new System.EventHandler(this.Canvas_Load);
+            this.Shown += new System.EventHandler(this.Canvas_Shown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.z);
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Canvas_Layout);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);

@@ -13,13 +13,10 @@ namespace VoiceToPaint
     public partial class Canvas : Form
     {
 
-        LinkedList<Graphics> s = new LinkedList<Graphics>();
+        LinkedList<Point> centeresOfSquares = new LinkedList<Point>();
         public Canvas()
         {
             InitializeComponent();
-
-          
-
         }
 
      
@@ -30,38 +27,14 @@ namespace VoiceToPaint
         {
             drw = false;
 
-            Graphics g = this.CreateGraphics();
-            Pen p = new Pen(Color.Black, 2);
-            for (int i = 0; i <= ((this.Size.Width-100)/50); i++)
-            {
-                g.DrawLine(p, new Point(i*50, 0), new Point(i*50, this.Size.Height));
+              
+            Graphics r= this.CreateGraphics();
 
-            }
-            for (int i = 0; i <= ((this.Size.Height- 100) / 50); i++)
-            {
-                g.DrawLine(p, new Point(0, i * 50), new Point(this.Size.Width, i * 50));
+            Pen t= new Pen(Color.Red, 4);
 
-            }
-            int counter = 0;
-           
-            for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
-            {
-                for(int j = 0; j <= ((this.Size.Width - 100) / 50); j++) { 
-                g.DrawString(""+ counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i*50)+20,(j * 50) + 20);
-                    counter++;
-                }
-                
-            }
-            s.AddLast(g);
-            /*
-            Graphics g = this.CreateGraphics();
+            r.DrawRectangle(t, new Rectangle(new Point(e.X, e.Y), new Size(10, 10)));
 
-            Pen p = new Pen(Color.Red, 4);
-
-            g.DrawRectangle(p, new Rectangle(new Point(e.X, e.Y), new Size(10, 10)));
-
-            s.AddLast(g);
-            */
+            
 
         }
 
@@ -114,14 +87,52 @@ namespace VoiceToPaint
 
         private void Canvas_Layout(object sender, LayoutEventArgs e)
         {
-            
+
+        
+
+
+
+
+        }
+
+        private void Canvas_Shown(object sender, EventArgs e)
+        {
+
+            Graphics g = this.CreateGraphics();
+            Pen p = new Pen(Color.Black, 2);
+            for (int i = 0; i <= ((this.Size.Width - 100) / 50); i++)
+            {
+                g.DrawLine(p, new Point(i * 50, 0), new Point(i * 50, this.Size.Height));
+
+            }
+            for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
+            {
+                g.DrawLine(p, new Point(0, i * 50), new Point(this.Size.Width, i * 50));
+
+            }
+            int counter = 0;
+
+            for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
+            {
+                for (int j = 0; j <= ((this.Size.Width - 100) / 50); j++)
+                {
+                    //g.DrawString(""+ counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i*50)+20,(j * 50) + 20);
+                    /// counter++
+                    centeresOfSquares.AddLast(new Point((i * 50) + 20, (j * 50) + 20));
+
+
+
+                }
+
+            }
+
+
 
         }
 
         private void undo()
         {
-            s.Last().Clear(Color.White);
-            s.RemoveLast();
+           
 
 
 
