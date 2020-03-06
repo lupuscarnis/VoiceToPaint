@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VoiceToPaint.Backend;
 
 namespace VoiceToPaint
 {
     public partial class Canvas : Form
     {
 
-        Dictionary<int, Point> CenterMap = new Dictionary<int, Point>();
+        
         public Canvas()
         {
             InitializeComponent();
@@ -27,14 +28,7 @@ namespace VoiceToPaint
         {
             drw = false;
 
-              
-            Graphics r= this.CreateGraphics();
-
-            Pen t= new Pen(Color.Red, 4);
-            var Center = new Point();
-            CenterMap.TryGetValue(60,out Center);
-            r.DrawRectangle(t, new Rectangle(Center, new Size(10, 10)));
-
+            
             
 
         }
@@ -51,7 +45,7 @@ namespace VoiceToPaint
 
            
      
-            /*
+            
             Graphics g = this.CreateGraphics();
             Pen p = new Pen(Color.Red, 4);
             Point point1 = new Point(beginX, beginY);
@@ -62,7 +56,7 @@ namespace VoiceToPaint
                 beginX = e.X;
                 beginY = e.Y;
             }
-            */
+            
         }
         
         public void VoiceDraw(int x, int y)
@@ -70,6 +64,15 @@ namespace VoiceToPaint
           
             
             
+
+        }
+        public void Draw()
+        {
+
+            Graphics r = this.CreateGraphics();
+            var Center = new Point();
+            Tools.getCenterMap.TryGetValue(0, out Center);
+            r.DrawRectangle(Tools.getPen, new Rectangle(Center, new Size(10, 10)));
 
         }
 
@@ -99,6 +102,9 @@ namespace VoiceToPaint
         private void Canvas_Shown(object sender, EventArgs e)
         {
 
+            if (Backend.Tools.Debug == false)
+            this.textBox1.Visible = false;
+
             Graphics g = this.CreateGraphics();
             Pen p = new Pen(Color.Black, 2);
             for (int i = 0; i <= ((this.Size.Width - 100) / 50); i++)
@@ -119,14 +125,27 @@ namespace VoiceToPaint
                 {
                     g.DrawString(""+ counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i*50)+20,(j * 50) + 20);
                     
-                    CenterMap.Add(counter,new Point((i * 50) + 20, (j * 50) + 20));
+                    Tools.getCenterMap.Add(counter,new Point((i * 50) + 20, (j * 50) + 20));
                     counter++;
 
 
                 }
 
             }
+           
 
+
+
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+           if(e.KeyChar == (char)13) {
+
+                Console.WriteLine("enter pressed");
+                // Enter key pressed
+            }
 
 
         }
