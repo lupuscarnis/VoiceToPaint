@@ -13,7 +13,7 @@ namespace VoiceToPaint
     public partial class Canvas : Form
     {
 
-        LinkedList<Point> centeresOfSquares = new LinkedList<Point>();
+        Dictionary<int, Point> CenterMap = new Dictionary<int, Point>();
         public Canvas()
         {
             InitializeComponent();
@@ -31,8 +31,9 @@ namespace VoiceToPaint
             Graphics r= this.CreateGraphics();
 
             Pen t= new Pen(Color.Red, 4);
-
-            r.DrawRectangle(t, new Rectangle(new Point(e.X, e.Y), new Size(10, 10)));
+            var Center = new Point();
+            CenterMap.TryGetValue(60,out Center);
+            r.DrawRectangle(t, new Rectangle(Center, new Size(10, 10)));
 
             
 
@@ -116,10 +117,10 @@ namespace VoiceToPaint
             {
                 for (int j = 0; j <= ((this.Size.Width - 100) / 50); j++)
                 {
-                    //g.DrawString(""+ counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i*50)+20,(j * 50) + 20);
-                    /// counter++
-                    centeresOfSquares.AddLast(new Point((i * 50) + 20, (j * 50) + 20));
-
+                    g.DrawString(""+ counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i*50)+20,(j * 50) + 20);
+                    
+                    CenterMap.Add(counter,new Point((i * 50) + 20, (j * 50) + 20));
+                    counter++;
 
 
                 }
