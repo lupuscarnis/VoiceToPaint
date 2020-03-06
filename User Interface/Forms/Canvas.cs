@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -66,13 +66,24 @@ namespace VoiceToPaint
             
 
         }
-        public void Draw()
+        public void Draw(string text)
         {
+            string[] arrayList = new string[2];
+            
+            int value;
 
-            Graphics r = this.CreateGraphics();
-            var Center = new Point();
-            Tools.getCenterMap.TryGetValue(0, out Center);
-            r.DrawRectangle(Tools.getPen, new Rectangle(Center, new Size(10, 10)));
+            arrayList = text.Split(' ');
+
+            this.textBox1.Text = "";
+            if (int.TryParse(arrayList[0], out value))
+            {
+                Tools.getPen = new Pen(Commands.getColor(arrayList[1]), 4);
+                Graphics r = this.CreateGraphics();
+                var Center = new Point();
+                Tools.getCenterMap.TryGetValue(value, out Center);
+                r.DrawRectangle(Tools.getPen, new Rectangle(Center, new Size(50, 50)));
+            }
+
 
         }
 
@@ -140,11 +151,10 @@ namespace VoiceToPaint
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            string text;
            if(e.KeyChar == (char)13) {
 
-                Console.WriteLine("enter pressed");
-                // Enter key pressed
+                Draw(this.textBox1.Text);
             }
 
 
