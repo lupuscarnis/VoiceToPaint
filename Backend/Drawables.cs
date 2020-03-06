@@ -120,7 +120,7 @@ namespace VoiceToPaint.Backend
 
 
 
-                return new Rectangle(new Point(x, y), new Size(Size, Size)));
+                return new Rectangle(new Point(x, y), new Size(Size, Size));
             }
 
 
