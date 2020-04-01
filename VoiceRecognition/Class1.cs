@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
+using NAudio.Wave;
+using NAudio.CoreAudioApi;
 
 namespace VoiceToPaint.VR
 {
@@ -12,10 +14,14 @@ namespace VoiceToPaint.VR
     public unsafe class VoiceRecognizer
     {
         
+
         SpeechRecognitionEngine masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         SpeechRecognitionEngine inputListener;
         public String command = "";
-        
+
+        private int RATE = 44100; 
+        private int BUFFERSIZE = (int)Math.Pow(2, 10);
+        public BufferedWaveProvider bwp;
 
         Boolean type = false;
         //Boolean* pTxype = &type;
@@ -28,11 +34,40 @@ namespace VoiceToPaint.VR
         Boolean connect = false;
         Boolean draw = false;
         Boolean size = false;
-        Choices numbers; 
+        Choices numbers;
 
-      //  public event Func<String> readToReturn;
+        //  public event Func<String> readToReturn;
+        
 
+        void AudioDataAvailable(object sender, WaveInEventArgs e)
+        {
+            bwp.AddSamples(e.Buffer, 0, e.BytesRecorded);
+        }
 
+        public void StartListeningToMicrophone(int audioDeviceNumber = 0)
+        {
+            WaveIn wi = new WaveIn();
+            wi.DeviceNumber = audioDeviceNumber;
+            wi.WaveFormat = new NAudio.Wave.WaveFormat(RATE, 1);
+            wi.BufferMilliseconds = (int)((double)BUFFERSIZE / (double)RATE * 1000.0);
+            wi.DataAvailable += new EventHandler<WaveInEventArgs>(AudioDataAvailable);
+            bwp = new BufferedWaveProvider(wi.WaveFormat);
+            bwp.BufferLength = BUFFERSIZE * 2;
+            bwp.DiscardOnBufferOverflow = true;
+            try
+            {
+                wi.StartRecording();
+            }
+            catch
+            {
+                string msg = "Could not record from audio device!\n\n";
+                msg += "Is your microphone plugged in?\n";
+                msg += "Is it set as your default recording device?";
+                Console.WriteLine(msg, "ERROR");
+            }
+        }
+
+        
         public VoiceRecognizer()
         {
             
@@ -58,10 +93,31 @@ namespace VoiceToPaint.VR
             masterEngine.RecognizeAsync(RecognizeMode.Multiple);
             */
 
+           
+
             
 
 
         }
+
+        public void ListenForTone()
+        {
+            StartListeningToMicrophone(); 
+
+            // check the incoming microphone audio
+            int frameSize = BUFFERSIZE;
+            var audioBytes = new byte[frameSize];
+            bwp.Read(audioBytes, 0, frameSize);
+
+            // return if there's nothing new to plot
+            if (audioBytes.Length == 0)
+                return;
+            if (audioBytes[frameSize - 2] == 0)
+                return;
+            
+        }
+
+
         public void startListening()
         {
             
@@ -69,7 +125,7 @@ namespace VoiceToPaint.VR
             Choices commands = new Choices();
             //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
             //Could use for loop + contains further down, but this part seems necessarily hardcoded.
-            commands.Add(new String[] { "draw", "connect", "line", "triangle", "square","b 5", "red", "blue", "yellow", "size", "50" });
+            commands.Add(new String[] { "draw", "connect", "line", "triangle", "square","b 5", "red", "blue", "yellow", "size" });
             commands.Add(numbers);
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(commands);
@@ -274,6 +330,10 @@ namespace VoiceToPaint.VR
                         command += "size: " + e.Result.Text + ", ";
                         size = true;
                     }
+                    else
+                    {
+                        //maybe some error message
+                    }
 
                     break;
 
@@ -282,8 +342,12 @@ namespace VoiceToPaint.VR
             }
             if((draw && type && coordinate &&color && size) || (connect && type && coordinate && color && size))
             {
-                //return or event handling to send message
+               
                 Console.WriteLine(command);
+                //return or event handling to send message
+
+                ListenForTone(); 
+
                 reset();
             }
 
