@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using VoiceToPaint;
 using System.Drawing;
+using VoiceToPaint.Backend;
+
 //using VoiceToPaint.VR;
 
 
@@ -18,16 +20,44 @@ namespace VoiceToPaint
         [STAThread]
         static void Main()
         {
-            Backend.Tools.Debug = true;
-            Backend.Tools.getPen = new Pen(Color.Blue,4);
+            Tools.Debug = true;
+
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Canvas());
 
-             
 
-           // VoiceRecognizer vr = new VoiceRecognizer();
+
+
+
+            // VoiceRecognizer vr = new VoiceRecognizer();
             //vr.startListening();
+        }
+        public class ThreadExample
+        {
+            // The ThreadProc method is called when the thread starts.
+            // It loops ten times, writing to the console and yielding 
+            // the rest of its time slice each time, and then ends.
+            public static void ThreadProc()
+            {
+               
+                
+                
+                Drawables draw = new Drawables();
+
+                Tools.getDraw = draw;
+
+
+
+
+               
+            }
+
+
+
+
         }
     }
 }

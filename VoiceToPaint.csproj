@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\Shapes\Circle.cs" />
+    <Compile Include="Backend\Shapes\Square.cs" />
     <Compile Include="Backend\Tools.cs" />
     <Compile Include="Backend\Commands.cs" />
     <Compile Include="Backend\Drawables.cs" />
