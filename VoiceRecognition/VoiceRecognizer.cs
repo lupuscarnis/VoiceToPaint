@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
 
-namespace VoiceToPaint.VR
+namespace VoiceToPaint.VoiceRecognition
+
 {
     
 
