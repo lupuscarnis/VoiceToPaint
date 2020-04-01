@@ -33,6 +33,7 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -53,15 +54,26 @@
             this.textBox1.TabIndex = 2;
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(466, 12);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(106, 538);
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
             // Canvas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(584, 562);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.textBox1);
             this.Name = "Canvas";
             this.Text = "Painting Window";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Canvas_FormClosing);
             this.Load += new System.EventHandler(this.Canvas_Load);
             this.Shown += new System.EventHandler(this.Canvas_Shown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.z);
@@ -80,6 +92,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 

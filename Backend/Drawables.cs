@@ -4,12 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
+using VoiceToPaint;
+using VoiceToPaint.User_Interface;
+
 
 namespace VoiceToPaint.Backend
 {
     class Drawables
     {
 
+           
+        public Drawables()
+        {
+
+        }
+
+        public delegate void UpdateViewListEventHandler(object source, EventArgs e);
+        public event UpdateViewListEventHandler ListChanged;
+
+
+
+        protected virtual void OnChangeViewList()
+        {
+          if(ListChanged != null)
+            {
+                ListChanged(this, EventArgs.Empty);
+            }
+
+        }
 
         public void createDrawble(string text)
         {
@@ -24,10 +47,61 @@ namespace VoiceToPaint.Backend
                     {
 
 
-                         
+                        switch (type)
+                        {
+                            case "square":
+                                {
+
+                                    //create the object to draw 
+                                    Graphics graph = Tools.getCanvas.CreateGraphics();
+                                    //Send it to the from 
+                                    Tools.getPen = new Pen(Commands.getColor(color));
+                                    graph.DrawRectangle(Tools.getPen, Shapes.Square(point, size));
+                                    //store the object in a sorted list
+                                    Tools.getObjects.AddLast("Command: " + command+" Color: "+color+" Point: "+point+" Type: "+type+" Size: "+size);
+                                     OnChangeViewList();
+                                    //return
 
 
-                break;
+
+
+                                    break;
+                                }
+                            case "circle":
+                                {
+
+                                    //create the object to draw 
+                                    //Send it to the from 
+                                    //store the object in a sorted list
+                                    //return
+
+
+
+
+                                    break;
+                                }
+                            case "triangle":
+                                {
+
+
+                                    //create the object to draw 
+                                    //Send it to the from 
+                                    //store the object in a sorted list
+                                    //return
+
+
+
+                                    break;
+                                }
+
+                        }
+
+
+
+
+
+
+                        break;
                     }
                 case "connect":
                     {
@@ -37,10 +111,7 @@ namespace VoiceToPaint.Backend
 
                         break;
                     }
-
-
-
-
+                
 
 
 
@@ -55,12 +126,13 @@ namespace VoiceToPaint.Backend
             Dictionary<string, string> commandvalues = new Dictionary<string, string>();
             command = "draw";
             color = "red";
-            point = "0,0";
+            point = "50,50";
             type = "square";
             size = "10";
             if(text == null || text == "")
             {
                 Console.WriteLine("An empty String");
+                Console.WriteLine("Using Default");
 
             }
             else
@@ -99,10 +171,10 @@ namespace VoiceToPaint.Backend
 
 
         }
-       public class Shapes  : Drawables
+       public static class Shapes 
         {
 
-            public Rectangle rectangle( string coordinate, string size)
+            public static Rectangle Square( string coordinate, string size)
             {
                 string[] coor;
                 coor = coordinate.Split(',');
@@ -122,7 +194,7 @@ namespace VoiceToPaint.Backend
 
                 return new Rectangle(new Point(x, y), new Size(Size, Size));
             }
-
+            
 
 
 
