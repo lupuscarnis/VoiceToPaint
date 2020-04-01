@@ -79,7 +79,7 @@ namespace VoiceToPaint.VR
             masterEngine.SpeechRecognized += masterEngine_SpeechRecognized;
             masterEngine.RecognizeAsync(RecognizeMode.Multiple);
                             
-
+            
 
 
         }
