@@ -67,11 +67,12 @@ namespace VoiceToPaint
             }
         }
         
-        public void UpdateDraw(string s)
+        private void UpdateDraw(object source, EventArgs e)
         {
-
-            Console.WriteLine(s);
+            Tools.getCenterMap.Clear();
+            
             Graphics g = this.CreateGraphics();
+            g.Clear(Color.White);
             Pen p = new Pen(Color.Black, 2);
             for (int i = 0; i <= ((this.Size.Width - 100) / 50); i++)
             {
@@ -90,7 +91,7 @@ namespace VoiceToPaint
                 for (int j = 0; j <= ((this.Size.Width - 100) / 50); j++)
                 {
                     g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i * 50) + 20, (j * 50) + 20);
-
+                   
                     Tools.getCenterMap.Add(counter, new Point((i * 50) + 20, (j * 50) + 20));
                     counter++;
 
@@ -102,28 +103,7 @@ namespace VoiceToPaint
 
 
         }
-        /*
-        public void Draw(string text)
-        {
-            string[] arrayList = new string[2];
-            
-            int value;
-
-            arrayList = text.Split(' ');
-
-            this.textBox1.Text = "";
-            if (int.TryParse(arrayList[0], out value))
-            {
-                Tools.getPen = new Pen(Commands.getColor(arrayList[1]), 4);
-                Graphics r = this.CreateGraphics();
-                var Center = new Point();
-                Tools.getCenterMap.TryGetValue(value, out Center);
-                r.DrawRectangle(Tools.getPen, new Rectangle(Center, new Size(50, 50)));
-            }
-
-
-        }
-        */
+     
         private void z(object sender, KeyPressEventArgs e)
         {
             if(e.KeyChar == 'z')
@@ -134,9 +114,16 @@ namespace VoiceToPaint
 
         private void Canvas_Load(object sender, EventArgs e)
         {
+            backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
+            backend.Start();
+            while (Tools.getDraw == null) { }
+            Tools.getDraw.ListChanged += OnListViewChange;
+            Tools.getDraw.GraphicsCleared += UpdateDraw;
+
 
         }
 
+      
         private void Canvas_Layout(object sender, LayoutEventArgs e)
         {
 
@@ -151,13 +138,8 @@ namespace VoiceToPaint
         {
 
 
-            
-            UpdateDraw("");
-             backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
-                backend.Start();
-             while(Tools.getDraw == null) { }
-            Tools.getDraw.ListChanged += OnListViewChange;
-            Tools.getDraw.createDrawble("");
+            // what happends when the Canvas is shown
+            UpdateDraw(null,null);
             if (Backend.Tools.Debug == false)
             this.textBox1.Visible = false;
 
@@ -191,10 +173,16 @@ namespace VoiceToPaint
             backend.Join();
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+      
+        private void Canvas_Resize(object sender, EventArgs e)
         {
-
+            if (this.Size.Height != this.Size.Width)
+            {
+                this.Size = new Size(this.Size.Width, this.Size.Width);
+            }
+            UpdateDraw(null,null);
         }
+
       
 
         private void OnListViewChange(object source, EventArgs e)

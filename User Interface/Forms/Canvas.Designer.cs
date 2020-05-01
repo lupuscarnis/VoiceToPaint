@@ -57,13 +57,15 @@
             // 
             // listView1
             // 
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(466, 12);
+            this.listView1.Location = new System.Drawing.Point(478, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(106, 538);
+            this.listView1.Size = new System.Drawing.Size(106, 562);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+         
             // 
             // Canvas
             // 
@@ -83,6 +85,7 @@
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
+            this.Resize += new System.EventHandler(this.Canvas_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
