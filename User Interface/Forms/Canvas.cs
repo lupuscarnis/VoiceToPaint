@@ -154,12 +154,10 @@ namespace VoiceToPaint
             
             UpdateDraw("");
              backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
-            backend.Start();
-           while(Tools.getDraw == null) { }
+                backend.Start();
+             while(Tools.getDraw == null) { }
             Tools.getDraw.ListChanged += OnListViewChange;
             Tools.getDraw.createDrawble("");
-
-
             if (Backend.Tools.Debug == false)
             this.textBox1.Visible = false;
 
@@ -172,9 +170,17 @@ namespace VoiceToPaint
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             string text;
-           if(e.KeyChar == (char)13) {
+            text = textBox1.Text;
+            if (text == "")
+            {
+                Console.WriteLine("You din't input text");
+            } 
+          
 
-                
+            if (e.KeyChar == (char)13) {
+                Tools.getDraw.createDrawble(text);
+
+                textBox1.Text = "";
             }
 
 
@@ -193,6 +199,7 @@ namespace VoiceToPaint
 
         private void OnListViewChange(object source, EventArgs e)
         {
+            listView1.Clear();   
             int i = 0;
            foreach(string s in Tools.getObjects)
             {

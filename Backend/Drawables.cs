@@ -122,6 +122,8 @@ namespace VoiceToPaint.Backend
         }
         private void extract(string text,out string command, out string color, out string point, out string type, out string size)
         {
+            //The formating 
+            //command:draw;color:blue;point:50,50;type:square;size:10;
             string[] list, list2;
             Dictionary<string, string> commandvalues = new Dictionary<string, string>();
             command = "draw";
@@ -140,11 +142,12 @@ namespace VoiceToPaint.Backend
               list = text.Split(';');
                 foreach(string s in list)
                 {
+                    if(s != "") { 
                    list2 = s.Split(':');
-
-                    commandvalues.Add(list[0].ToLower(), list2[1].ToLower());
-
                     
+                    commandvalues.Add(list2[0].ToLower(), list2[1].ToLower());
+                    }
+
                 }
 
                 commandvalues.TryGetValue("command", out command);
@@ -169,9 +172,16 @@ namespace VoiceToPaint.Backend
 
 
 
+        }
+
+        public void setColor(string Color)
+        {
+
+            
+
 
         }
-       public static class Shapes 
+        public static class Shapes 
         {
 
             public static Rectangle Square( string coordinate, string size)

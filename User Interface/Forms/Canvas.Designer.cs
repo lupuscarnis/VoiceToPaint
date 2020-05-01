@@ -48,6 +48,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.AccessibleDescription = "Blue";
             this.textBox1.Location = new System.Drawing.Point(12, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
@@ -56,6 +57,7 @@
             // 
             // listView1
             // 
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(466, 12);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(106, 538);
