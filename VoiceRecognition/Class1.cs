@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
-using NAudio.Wave;
-using NAudio.CoreAudioApi;
 
 namespace VoiceToPaint.VR
 {
@@ -18,11 +16,11 @@ namespace VoiceToPaint.VR
         SpeechRecognitionEngine masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         SpeechRecognitionEngine inputListener;
         public String command = "";
-
+        /*
         private int RATE = 44100; 
         private int BUFFERSIZE = (int)Math.Pow(2, 10);
         public BufferedWaveProvider bwp;
-
+        */
         Boolean type = false;
         //Boolean* pTxype = &type;
         Boolean color = false;
@@ -38,7 +36,7 @@ namespace VoiceToPaint.VR
 
         //  public event Func<String> readToReturn;
         
-
+/*
         void AudioDataAvailable(object sender, WaveInEventArgs e)
         {
             bwp.AddSamples(e.Buffer, 0, e.BytesRecorded);
@@ -66,7 +64,7 @@ namespace VoiceToPaint.VR
                 Console.WriteLine(msg, "ERROR");
             }
         }
-
+        */
         
         public VoiceRecognizer()
         {
@@ -99,7 +97,7 @@ namespace VoiceToPaint.VR
 
 
         }
-
+        /*
         public void ListenForTone()
         {
             StartListeningToMicrophone(); 
@@ -116,11 +114,11 @@ namespace VoiceToPaint.VR
                 return;
             
         }
-
+*/
 
         public void startListening()
         {
-            
+            Console.Beep();   
             // master engine recognised lines
             Choices commands = new Choices();
             //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
@@ -134,9 +132,8 @@ namespace VoiceToPaint.VR
             masterEngine.SetInputToDefaultAudioDevice();
             masterEngine.SpeechRecognized += masterEngine_SpeechRecognized;
             masterEngine.RecognizeAsync(RecognizeMode.Multiple);
-                            
-            
 
+           
 
         }
 
@@ -338,15 +335,16 @@ namespace VoiceToPaint.VR
                     break;
 
 
-
+                  
             }
-            if((draw && type && coordinate &&color && size) || (connect && type && coordinate && color && size))
+            Console.WriteLine("i heard" + command);
+            if ((draw && type && coordinate &&color && size) || (connect && type && coordinate && color && size))
             {
                
                 Console.WriteLine(command);
                 //return or event handling to send message
 
-                ListenForTone(); 
+                //ListenForTone(); 
 
                 reset();
             }
