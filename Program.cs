@@ -6,8 +6,9 @@ using System.Windows.Forms;
 using VoiceToPaint;
 using System.Drawing;
 using VoiceToPaint.Backend;
+using VoiceToPaint.VR;
 
-//using VoiceToPaint.VR;
+
 
 
 namespace VoiceToPaint
@@ -30,10 +31,6 @@ namespace VoiceToPaint
 
 
 
-
-
-            // VoiceRecognizer vr = new VoiceRecognizer();
-            //vr.startListening();
         }
         public class ThreadExample
         {
@@ -53,6 +50,32 @@ namespace VoiceToPaint
 
 
                
+            }
+
+
+
+
+        }
+        public class ThreadVoice
+        {
+        
+            // The ThreadProc method is called when the thread starts.
+            // It loops ten times, writing to the console and yielding 
+            // the rest of its time slice each time, and then ends.
+            public static void ThreadProc()
+            {
+
+
+
+
+
+                VoiceRecognizer vr = new VoiceRecognizer();
+                vr.startListening();
+
+
+
+
+
             }
 
 

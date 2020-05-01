@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+
 using VoiceToPaint.Backend;
 
 namespace VoiceToPaint
@@ -14,7 +15,7 @@ namespace VoiceToPaint
 
     public partial class Canvas : Form
     {
-        Thread backend = null;
+        Thread backend,voice = null;
         bool drw;
         int beginX, beginY;
      
@@ -115,7 +116,10 @@ namespace VoiceToPaint
         private void Canvas_Load(object sender, EventArgs e)
         {
             backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
+            voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
             backend.Start();
+            voice.Start();
+           
             while (Tools.getDraw == null) { }
             Tools.getDraw.ListChanged += OnListViewChange;
             Tools.getDraw.GraphicsCleared += UpdateDraw;
@@ -171,9 +175,10 @@ namespace VoiceToPaint
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
             backend.Join();
+            voice.Join();
         }
 
-      
+
         private void Canvas_Resize(object sender, EventArgs e)
         {
             if (this.Size.Height != this.Size.Width)
