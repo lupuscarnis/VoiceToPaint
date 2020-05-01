@@ -118,7 +118,8 @@ namespace VoiceToPaint.VR
 
         public void startListening()
         {
-            Console.Beep();   
+            Console.Beep();
+            Console.WriteLine("I'm listening");
             // master engine recognised lines
             Choices commands = new Choices();
             //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
@@ -135,6 +136,11 @@ namespace VoiceToPaint.VR
 
            
 
+        }
+
+        public void stopListening()
+        {
+            masterEngine.RecognizeAsyncStop();
         }
 
         private void inputListener_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
