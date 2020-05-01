@@ -192,7 +192,7 @@ namespace VoiceToPaint.Backend
             }
             else
             {
-              list = text.Split(';');
+              list = text.Split(',');
                 foreach(string s in list)
                 {
                     if(s != "") { 
