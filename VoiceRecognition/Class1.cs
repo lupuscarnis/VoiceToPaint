@@ -138,6 +138,12 @@ namespace VoiceToPaint.VR
 
         }
 
+        public void stopListening()
+        {
+            masterEngine.RecognizeAsyncStop();
+
+        }
+
         private void inputListener_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             Console.Beep();
