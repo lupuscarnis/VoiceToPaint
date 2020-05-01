@@ -176,7 +176,7 @@ namespace VoiceToPaint.Backend
         private void extract(string text,out string command, out string color, out string point, out string type, out string size)
         {
             //The formating 
-            //command:draw;color:blue;point:1;type:square;size:10;
+            //command:draw,color:blue,point:1,type:square,size:10,
             string[] list, list2;
             Dictionary<string, string> commandvalues = new Dictionary<string, string>();
             command = "draw";
@@ -184,6 +184,7 @@ namespace VoiceToPaint.Backend
             point = "1";
             type = "square";
             size = "10";
+           text =  text.Replace(" ", "");
             if(text == null || text == "")
             {
                 Console.WriteLine("An empty String");
