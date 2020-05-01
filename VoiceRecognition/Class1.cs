@@ -373,7 +373,7 @@ namespace VoiceToPaint.VR
             pColor = false;
             pCoordinate = false;
             */
-
+            command = "";
             draw = false;
             connect = false;
             type = false;
