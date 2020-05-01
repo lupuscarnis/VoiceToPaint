@@ -27,6 +27,7 @@ namespace VoiceToPaint.VR
         //Boolean* pColor = &color;
         Boolean coordinate = false;
         //Boolean* pCoordinate = &coordinate;
+        Boolean point = false;
 
         Boolean rectangle = false;
         Boolean connect = false;
@@ -327,8 +328,13 @@ namespace VoiceToPaint.VR
                     break;
 
                 default:
-                   
-                    if (!size)  
+
+                    if (!point)
+                    {
+                        command += "point: " + e.Result.Text + ", ";
+                        point = true;
+                    }
+                    else if (!size)  
                     {
                         command += "size: " + e.Result.Text + ", ";
                         size = true;
@@ -344,7 +350,7 @@ namespace VoiceToPaint.VR
                   
             }
             Console.WriteLine("i heard" + command);
-            if ((draw && type &&color && size) || (connect && type && color && size))
+            if ((draw && type && color && point && size) || (connect && type && color && point && size))
             {
                 Console.WriteLine("we have made a command");
                 Console.WriteLine(command);
