@@ -118,12 +118,12 @@ namespace VoiceToPaint
             backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
             voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
             backend.Start();
-            voice.Start();
+
            
             while (Tools.getDraw == null) { }
             Tools.getDraw.ListChanged += OnListViewChange;
             Tools.getDraw.GraphicsCleared += UpdateDraw;
-
+            voice.Start();
 
         }
 

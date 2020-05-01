@@ -348,7 +348,7 @@ namespace VoiceToPaint.VR
             {
                
                 Console.WriteLine(command);
-                
+                Backend.Tools.getDraw.createDrawble(command);
                 //return or event handling to send message
 
                 //ListenForTone(); 
