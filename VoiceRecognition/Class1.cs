@@ -27,6 +27,7 @@ namespace VoiceToPaint.VR
         //Boolean* pColor = &color;
         Boolean coordinate = false;
         //Boolean* pCoordinate = &coordinate;
+        Boolean point = false;
 
         Boolean rectangle = false;
         Boolean connect = false;
@@ -123,7 +124,7 @@ namespace VoiceToPaint.VR
             Choices commands = new Choices();
             //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
             //Could use for loop + contains further down, but this part seems necessarily hardcoded.
-            commands.Add(new String[] { "draw", "connect", "line", "triangle", "square","b 5", "red", "blue", "yellow", "size" });
+            commands.Add(new String[] { "draw", "connect", "line", "triangle", "square","b 5", "red", "blue", "yellow", "size", "point" });
             commands.Add(numbers);
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(commands);
@@ -246,7 +247,7 @@ namespace VoiceToPaint.VR
                     
                     if (!draw)
                     {
-                        command += "command:" + e.Result.Text + ", ";
+                        command += "command:" + e.Result.Text + "; ";
                         draw = true;
                     }
                     break;
@@ -255,7 +256,7 @@ namespace VoiceToPaint.VR
                   
                     if (!connect)
                     {
-                        command += command += "command:" + e.Result.Text + ", ";
+                        command += command += "command:" + e.Result.Text + "; ";
                         connect = true;
                     }
                     break;
@@ -264,7 +265,7 @@ namespace VoiceToPaint.VR
                    
                     if (!type)
                     {
-                        command += "type: " + e.Result.Text + ", ";
+                        command += "type: " + e.Result.Text + "; ";
                         type = true;
                     }
 
@@ -274,7 +275,7 @@ namespace VoiceToPaint.VR
                    
                     if (!type)
                     {
-                        command += "type: " + e.Result.Text + ", ";
+                        command += "type: " + e.Result.Text + "; ";
                         type = true;
                     }
 
@@ -284,7 +285,7 @@ namespace VoiceToPaint.VR
                   
                     if (!type)
                     {
-                        command += "type: " + e.Result.Text + ", ";
+                        command += "type: " + e.Result.Text + "; ";
                         type = true;
                     }
 
@@ -294,7 +295,7 @@ namespace VoiceToPaint.VR
                    
                     if (!color)
                     {
-                        command += "color: " + e.Result.Text + ", ";
+                        command += "color: " + e.Result.Text + "; ";
 
                         color = true;
                     }
@@ -304,7 +305,7 @@ namespace VoiceToPaint.VR
                    
                     if (!color)
                     {
-                        command += "color: " + e.Result.Text + ", ";
+                        command += "color: " + e.Result.Text + "; ";
                         color = true;
                     }
                     break;
@@ -313,23 +314,29 @@ namespace VoiceToPaint.VR
                    
                     if (!color)
                     {
-                        command += "color: " + e.Result.Text + ", ";
+                        command += "color: " + e.Result.Text + "; ";
                         color = true;
                     }
 
 
                     break;
-
+                   //default used when we dont know what the input is going to be, in this case numbers
                 default:
-                   
-                    if (!size)
+
+                    if (!point)
                     {
-                        command += "size: " + e.Result.Text + ", ";
+                        command += "point: " + e.Result.Text + "; ";
+                        point = true;
+
+                    }else if (!size)
+                    {
+                        command += "size: " + e.Result.Text + "; ";
                         size = true;
                     }
                     else
                     {
-                        //maybe some error message
+                        Console.WriteLine("i didn't understand that");
+                        //maybe some error handling or forced (send) action
                     }
 
                     break;
@@ -337,11 +344,14 @@ namespace VoiceToPaint.VR
 
                   
             }
+
+
             Console.WriteLine("i heard" + command);
-            if ((draw && type && coordinate &&color && size) || (connect && type && coordinate && color && size))
+            if ((draw && type && point && coordinate &&color && size) || (connect && type && point && coordinate && color && size))
             {
                
                 Console.WriteLine(command);
+                Console.Beep();
                 //return or event handling to send message
 
                 //ListenForTone(); 
