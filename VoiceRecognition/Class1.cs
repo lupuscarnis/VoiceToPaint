@@ -328,7 +328,7 @@ namespace VoiceToPaint.VR
 
                 default:
                    
-                    if (!size)
+                    if (!size)  
                     {
                         command += "size: " + e.Result.Text + ", ";
                         size = true;
@@ -344,9 +344,9 @@ namespace VoiceToPaint.VR
                   
             }
             Console.WriteLine("i heard" + command);
-            if ((draw && type && coordinate &&color && size) || (connect && type && coordinate && color && size))
+            if ((draw && type &&color && size) || (connect && type && color && size))
             {
-               
+                Console.WriteLine("we have made a command");
                 Console.WriteLine(command);
                 Backend.Tools.getDraw.createDrawble(command);
                 //return or event handling to send message
