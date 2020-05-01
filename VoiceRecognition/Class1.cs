@@ -64,7 +64,7 @@ namespace VoiceToPaint.VR
         }
         public void startListening()
         {
-            
+            Console.Beep();   
             // master engine recognised lines
             Choices commands = new Choices();
             //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
@@ -78,9 +78,8 @@ namespace VoiceToPaint.VR
             masterEngine.SetInputToDefaultAudioDevice();
             masterEngine.SpeechRecognized += masterEngine_SpeechRecognized;
             masterEngine.RecognizeAsync(RecognizeMode.Multiple);
-                            
-            
 
+           
 
         }
 
@@ -278,9 +277,10 @@ namespace VoiceToPaint.VR
                     break;
 
 
-
+                  
             }
-            if((draw && type && coordinate &&color && size) || (connect && type && coordinate && color && size))
+            Console.WriteLine("i heard" + command);
+            if ((draw && type && coordinate &&color && size) || (connect && type && coordinate && color && size))
             {
                 //return or event handling to send message
                 Console.WriteLine(command);
