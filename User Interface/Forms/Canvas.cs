@@ -18,19 +18,23 @@ namespace VoiceToPaint
         Thread voice = null;
         bool drw;
         int beginX, beginY;
-        Drawables draw = new Drawables();
+        Drawables draw;
 
 
         public Canvas()
         {
             InitializeComponent();
-            Tools.getCanvas = this;
+          
 
         }
 
 
 
+        private void newCommand(string text)
+        {
 
+            draw.createDrawble(text);
+        }
 
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -115,15 +119,15 @@ namespace VoiceToPaint
 
         private void Canvas_Load(object sender, EventArgs e)
         {
-            
-          if(Tools.Voice == true)
+             draw = new Drawables(this);
+            if (Tools.Voice == true)
             voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
 
             voice.Name = "VoiceThread";
-           
+            voice.IsBackground = true;
 
            
-            while (Tools.getDraw == null) { }
+           
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
             if (Tools.Voice == true)
