@@ -16,6 +16,7 @@ namespace VoiceToPaint.Backend
         static Pen pen = new Pen(Color.Blue, 4);
         static Brush brush = null;
         static bool debug = true;
+        static bool voice = true;
         static bool canDraw = true;
         static Canvas mainForm = null;
         static ListView listView = null;
@@ -25,6 +26,7 @@ namespace VoiceToPaint.Backend
         public static Pen getPen { get => pen; set => pen = value; }
         public static Brush getBrush { get => brush; set => brush = value; }
         public static bool Debug { get => debug; set => debug = value; }
+        public static bool Voice { get => voice; set => voice = value; }
         public static bool getcanDraw { get => canDraw; set => canDraw = value; }
         public static Canvas getCanvas { get => mainForm; set => mainForm = value; }
         public static ListView getlistView { get => listView; set => listView = value; }

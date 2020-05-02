@@ -198,8 +198,14 @@ namespace VoiceToPaint.Backend
                 {
                     if(s != "") { 
                    list2 = s.Split(':');
-                    
-                    commandvalues.Add(list2[0].ToLower(), list2[1].ToLower());
+
+                        if (!commandvalues.ContainsKey(list2[0].ToLower()))
+                        {
+                            commandvalues.Add(list2[0].ToLower(), list2[1].ToLower());
+
+                        }
+
+
                     }
 
                 }
