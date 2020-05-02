@@ -397,9 +397,6 @@ namespace VoiceToPaint.VR
             pColor = false;
             pCoordinate = false;
             */
-            
-            //maybe reset command elsewhere
-            command = "";
 
             draw = false;
             connect = false;
