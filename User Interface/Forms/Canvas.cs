@@ -118,6 +118,9 @@ namespace VoiceToPaint
             backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
           if(Tools.Voice == true)
             voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
+
+            voice.Name = "VoiceThread";
+            backend.Name = "BackendThread";
             backend.Start();
 
            
