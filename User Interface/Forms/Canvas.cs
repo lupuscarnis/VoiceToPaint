@@ -116,6 +116,7 @@ namespace VoiceToPaint
         private void Canvas_Load(object sender, EventArgs e)
         {
             backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
+          if(Tools.Voice == true)
             voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
             backend.Start();
 
@@ -123,7 +124,8 @@ namespace VoiceToPaint
             while (Tools.getDraw == null) { }
             Tools.getDraw.ListChanged += OnListViewChange;
             Tools.getDraw.GraphicsCleared += UpdateDraw;
-           voice.Start();
+            if (Tools.Voice == true)
+                voice.Start();
 
         }
 
@@ -175,7 +177,8 @@ namespace VoiceToPaint
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
             backend.Join();
-            voice.Join();
+            if (Tools.Voice == true)
+                voice.Join();
         }
 
 
