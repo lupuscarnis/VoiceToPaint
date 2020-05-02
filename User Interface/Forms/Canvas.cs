@@ -15,12 +15,12 @@ namespace VoiceToPaint
 
     public partial class Canvas : Form
     {
-        Thread backend,voice = null;
+        Thread voice = null;
         bool drw;
         int beginX, beginY;
-     
-       
-         
+        Drawables draw = new Drawables();
+
+
         public Canvas()
         {
             InitializeComponent();
@@ -115,18 +115,17 @@ namespace VoiceToPaint
 
         private void Canvas_Load(object sender, EventArgs e)
         {
-            backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
+            
           if(Tools.Voice == true)
             voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
 
             voice.Name = "VoiceThread";
-            backend.Name = "BackendThread";
-            backend.Start();
+           
 
            
             while (Tools.getDraw == null) { }
-            Tools.getDraw.ListChanged += OnListViewChange;
-            Tools.getDraw.GraphicsCleared += UpdateDraw;
+            draw.ListChanged += OnListViewChange;
+            draw.GraphicsCleared += UpdateDraw;
             if (Tools.Voice == true)
                 voice.Start();
 
@@ -149,7 +148,7 @@ namespace VoiceToPaint
 
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
-            if (Backend.Tools.Debug == false)
+            if (Tools.Debug == false)
             this.textBox1.Visible = false;
 
             
@@ -179,7 +178,7 @@ namespace VoiceToPaint
 
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            backend.Join();
+            
             if (Tools.Voice == true)
                 voice.Join();
         }
@@ -198,16 +197,18 @@ namespace VoiceToPaint
 
         private void OnListViewChange(object source, EventArgs e)
         {
-            listView1.Clear();   
-            int i = 0;
-           foreach(string s in Tools.getObjects)
-            {
-                
-                listView1.Items.Add(s+" Number: "+i);
-                i++;
-            }
 
            
+            listView1.Clear();
+            int i = 0;
+            foreach (string s in Tools.getObjects)
+            {
+
+                listView1.Items.Add(s + " Number: " + i);
+                i++;
+            }
+          
+
         }
     }
 }
