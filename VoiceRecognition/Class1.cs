@@ -363,13 +363,13 @@ namespace VoiceToPaint.VR
 
             Console.WriteLine("i heard" + command);
             //sends new string to show on screen
-            Backend.Tools.getDraw.createDrawble(e.Result.Text);
+            //Backend.Tools.getDraw.createDrawble(e.Result.Text);
 
             if ((draw && type && color && point && size) || (connect && type && color && point && size))
             {
                 Console.WriteLine("we have made a command");
                 Console.WriteLine(command);
-                Backend.Tools.getDraw.createDrawble(command);
+               // Backend.Tools.getDraw.createDrawble(command);
                 //return or event handling to send message
 
                 //ListenForTone(); 
@@ -380,7 +380,7 @@ namespace VoiceToPaint.VR
 
                 Console.WriteLine("we sent unfinished command");
                 Console.WriteLine(command);
-                Backend.Tools.getDraw.createDrawble(command);
+               // Backend.Tools.getDraw.createDrawble(command);
                
                 reset();
 
