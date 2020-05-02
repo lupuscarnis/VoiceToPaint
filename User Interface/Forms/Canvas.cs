@@ -194,7 +194,7 @@ namespace VoiceToPaint
       
 
         private void OnListViewChange(object source, EventArgs e)
-        {/*
+        {
             listView1.Clear();   
             int i = 0;
            foreach(string s in Tools.getObjects)
@@ -204,7 +204,7 @@ namespace VoiceToPaint
                 i++;
             }
 
-           */
+           
         }
     }
 }
