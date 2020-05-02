@@ -15,22 +15,26 @@ namespace VoiceToPaint
 
     public partial class Canvas : Form
     {
-        Thread backend,voice = null;
+        Thread voice = null;
         bool drw;
         int beginX, beginY;
-     
-       
-         
+        Drawables draw;
+
+
         public Canvas()
         {
             InitializeComponent();
-            Tools.getCanvas = this;
+          
 
         }
 
 
 
+        private void newCommand(string text)
+        {
 
+            draw.createDrawble(text);
+        }
 
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -115,15 +119,19 @@ namespace VoiceToPaint
 
         private void Canvas_Load(object sender, EventArgs e)
         {
-            backend = new Thread(new ThreadStart(Program.ThreadExample.ThreadProc));
+             draw = new Drawables(this);
+            if (Tools.Voice == true)
             voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
-            backend.Start();
+
+            voice.Name = "VoiceThread";
+            voice.IsBackground = true;
 
            
-            while (Tools.getDraw == null) { }
-            Tools.getDraw.ListChanged += OnListViewChange;
-            Tools.getDraw.GraphicsCleared += UpdateDraw;
-           voice.Start();
+           
+            draw.ListChanged += OnListViewChange;
+            draw.GraphicsCleared += UpdateDraw;
+            if (Tools.Voice == true)
+                voice.Start();
 
         }
 
@@ -144,7 +152,7 @@ namespace VoiceToPaint
 
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
-            if (Backend.Tools.Debug == false)
+            if (Tools.Debug == false)
             this.textBox1.Visible = false;
 
             
@@ -164,7 +172,7 @@ namespace VoiceToPaint
           
 
             if (e.KeyChar == (char)13) {
-                Tools.getDraw.createDrawble(text);
+                draw.createDrawble(text);
 
                 textBox1.Text = "";
             }
@@ -174,8 +182,9 @@ namespace VoiceToPaint
 
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            backend.Join();
-            voice.Join();
+            
+            if (Tools.Voice == true)
+                voice.Join();
         }
 
 
@@ -191,17 +200,19 @@ namespace VoiceToPaint
       
 
         private void OnListViewChange(object source, EventArgs e)
-        {/*
-            listView1.Clear();   
+        {
+
+           
+            listView1.Clear();
             int i = 0;
-           foreach(string s in Tools.getObjects)
+            foreach (string s in Tools.getObjects)
             {
-                
-                listView1.Items.Add(s+" Number: "+i);
+
+                listView1.Items.Add(s + " Number: " + i);
                 i++;
             }
+          
 
-           */
         }
     }
 }

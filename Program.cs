@@ -32,30 +32,7 @@ namespace VoiceToPaint
 
 
         }
-        public class ThreadExample
-        {
-            // The ThreadProc method is called when the thread starts.
-            // It loops ten times, writing to the console and yielding 
-            // the rest of its time slice each time, and then ends.
-            public static void ThreadProc()
-            {
-               
-                
-                
-                Drawables draw = new Drawables();
-
-                Tools.getDraw = draw;
-
-
-
-
-               
-            }
-
-
-
-
-        }
+       
         public class ThreadVoice
         {
         

@@ -14,11 +14,11 @@ namespace VoiceToPaint.Backend
 {
     class Drawables
     {
-
+        Control control;
            
-        public Drawables()
+        public Drawables(Control control)
         {
-
+            this.control = control;
         }
 
         public delegate void UpdateViewListEventHandler(object source, EventArgs e);
@@ -62,7 +62,7 @@ namespace VoiceToPaint.Backend
                                 {
 
                                     //create the object to draw 
-                                    Graphics graph = Tools.getCanvas.CreateGraphics();
+                                    Graphics graph = control.CreateGraphics();
                                     //Send it to the from 
                                     Tools.getPen = new Pen(Commands.getColor(color));
                                     graph.DrawRectangle(Tools.getPen, Shapes.Square(point, size));
@@ -80,7 +80,7 @@ namespace VoiceToPaint.Backend
                                 {
 
                                     //create the object to draw 
-                                    Graphics graph = Tools.getCanvas.CreateGraphics();
+                                    Graphics graph = control.CreateGraphics();
 
                                     Tools.getPen = new Pen(Commands.getColor(color));
                                     //Send it to the from 
@@ -100,7 +100,7 @@ namespace VoiceToPaint.Backend
 
 
                                     //create the object to draw 
-                                    Graphics graph = Tools.getCanvas.CreateGraphics();
+                                    Graphics graph = control.CreateGraphics();
 
                                     Tools.getPen = new Pen(Commands.getColor(color));
                                     //Send it to the from 
@@ -144,7 +144,7 @@ namespace VoiceToPaint.Backend
 
                        
                         //create the object to draw 
-                        Graphics graph = Tools.getCanvas.CreateGraphics();
+                        Graphics graph = control.CreateGraphics();
                         //Send it to the from 
                         //set background color
                         graph.Clear(Color.White);
@@ -198,8 +198,14 @@ namespace VoiceToPaint.Backend
                 {
                     if(s != "") { 
                    list2 = s.Split(':');
-                    
-                    commandvalues.Add(list2[0].ToLower(), list2[1].ToLower());
+
+                        if (!commandvalues.ContainsKey(list2[0].ToLower()))
+                        {
+                            commandvalues.Add(list2[0].ToLower(), list2[1].ToLower());
+
+                        }
+
+
                     }
 
                 }
