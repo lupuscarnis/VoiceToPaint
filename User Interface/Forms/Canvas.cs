@@ -172,7 +172,7 @@ namespace VoiceToPaint
           
 
             if (e.KeyChar == (char)13) {
-                Tools.getDraw.createDrawble(text);
+                draw.createDrawble(text);
 
                 textBox1.Text = "";
             }
