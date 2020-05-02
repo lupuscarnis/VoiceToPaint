@@ -123,7 +123,7 @@ namespace VoiceToPaint
            
 
            
-            while (Tools.getDraw == null) { }
+            
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
             if (Tools.Voice == true)
