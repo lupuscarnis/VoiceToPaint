@@ -28,9 +28,7 @@ namespace VoiceToPaint
             Tools.Debug = true;
             cv = new Canvas();
             Application.Run(cv);
-            Controller cont = new Controller();
-            cont.run(cv);
-
+            
 
 
         }
