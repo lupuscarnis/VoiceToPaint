@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using VoiceToPaint;
 using System.Drawing;
 using VoiceToPaint.Backend;
-using VoiceToPaint.VR;
+
 
 
 
@@ -22,38 +22,10 @@ namespace VoiceToPaint
         static void Main()
         {
             Tools.Debug = true;
+            Controller cont = new Controller();
+            cont.run();
 
 
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Canvas());
-
-
-
-        }
-       
-        public class ThreadVoice
-        {
-        
-            // The ThreadProc method is called when the thread starts.
-            // It loops ten times, writing to the console and yielding 
-            // the rest of its time slice each time, and then ends.
-            public static void ThreadProc()
-            {
-
-
-
-
-
-                VoiceRecognizer vr = new VoiceRecognizer();
-                vr.startListening();
-
-
-
-
-
-            }
 
 
 

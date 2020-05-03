@@ -7,33 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-
+using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
 
 namespace VoiceToPaint
 {
+    delegate string newCommandDelegate();
 
     public partial class Canvas : Form
     {
         Thread voice = null;
         bool drw;
-        int beginX, beginY;
+        int beginX, beginY; 
         Drawables draw;
-
-
+        VoiceRecognizer vr = new VoiceRecognizer();
+     
         public Canvas()
         {
             InitializeComponent();
           
-
         }
 
 
 
-        private void newCommand(string text)
+        private  void newCommand()
         {
+            
 
-            draw.createDrawble(text);
+            vr.startListening();
+            draw.createDrawble("hello");
+
         }
 
 
@@ -120,18 +123,13 @@ namespace VoiceToPaint
         private void Canvas_Load(object sender, EventArgs e)
         {
              draw = new Drawables(this);
-            if (Tools.Voice == true)
-            voice = new Thread(new ThreadStart(Program.ThreadVoice.ThreadProc));
-
-            voice.Name = "VoiceThread";
-            voice.IsBackground = true;
-
            
-           
+
+
+
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
-            if (Tools.Voice == true)
-                voice.Start();
+        
 
         }
 
