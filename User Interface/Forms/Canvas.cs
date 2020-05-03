@@ -20,25 +20,12 @@ namespace VoiceToPaint
         bool drw;
         int beginX, beginY; 
         Drawables draw;
-        VoiceRecognizer vr = new VoiceRecognizer();
-     
+   
         public Canvas()
         {
             InitializeComponent();
           
         }
-
-
-
-        private  void newCommand()
-        {
-            
-
-            vr.startListening();
-            draw.createDrawble("hello");
-
-        }
-
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -181,8 +168,7 @@ namespace VoiceToPaint
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
             
-            if (Tools.Voice == true)
-                voice.Join();
+         
         }
 
 
