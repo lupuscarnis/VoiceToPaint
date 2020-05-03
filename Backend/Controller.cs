@@ -15,15 +15,15 @@ namespace VoiceToPaint.Backend
     class Controller
     {
         Canvas cv;
-
+        VoiceRecognizer vr;
         public void run()
         {
 
 
-            //  VoiceRecognizer vr = new VoiceRecognizer();
-            //  vr.startListening();
+              vr = new VoiceRecognizer();
+              vr.startListening();
 
-
+            vr.NewCommand += PushCommand;
             cv = new Canvas();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -37,6 +37,8 @@ namespace VoiceToPaint.Backend
 
         public void PushCommand(string command)
         {
+
+
 
             Drawables draw = new Drawables(cv);
             draw.createDrawble(command);

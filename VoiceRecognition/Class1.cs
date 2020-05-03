@@ -9,9 +9,14 @@ namespace VoiceToPaint.VR
 {
 
 
+
+    
     public unsafe class VoiceRecognizer
     {
-        
+        public delegate void NewCommandEventHandler(string text);
+        public event NewCommandEventHandler NewCommand;
+
+
 
         SpeechRecognitionEngine masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         SpeechRecognitionEngine inputListener;
@@ -151,7 +156,14 @@ namespace VoiceToPaint.VR
            
 
         }
+        protected virtual void OnNewCommand(string text)
+        {
+            if (NewCommand != null)
+            {
+                NewCommand(text);
+            }
 
+        }
         public void stopListening()
         {
             masterEngine.RecognizeAsyncStop();
@@ -369,8 +381,8 @@ namespace VoiceToPaint.VR
             {
                 Console.WriteLine("we have made a command");
                 Console.WriteLine(command);
-               // Backend.Tools.getDraw.createDrawble(command);
-                //return or event handling to send message
+                OnNewCommand(command);
+                    //return or event handling to send message
 
                 //ListenForTone(); 
 
@@ -380,7 +392,7 @@ namespace VoiceToPaint.VR
 
                 Console.WriteLine("we sent unfinished command");
                 Console.WriteLine(command);
-               // Backend.Tools.getDraw.createDrawble(command);
+        
                
                 reset();
 

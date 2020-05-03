@@ -110,9 +110,6 @@ namespace VoiceToPaint
         private void Canvas_Load(object sender, EventArgs e)
         {
              draw = new Drawables(this);
-           
-
-
 
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
