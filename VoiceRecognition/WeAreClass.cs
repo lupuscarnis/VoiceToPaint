@@ -21,6 +21,7 @@ namespace VoiceToPaint.VR
         SpeechRecognitionEngine masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         SpeechRecognitionEngine inputListener;
         public String command = "";
+        Boolean commandReady = false;
         /*
         private int RATE = 44100; 
         private int BUFFERSIZE = (int)Math.Pow(2, 10);
@@ -116,24 +117,18 @@ namespace VoiceToPaint.VR
 
 
         }
-        /*
-        public void ListenForTone()
+
+        public String getCommand(Boolean finishedRequired)
         {
-            StartListeningToMicrophone(); 
-
-            // check the incoming microphone audio
-            int frameSize = BUFFERSIZE;
-            var audioBytes = new byte[frameSize];
-            bwp.Read(audioBytes, 0, frameSize);
-
-            // return if there's nothing new to plot
-            if (audioBytes.Length == 0)
-                return;
-            if (audioBytes[frameSize - 2] == 0)
-                return;
-            
+            if(finishedRequired && (!commandReady))
+            {
+                
+                return "Not ready";
+            }
+            reset();
+            return command;
         }
-*/
+       
 
         public void startListening()
         {
@@ -379,6 +374,7 @@ namespace VoiceToPaint.VR
 
             if ((draw && type && color && point && size) || (connect && type && color && point && size))
             {
+                commandReady = true;
                 Console.WriteLine("we have made a command");
                 Console.WriteLine(command);
                 OnNewCommand(command);
@@ -401,6 +397,8 @@ namespace VoiceToPaint.VR
         }
 
 
+
+
         public void reset()
         {
             /*
@@ -411,7 +409,7 @@ namespace VoiceToPaint.VR
             */
             //maybe reset string elsewhere
             command = "";
-
+            commandReady = false;
             draw = false;
             connect = false;
             type = false;

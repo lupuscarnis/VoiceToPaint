@@ -69,7 +69,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User Interface\UI_backend\Setup.cs" />
-    <Compile Include="VoiceRecognition\Class1.cs" />
+    <Compile Include="VoiceRecognition\WeAreClass.cs" />
     <EmbeddedResource Include="User Interface\Forms\Canvas.resx">
       <DependentUpon>Canvas.cs</DependentUpon>
     </EmbeddedResource>
