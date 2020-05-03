@@ -21,12 +21,15 @@ namespace VoiceToPaint
         [STAThread]
         static void Main()
         {
+            Canvas cv;
             Tools.Debug = true;
+
+            cv = new Canvas();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(cv);
             Controller cont = new Controller();
-            cont.run();
-
-
-
+            cont.run(cv);
 
 
 

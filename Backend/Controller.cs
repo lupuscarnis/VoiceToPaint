@@ -16,7 +16,7 @@ namespace VoiceToPaint.Backend
     {
         Canvas cv;
         VoiceRecognizer vr;
-        public void run()
+        public void run(Canvas cv)
         {
 
 
@@ -24,11 +24,7 @@ namespace VoiceToPaint.Backend
               vr.startListening();
 
             vr.NewCommand += PushCommand;
-            cv = new Canvas();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(cv);
-         
+            this.cv = cv;
             
        
         
