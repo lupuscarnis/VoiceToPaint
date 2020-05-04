@@ -21,11 +21,12 @@ namespace VoiceToPaint.Backend
         {
 
             this.draw = draw;
-              vr = new VoiceRecognizer();
-            Console.WriteLine("hello we are just before start");
-              vr.startListening();
+            vr = new VoiceRecognizer();
+      
+            vr.startListening();
 
             vr.NewCommand += PushCommand;
+            
             this.cv = cv;
             
        
@@ -36,17 +37,12 @@ namespace VoiceToPaint.Backend
         public void PushCommand(string command)
         {
 
-
-
-           
             draw.createDrawble(command);
 
-
-
-
-
-
         }
+
+
+      
 
 
 
