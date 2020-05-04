@@ -125,7 +125,7 @@ namespace VoiceToPaint.VR
                 
                 return "Not ready";
             }
-            reset();
+           
             return command;
         }
        
