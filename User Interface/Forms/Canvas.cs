@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
+using VoiceToPaint.User_Interface.Forms;
 
 namespace VoiceToPaint
 {
@@ -111,9 +112,10 @@ namespace VoiceToPaint
         {
             draw = new Drawables(this);
             Controller cont = new Controller();
-            cont.run(this, draw);
+            Sketch scrat = new Sketch();
+            cont.run(this, draw, scrat);
+           
 
-         
 
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
@@ -140,10 +142,7 @@ namespace VoiceToPaint
             UpdateDraw(null,null);
             if (Tools.Debug == false)
             this.textBox1.Visible = false;
-
-            
-
-
+           
 
         }
 

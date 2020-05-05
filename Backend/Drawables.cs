@@ -138,6 +138,16 @@ namespace VoiceToPaint.Backend
 
                         break;
                     }
+
+
+                case "Rotate":
+                    {
+
+
+
+
+                        break;
+                    }
                 case "clear":
                     {
 

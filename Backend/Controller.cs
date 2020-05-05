@@ -10,6 +10,7 @@ using VoiceToPaint;
 using System.Drawing;
 using VoiceToPaint.Backend;
 using VoiceToPaint.VR;
+
 namespace VoiceToPaint.Backend
 {
     class Controller
@@ -19,13 +20,15 @@ namespace VoiceToPaint.Backend
         Drawables draw;
         public void run(Canvas cv, Drawables draw)
         {
+     
+          
 
             this.draw = draw;
-            vr = new VoiceRecognizer();
+         //   vr = new VoiceRecognizer();
       
-            vr.startListening();
+           // vr.startListening();
 
-            vr.NewCommand += PushCommand;
+           // vr.NewCommand += PushCommand;
             
             this.cv = cv;
             
@@ -41,8 +44,8 @@ namespace VoiceToPaint.Backend
 
         }
 
+     
 
-      
 
 
 
