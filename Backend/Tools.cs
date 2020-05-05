@@ -11,7 +11,8 @@ namespace VoiceToPaint.Backend
     
     static class  Tools
     {
-       static Dictionary<int, Point> CenterMap = new Dictionary<int, Point>();
+        
+        static Dictionary<int, Point> CenterMap = new Dictionary<int, Point>();
         static LinkedList<string> Objects = new LinkedList<string>();
         static Pen pen = new Pen(Color.Blue, 4);
         static Brush brush = null;

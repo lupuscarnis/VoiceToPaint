@@ -9,7 +9,7 @@ namespace VoiceToPaint.Backend
 {
      static class Commands
     {
-
+        static Dictionary<string, string[]> Commandsmap = new Dictionary<string, string[]>();
         static public Color getColor(string color)
         {
             color = color.ToLower();
@@ -64,7 +64,7 @@ namespace VoiceToPaint.Backend
                 default:
                     {
                         output = Color.Black;
-                        Console.WriteLine("Could Not Find the color:" + color);
+                        Console.WriteLine("Could not find the color:" + color);
                         break;
                     }
 
@@ -84,6 +84,24 @@ namespace VoiceToPaint.Backend
 
             return output;
         }
+
+        public static void setupCommandsList()
+        {
+
+            //Ofc Everything is strings but those are the ranges that they can appear if they have ranges
+            // if it just says int i don't know the assume max 100 for now
+            //strings
+            Commandsmap.Add("listen", new string[] { "draw", "connect", "edit", "delete", "done" });
+            //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
+            Commandsmap.Add("draw", new string[] {"type","size", "color", "point", "rotation", "done" });
+            //Object1 = int, Object2 = int
+            Commandsmap.Add("connect", new string[] { "Object1", "Object2", "done" });
+            //Object = int
+            Commandsmap.Add("edit", new string[] { "Object", "done" });
+            //Object = int
+            Commandsmap.Add("delete", new string[] { "Object", "done" });
+        }
+
         
 
 
