@@ -113,7 +113,7 @@ namespace VoiceToPaint
             draw = new Drawables(this);
             Controller cont = new Controller();
             Sketch scrat = new Sketch();
-            cont.run(this, draw, scrat);
+            cont.run(this, draw);
            
 
 

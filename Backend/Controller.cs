@@ -21,9 +21,9 @@ namespace VoiceToPaint.Backend
         Drawables draw;
         public void run(Canvas cv, Drawables draw)
         {
-     
-          
 
+
+            Commands.setupCommandsList();
             this.draw = draw;
          //   vr = new VoiceRecognizer();
       
@@ -119,8 +119,6 @@ namespace VoiceToPaint.Backend
                     }
                 case "edit":
                     {
-
-                        string[] list = new string[1];
 
 
 

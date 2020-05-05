@@ -9,7 +9,10 @@ namespace VoiceToPaint.Backend
 {
      static class Commands
     {
-        static Dictionary<string, string[]> Commandsmap = new Dictionary<string, string[]>();
+       private static Dictionary<string, string[]> Commandsmap = new Dictionary<string, string[]>();
+
+        public static Dictionary<string, string[]> Commandsmap1 { get => Commandsmap; set => Commandsmap = value; }
+
         static public Color getColor(string color)
         {
             color = color.ToLower();
@@ -89,20 +92,25 @@ namespace VoiceToPaint.Backend
         {
 
             //Ofc Everything is strings but those are the ranges that they can appear if they have ranges
-            // if it just says int i don't know the assume max 100 for now
+            //If it just says int i don't know the assume max 100 for now
             //strings
-            Commandsmap.Add("listen", new string[] { "draw", "connect", "edit", "delete", "done" });
+            Commandsmap.Add("listen", new string[] { "Draw", "Connect", "Edit", "Delete", "Done" });
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
-            Commandsmap.Add("draw", new string[] {"type","size", "color", "point", "rotation", "done" });
+            Commandsmap.Add("draw", new string[] {"Type","Size", "Color", "Point", "Rotation", "Done" });
             //Object1 = int, Object2 = int
-            Commandsmap.Add("connect", new string[] { "Object1", "Object2", "done" });
+            Commandsmap.Add("connect", new string[] { "Object1", "Object2", "Done" });
             //Object = int
-            Commandsmap.Add("edit", new string[] { "Object", "done" });
+            Commandsmap.Add("edit", new string[] { "Object", "Done" });
             //Object = int
-            Commandsmap.Add("delete", new string[] { "Object", "done" });
+            Commandsmap.Add("delete", new string[] { "Object", "Done" });
+            //all string
+            Commandsmap.Add("Type", new string[] { "Square", "Rectangle", "Circle", "Triangle" });
+            //all string
+            Commandsmap.Add("Color", new string[] { "Black", "Red", "Blue", "Green", "Yellow", "Green", "Purple"});
+
         }
 
-        
+
 
 
 
