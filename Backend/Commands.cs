@@ -100,9 +100,9 @@ namespace VoiceToPaint.Backend
             //Object1 = int, Object2 = int
             Commandsmap.Add("connect", new string[] { "Object1", "Object2", "Done" });
             //Object = int
-            Commandsmap.Add("edit", new string[] { "Object", "Done" });
+            Commandsmap.Add("edit", new string[] {"Object", "Done" });
             //Object = int
-            Commandsmap.Add("delete", new string[] { "Object", "Done" });
+            Commandsmap.Add("delete", new string[] {"Object", "Done" });
             //all string
             Commandsmap.Add("Type", new string[] { "Square", "Rectangle", "Circle", "Triangle" });
             //all string
