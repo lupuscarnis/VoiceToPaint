@@ -86,6 +86,7 @@ namespace VoiceToPaint.VR
             
             masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             inputListener = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
+            /*
             numbers = new Choices();
             pointNumbers = new Choices();
             for (int i = 0; i < 100; i++)
@@ -96,6 +97,8 @@ namespace VoiceToPaint.VR
             {
                 pointNumbers.Add("" + i);
             }
+            */
+
             /*
             Choices commands = new Choices();
             //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
@@ -112,14 +115,13 @@ namespace VoiceToPaint.VR
             */
 
 
-
-
-
-
         }
 
-        public String getCommand(Boolean finishedRequired)
+        //probably just use startListening all the time
+        private String getCommand(Boolean finishedRequired)
         {
+           
+
             if(finishedRequired && (!commandReady))
             {
                 
@@ -130,16 +132,37 @@ namespace VoiceToPaint.VR
         }
        
 
-        public void startListening()
+        public void startListening(String newCommands)
         {
             Console.Beep();
             Console.WriteLine("I'm listening");
             // master engine recognised lines
             commands = new Choices();
-            //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
+            String[] newNumbers; //= { "0", "0" }; String[] 
+            Boolean isInputInt = false;
+            //check if number
+            for (int i =0; i < 10; i++)
+            {
+                if (newCommands.Contains("" + i))
+                {
+                    isInputInt = true;
+                    break;
+                }
+            }
+
+            if (isInputInt)
+            {
+                commands.Add(addNumber(newCommands));
+            }
+            else
+            {
+                commands.Add(newCommands.Split('|'));
+            }
+
             //Could use for loop + contains further down, but this part seems necessarily hardcoded.
-            commands.Add(new String[] { "draw", "type", "color", "connect", "line", "triangle", "circle", "square","b 5", "red", "blue", "yellow", "purple", "orange", "green", "point", "size", "listen", "done" });
-            commands.Add(numbers);
+          
+            commands.Add(new String[] { "listen" });
+          //  commands.Add(numbers);
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(commands);
             Grammar gram = new Grammar(gBuilder);
@@ -151,6 +174,26 @@ namespace VoiceToPaint.VR
            
 
         }
+
+        public String[] addNumber(String numbers)
+        {
+           
+           String[] wannabeNumbers = numbers.Split('|');
+
+            //needs more space allocated if negative numbers are used
+           String[] actualNumbers = new String[int.Parse(wannabeNumbers[1])];
+         
+
+            //needs to be changed if negative numbers are needed
+            for (int i = int.Parse(wannabeNumbers[0]); i < int.Parse(wannabeNumbers[1]); i++)
+            {
+              actualNumbers[i] = wannabeNumbers[i];
+            }
+
+            return actualNumbers;
+        }
+
+
         protected virtual void OnNewCommand(string text)
         {
             if (NewCommand != null)
@@ -159,11 +202,7 @@ namespace VoiceToPaint.VR
             }
 
         }
-        public void stopListening()
-        {
-            masterEngine.RecognizeAsyncStop();
-        }
-       
+        
         
         private void masterEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
@@ -377,12 +416,12 @@ namespace VoiceToPaint.VR
                 commandReady = true;
                 Console.WriteLine("we have made a command");
                 Console.WriteLine(command);
-                OnNewCommand(command);
+                sendCommand(command);
                     //return or event handling to send message
 
                 //ListenForTone(); 
 
-                reset();
+               
             }else if (done)
             {//sending unfinished command
 
@@ -396,7 +435,12 @@ namespace VoiceToPaint.VR
 
         }
 
+        public void sendCommand(String stringCommand)
+        {
+            OnNewCommand(command);
+            reset();
 
+        }
 
 
         public void reset()
@@ -408,6 +452,35 @@ namespace VoiceToPaint.VR
             pCoordinate = false;
             */
             //maybe reset string elsewhere
+            command = "";
+            commandReady = false;
+            draw = false;
+            connect = false;
+            type = false;
+            typeReady = false;
+            color = false;
+            colorReady = false;
+            point = false;
+            pointReady = false;
+            size = false;
+            sizeReady = false;
+            listen = false;
+            done = false;
+
+
+        }
+
+        /*
+        public void stopListening()
+        {
+            masterEngine.RecognizeAsyncStop();
+        }
+       */
+       //might not need to be separate from reset
+        public void stopListening()
+        {
+
+            masterEngine.RecognizeAsyncStop();
             command = "";
             commandReady = false;
             draw = false;
