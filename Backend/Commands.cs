@@ -98,11 +98,11 @@ namespace VoiceToPaint.Backend
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
             Commandsmap.Add("draw", new string[] {"Type","Size", "Color", "Point", "Rotation", "Done" });
             //Object1 = int, Object2 = int
-            Commandsmap.Add("connect", new string[] { "Object1", "Object2", "Done" });
+            Commandsmap.Add("connect", new string[] { "0|100", "0|100", "Done" });
             //Object = int
-            Commandsmap.Add("edit", new string[] {"Object", "Done" });
+            Commandsmap.Add("edit", new string[] { "0|100", "Done" });
             //Object = int
-            Commandsmap.Add("delete", new string[] {"Object", "Done" });
+            Commandsmap.Add("delete", new string[] {"0|100", "Done" });
             //all string
             Commandsmap.Add("Type", new string[] { "Square", "Rectangle", "Circle", "Triangle" });
             //all string
