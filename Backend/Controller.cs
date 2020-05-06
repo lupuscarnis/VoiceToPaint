@@ -25,9 +25,9 @@ namespace VoiceToPaint.Backend
 
             Commands.setupCommandsList();
             this.draw = draw;
-            vr = new VoiceRecognizer();
+          //  vr = new VoiceRecognizer();
       
-            vr.startListening();
+            //vr.startListening();
 
            // vr.NewCommand += PushCommand;
             

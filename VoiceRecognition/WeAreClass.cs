@@ -135,7 +135,7 @@ namespace VoiceToPaint.VR
         public void understandArray(String[] newCommands)
         {
             Boolean isInputInt = false;
-            String[] tempString = new String[int.Parse(newCommands[1])+1];
+            
             for (int i = 0; i < 10; i++)
             {
                 if (newCommands.Contains("" + i))
@@ -147,11 +147,15 @@ namespace VoiceToPaint.VR
 
             if (isInputInt)
             {
+                String[] tempString = new String[int.Parse(newCommands[1])];
                 commands.Add((newCommands));
-                for(int i = int.Parse(newCommands[0]); i < int.Parse(newCommands[1]); i++)
+                for(int i = 0; i < int.Parse(newCommands[1]); i++)
                 {
                     tempString[i] = "" + i;
+                    Console.WriteLine(tempString[i]);
                 }
+                Console.WriteLine(tempString[5]+" temp");
+                Console.WriteLine(commands.ToString()+" commands");
                 commands.Add(tempString);
             }
             else
@@ -211,9 +215,9 @@ namespace VoiceToPaint.VR
          
 
             //needs to be changed if negative numbers are needed
-            for (int i = int.Parse(wannabeNumbers[0]); i < int.Parse(wannabeNumbers[1]); i++)
+            for (int i =0; i < int.Parse(wannabeNumbers[1]); i++)
             {
-              actualNumbers[i] = wannabeNumbers[i];
+              actualNumbers[i] = ""+i;
             }
 
             return actualNumbers;
@@ -233,10 +237,10 @@ namespace VoiceToPaint.VR
         private void masterEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             Console.Beep();
-            
+
 
             // += not needed when only doing single words
-            command += e.ToString();
+            command += e.Result.Text;
 
             Console.WriteLine("i heard" + command);
             //sends new string to show on screen
@@ -267,6 +271,7 @@ namespace VoiceToPaint.VR
             //maybe reset string elsewhere
             commands = new Choices();
             commandReady = false;
+            command = "";
             draw = false;
             connect = false;
             type = false;
@@ -295,6 +300,7 @@ namespace VoiceToPaint.VR
 
             masterEngine.RecognizeAsyncStop();
             commands = new Choices();
+            command = "";
            
 
 
