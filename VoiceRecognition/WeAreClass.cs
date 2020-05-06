@@ -138,8 +138,7 @@ namespace VoiceToPaint.VR
             Console.WriteLine("I'm listening");
             // master engine recognised lines
             commands = new Choices();
-            String[] newNumbers; //= { "0", "0" }; String[] separatedCommands = newCommands.Split('|'); old version
-
+            String[] newNumbers; //= { "0", "0" }; String[] 
             Boolean isInputInt = false;
             //check if number
             for (int i =0; i < 10; i++)
@@ -147,6 +146,7 @@ namespace VoiceToPaint.VR
                 if (newCommands.Contains("" + i))
                 {
                     isInputInt = true;
+                    break;
                 }
             }
 
@@ -156,12 +156,11 @@ namespace VoiceToPaint.VR
             }
             else
             {
-                commands.Add(newCommands);
+                commands.Add(newCommands.Split('|'));
             }
 
             //Could use for loop + contains further down, but this part seems necessarily hardcoded.
-           
-            
+          
             commands.Add(new String[] { "listen" });
           //  commands.Add(numbers);
             GrammarBuilder gBuilder = new GrammarBuilder();
@@ -417,12 +416,12 @@ namespace VoiceToPaint.VR
                 commandReady = true;
                 Console.WriteLine("we have made a command");
                 Console.WriteLine(command);
-                OnNewCommand(command);
+                sendCommand(command);
                     //return or event handling to send message
 
                 //ListenForTone(); 
 
-                reset();
+               
             }else if (done)
             {//sending unfinished command
 
@@ -436,7 +435,12 @@ namespace VoiceToPaint.VR
 
         }
 
+        public void sendCommand(String stringCommand)
+        {
+            OnNewCommand(command);
+            reset();
 
+        }
 
 
         public void reset()
