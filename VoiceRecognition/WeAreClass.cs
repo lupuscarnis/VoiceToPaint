@@ -233,15 +233,14 @@ namespace VoiceToPaint.VR
         private void masterEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             Console.Beep();
-            Console.WriteLine(e.ToString());
+            
 
             // += not needed when only doing single words
             command += e.ToString();
 
             Console.WriteLine("i heard" + command);
             //sends new string to show on screen
-                      
-              
+               
                 sendCommand(command);
               
 
@@ -296,19 +295,7 @@ namespace VoiceToPaint.VR
 
             masterEngine.RecognizeAsyncStop();
             commands = new Choices();
-            commandReady = false;
-            draw = false;
-            connect = false;
-            type = false;
-            typeReady = false;
-            color = false;
-            colorReady = false;
-            point = false;
-            pointReady = false;
-            size = false;
-            sizeReady = false;
-            listen = false;
-            done = false;
+           
 
 
         }

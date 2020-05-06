@@ -87,10 +87,14 @@ namespace VoiceToPaint.Backend
         {
             //select the list of commands that are avaiable for the selected command/object
             
-            String[] example = { "1", "255" };
+            //if String is numbers, only takes array of 2, otherwise all lengths are fine. Can be called 
+            String[] example1 = { "1", "255" };
 
             //does not start listening
-            vr.understandArray(example);
+            vr.understandArray(example1);
+
+            String[] example2 = { "ur", "mom", "gay"};
+            vr.understandArray(example2);
 
             //starts listening for all understood words
             vr.startListening("listen|draw|penis");
