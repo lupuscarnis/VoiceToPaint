@@ -53,8 +53,9 @@ namespace VoiceToPaint.Backend
                     Commands.Commandsmap1.TryGetValue(command.ToLower(), out list);
                    
                    
-                    if(!Tools.Command.Contains(command))
-                        Tools.Command += " " + command;
+                    if(!Tools.CommandPath.Contains(command))
+                        Tools.CommandPath += " " + command;
+                    Tools.LastCommand = command;
                     
 
                     Console.WriteLine("GotCommand: "+ command);
@@ -63,18 +64,24 @@ namespace VoiceToPaint.Backend
                 }
                 else
                 {
-                    string[] list;
+                    if (!Tools.Command.Contains(command)) { 
+                        string[] list;
                   
                      list = Tools.CommandPath.Split(' ');
                     int i = list.Length;
                     string s = list[i-2];
-                    Tools.Command += list[i - 1] + ":" + command + ";";
-                    Tools.CommandPath.Replace(list[i - 1], "");
+                    string c = list[i - 1];
+                    string b = c + ":" + command + ";";
+                    if (!Tools.Command.Contains(b))
+                    Tools.Command += b;
+                    if(Tools.CommandPath.Contains(Tools.LastCommand))
+                    Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
                     Console.WriteLine(Tools.CommandPath);
                     Console.WriteLine(Tools.Command);
                     Commands.Commandsmap1.TryGetValue(s.ToLower(), out list);
                     vr.understandArray(list);
                     vr.startListening("");
+                   }
                 }
             }
         }

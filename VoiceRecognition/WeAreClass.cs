@@ -297,7 +297,7 @@ namespace VoiceToPaint.VR
        //might not need to be separate from reset
         public void stopListening()
         {
-            
+     
             masterEngine.RecognizeAsyncStop();
             commands = new Choices();
             command = "";
