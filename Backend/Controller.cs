@@ -58,9 +58,15 @@ namespace VoiceToPaint.Backend
                 }
                 else
                 {
-                 
-
-
+                    string[] list;
+                  
+                   list = command.Split(' ');
+                    int i = list.Length;
+                    string s = list[i-1];
+                    Commands.Commandsmap1.TryGetValue(s.ToLower(), out list);
+                    Console.WriteLine("Gotoutput reset to: " + s);
+                    vr.understandArray(list);
+                    vr.startListening("");
                 }
             }
         }
