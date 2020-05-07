@@ -65,11 +65,14 @@ namespace VoiceToPaint.Backend
                 {
                     string[] list;
                   
-                     list = Tools.Command.Split(' ');
+                     list = Tools.CommandPath.Split(' ');
                     int i = list.Length;
                     string s = list[i-2];
+                    Tools.Command += list[i - 1] + ":" + command + ";";
+                    Tools.CommandPath.Replace(list[i - 1], "");
+                    Console.WriteLine(Tools.CommandPath);
+                    Console.WriteLine(Tools.Command);
                     Commands.Commandsmap1.TryGetValue(s.ToLower(), out list);
-                    Console.WriteLine("Gotoutput reset to: " + s);
                     vr.understandArray(list);
                     vr.startListening("");
                 }

@@ -22,6 +22,7 @@ namespace VoiceToPaint.Backend
         static Canvas mainForm = null;
         static ListView listView = null;
         static Drawables draw = null;
+        static string commandPath = "";
         static string command = "";
         public static Dictionary<int, Point> getCenterMap { get => CenterMap; set => CenterMap = value; }
         public static LinkedList<string> getObjects { get => Objects; set => Objects = value; }
@@ -34,5 +35,6 @@ namespace VoiceToPaint.Backend
         public static ListView getlistView { get => listView; set => listView = value; }
         public static Drawables getDraw { get => draw; set => draw = value; }
         public static string Command { get => command; set => command = value; }
+        public static string CommandPath { get => commandPath; set => commandPath = value; }
     }
 }
