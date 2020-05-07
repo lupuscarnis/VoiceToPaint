@@ -25,12 +25,12 @@ namespace VoiceToPaint.Backend
 
             Commands.setupCommandsList();
             this.draw = draw;
-          //  vr = new VoiceRecognizer();
+           vr = new VoiceRecognizer();
       
-            //vr.startListening();
+         
 
-           // vr.NewCommand += PushCommand;
-            
+           vr.NewCommand += PushCommand;
+            InitiateCommand();
             this.cv = cv;
             
        
@@ -40,44 +40,33 @@ namespace VoiceToPaint.Backend
 
         public void PushCommand(string command)
         {
-
-            draw.createDrawble(command);
-
-        }
-
-        public void ConstructCommand(string list)
-        {
-
-            string command = "";
-
-
-            if (list.Equals("done"))
+            if (command.ToLower().Equals("done"))
             {
-
-                //return when you have the keyword done and push Command
-                if(!command.Equals(""))
-                PushCommand(command);
+                draw.createDrawble(Tools.Command);
             }
             else
             {
+                if (Commands.Commandsmap1.ContainsKey(command.ToLower()))
+                {
+                    string[] list;
+                    Commands.Commandsmap1.TryGetValue(command, out list);
+                    Tools.Command += " " + command;
+                    vr.understandArray(list);
+                    vr.startListening("");
+                }
+                else
+                {
 
-                //create the list of aviable commands and send it to Voice and Display what we are working on 
-
-
-                command += list;
+                }
             }
-     
-
-
         }
-        public string InitiateCommand(string list)
+
+        public void InitiateCommand()
         {
 
 
-            //listen for the Initial KeyWords
-            
+            PushCommand("listen");
 
-                return "";
         }
 
 
@@ -88,16 +77,7 @@ namespace VoiceToPaint.Backend
             //select the list of commands that are avaiable for the selected command/object
             
             //if String is numbers, only takes array of 2, otherwise all lengths are fine. Can be called 
-            String[] example1 = { "1", "255" };
-
-            //does not start listening
-            vr.understandArray(example1);
-
-            String[] example2 = { "ur", "mom", "gay"};
-            vr.understandArray(example2);
-
-            //starts listening for all understood words
-            vr.startListening("listen|draw|penis");
+           
 
             switch (command)
             {

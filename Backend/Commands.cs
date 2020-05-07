@@ -105,9 +105,9 @@ namespace VoiceToPaint.Backend
             //Object = int
             Commandsmap.Add("delete", new string[] {"0|100", "Done" });
             //all string
-            Commandsmap.Add("Type", new string[] { "Square", "Rectangle", "Circle", "Triangle" });
+            Commandsmap.Add("type", new string[] { "Square", "Rectangle", "Circle", "Triangle" });
             //all string
-            Commandsmap.Add("Color", new string[] { "Black", "Red", "Blue", "Green", "Yellow", "Green", "Purple"});
+            Commandsmap.Add("color", new string[] { "Black", "Red", "Blue", "Green", "Yellow", "Green", "Purple"});
 
         }
 
