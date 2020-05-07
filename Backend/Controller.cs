@@ -42,6 +42,7 @@ namespace VoiceToPaint.Backend
         {
             if (command.ToLower().Equals("done"))
             {
+                Console.WriteLine("The Full Command: "+Tools.Command);
                 draw.createDrawble(Tools.Command);
             }
             else
@@ -51,6 +52,7 @@ namespace VoiceToPaint.Backend
                     string[] list;
                     Commands.Commandsmap1.TryGetValue(command, out list);
                     Tools.Command += " " + command;
+                    Console.WriteLine("GotCommand: "+ command);
                     vr.understandArray(list);
                     vr.startListening("");
                 }
