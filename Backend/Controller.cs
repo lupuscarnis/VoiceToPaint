@@ -19,15 +19,14 @@ namespace VoiceToPaint.Backend
         Canvas cv;
         VoiceRecognizer vr;
         Drawables draw;
-        public void run(Canvas cv, Drawables draw)
+        public void run(Canvas cv, Drawables draw, VoiceRecognizer vr)
         {
 
 
             Commands.setupCommandsList();
             this.draw = draw;
-           vr = new VoiceRecognizer();
-      
-         
+
+            this.vr = vr;
 
            vr.NewCommand += PushCommand;
             InitiateCommand();
