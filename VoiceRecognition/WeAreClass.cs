@@ -253,7 +253,7 @@ namespace VoiceToPaint.VR
         public void sendCommand(String stringCommand)
         {
             stopListening();
-            OnNewCommand(command);
+            OnNewCommand(stringCommand);
            
             //reset();
 
@@ -297,7 +297,7 @@ namespace VoiceToPaint.VR
        //might not need to be separate from reset
         public void stopListening()
         {
-
+            
             masterEngine.RecognizeAsyncStop();
             commands = new Choices();
             command = "";
