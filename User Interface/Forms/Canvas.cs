@@ -113,7 +113,10 @@ namespace VoiceToPaint
             draw = new Drawables(this);
             Controller cont = new Controller();
             Sketch scrat = new Sketch();
-            cont.run(this, draw);
+
+            VoiceRecognizer vr = new VoiceRecognizer();
+
+            cont.run(this, draw, vr);
            
 
 
