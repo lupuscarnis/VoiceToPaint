@@ -164,18 +164,18 @@ namespace VoiceToPaint.VR
             }
 
         }
-       
+
 
         public void startListening(String newCommands)
         {
             Console.Beep();
             Console.WriteLine("I'm listening");
             // master engine recognised lines
-           
+
             String[] newNumbers; //= { "0", "0" }; String[] 
             Boolean isInputInt = false;
             //check if number
-            for (int i =0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (newCommands.Contains("" + i))
                 {
@@ -183,7 +183,7 @@ namespace VoiceToPaint.VR
                     break;
                 }
             }
-
+            if (newCommands != "") { 
             if (isInputInt)
             {
                 commands.Add(addNumber(newCommands));
@@ -192,7 +192,7 @@ namespace VoiceToPaint.VR
             {
                 commands.Add(newCommands.Split('|'));
             }
-           
+        }
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(commands);
             Grammar gram = new Grammar(gBuilder);
