@@ -72,7 +72,7 @@ namespace VoiceToPaint.Backend
                     }
 
 
-
+                   
 
 
 
@@ -93,6 +93,7 @@ namespace VoiceToPaint.Backend
 
             //Ofc Everything is strings but those are the ranges that they can appear if they have ranges
             //If it just says int i don't know the assume max 100 for now
+
             //strings
             Commandsmap.Add("listen", new string[] { "Draw", "Connect", "Edit", "Delete", "Done" });
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
