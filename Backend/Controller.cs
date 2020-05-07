@@ -36,7 +36,7 @@ namespace VoiceToPaint.Backend
         
         
         }
-
+        
         public void PushCommand(string command)
         {
             if (command.ToLower().Equals("done"))
