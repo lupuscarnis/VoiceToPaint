@@ -25,9 +25,9 @@ namespace VoiceToPaint.Backend
 
             Commands.setupCommandsList();
             this.draw = draw;
-         //   vr = new VoiceRecognizer();
+          //  vr = new VoiceRecognizer();
       
-           // vr.startListening();
+            //vr.startListening();
 
            // vr.NewCommand += PushCommand;
             
@@ -86,7 +86,18 @@ namespace VoiceToPaint.Backend
         public void ObjectPicker(string command)
         {
             //select the list of commands that are avaiable for the selected command/object
+            
+            //if String is numbers, only takes array of 2, otherwise all lengths are fine. Can be called 
+            String[] example1 = { "1", "255" };
 
+            //does not start listening
+            vr.understandArray(example1);
+
+            String[] example2 = { "ur", "mom", "gay"};
+            vr.understandArray(example2);
+
+            //starts listening for all understood words
+            vr.startListening("listen|draw|penis");
 
             switch (command)
             {

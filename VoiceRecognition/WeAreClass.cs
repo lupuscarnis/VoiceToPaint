@@ -86,6 +86,7 @@ namespace VoiceToPaint.VR
             
             masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             inputListener = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
+            commands = new Choices();
             /*
             numbers = new Choices();
             pointNumbers = new Choices();
@@ -130,6 +131,39 @@ namespace VoiceToPaint.VR
            
             return command;
         }
+
+        public void understandArray(String[] newCommands)
+        {
+            Boolean isInputInt = false;
+            
+            for (int i = 0; i < 10; i++)
+            {
+                if (newCommands.Contains("" + i))
+                {
+                    isInputInt = true;
+                    break;
+                }
+            }
+
+            if (isInputInt)
+            {
+                String[] tempString = new String[int.Parse(newCommands[1])];
+                commands.Add((newCommands));
+                for(int i = 0; i < int.Parse(newCommands[1]); i++)
+                {
+                    tempString[i] = "" + i;
+                    Console.WriteLine(tempString[i]);
+                }
+                Console.WriteLine(tempString[5]+" temp");
+                Console.WriteLine(commands.ToString()+" commands");
+                commands.Add(tempString);
+            }
+            else
+            {
+                commands.Add(newCommands);
+            }
+
+        }
        
 
         public void startListening(String newCommands)
@@ -137,7 +171,7 @@ namespace VoiceToPaint.VR
             Console.Beep();
             Console.WriteLine("I'm listening");
             // master engine recognised lines
-            commands = new Choices();
+           
             String[] newNumbers; //= { "0", "0" }; String[] 
             Boolean isInputInt = false;
             //check if number
@@ -158,11 +192,7 @@ namespace VoiceToPaint.VR
             {
                 commands.Add(newCommands.Split('|'));
             }
-
-            //Could use for loop + contains further down, but this part seems necessarily hardcoded.
-          
-            commands.Add(new String[] { "listen" });
-          //  commands.Add(numbers);
+           
             GrammarBuilder gBuilder = new GrammarBuilder();
             gBuilder.Append(commands);
             Grammar gram = new Grammar(gBuilder);
@@ -185,9 +215,9 @@ namespace VoiceToPaint.VR
          
 
             //needs to be changed if negative numbers are needed
-            for (int i = int.Parse(wannabeNumbers[0]); i < int.Parse(wannabeNumbers[1]); i++)
+            for (int i =0; i < int.Parse(wannabeNumbers[1]); i++)
             {
-              actualNumbers[i] = wannabeNumbers[i];
+              actualNumbers[i] = ""+i;
             }
 
             return actualNumbers;
@@ -207,238 +237,25 @@ namespace VoiceToPaint.VR
         private void masterEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             Console.Beep();
-            Console.WriteLine(e.ToString());
-
-            String enpot = e.ToString();
-
-            if (listen)
-            {
-
-                switch (e.Result.Text)
-                {
-
-                    case "color":
-
-                        colorReady = true;
-                        
-                    break;
-
-                    case "type":
-
-                            
-                        typeReady = true;
-
-                    break;
-
-                    case "draw":
-
-                    if (!draw)
-                    {
-                        command += "command:" + e.Result.Text + ", ";
-                        draw = true;
-                    }
-                    break;
-
-                case "connect":
-                        
-                    if (!connect)
-                    {
-                        command += command += "command:" + e.Result.Text + ", ";
-                        connect = true;
-                    }
-                    break;
-
-                case "line":
-
-                    if ((!type) && typeReady)
-                    {
-                        command += "type: " + e.Result.Text + ", ";
-                        type = true;
-                        typeReady = false;
-                    }
-
-                    break;
-
-                case "triangle":
-
-                    if ((!type) && typeReady)
-                            {
-                        command += "type: " + e.Result.Text + ", ";
-                        type = true;
-                        typeReady = false;
-                        }
-
-                    break;
-
-                    case "circle":
-
-                        if ((!type) && typeReady)
-                        {
-                            command += "type: " + e.Result.Text + ", ";
-                            type = true;
-                            typeReady = false;
-                        }
-
-                        break;
-
-                    case "square":
-
-                    if ((!type) && typeReady)
-                            {
-                        command += "type: " + e.Result.Text + ", ";
-                        type = true;
-                        typeReady = false;
-                        }
-
-                    break;
-
-                case "red":
-
-                    if ((!color) && colorReady)
-                    {
-                        command += "color: " + e.Result.Text + ", ";
-
-                        color = true;
-                    }
-                    break;
-
-                case "blue":
-
-                    if ((!color) && colorReady)
-                        {
-                        command += "color: " + e.Result.Text + ", ";
-                        color = true;
-                    }
-                    break;
-
-                case "yellow":
-
-                    if ((!color) && colorReady)
-                        {
-                        command += "color: " + e.Result.Text + ", ";
-                        color = true;
-                    }
 
 
-                    break;
-
-                case "¨purple":
-
-                    if ((!color) && colorReady)
-                        {
-                        command += "color: " + e.Result.Text + ", ";
-                        color = true;
-                    }
-
-
-                    break;
-
-                case "orange":
-
-                    if ((!color) && colorReady)
-                        {
-                        command += "color: " + e.Result.Text + ", ";
-                        color = true;
-                    }
-
-
-                    break;
-
-                case "green":
-
-                    if ((!color) && colorReady)
-                        {
-                        command += "color: " + e.Result.Text + ", ";
-                        color = true;
-                    }
-
-                    break;
-
-                    case "done":
-
-                         done = true;
-                        
-                        break;
-
-                    case "point":
-
-                        if ((!pointReady) && (size))
-                        {
-                            commands.Add(pointNumbers);
-                            pointReady = true;
-                        }
-
-                        break;
-
-                    case "size":
-
-                        if ((!pointReady) && (!sizeReady))
-                        {
-                            sizeReady = true;
-                        }
-
-                        break;
-
-
-
-                    default:
-
-                    if ((!point) && pointReady)
-                    {
-                        command += "point: " + e.Result.Text + ", ";
-                        point = true;
-                    }
-                    
-                    //0 to 100
-                    if ((!size) && sizeReady)
-                    {
-                        command += "size: " + e.Result.Text + ", ";
-                        size = true;
-                    }
-                    else
-                    {
-                        //maybe some error message
-                    }
-
-                    break;
-
-                }
-            }
-
-            if (e.Result.Text.Equals("listen")) { listen = true; }
+            // += not needed when only doing single words
+            command += e.Result.Text;
 
             Console.WriteLine("i heard" + command);
             //sends new string to show on screen
-            //Backend.Tools.getDraw.createDrawble(e.Result.Text);
-
-            if ((draw && type && color && point && size) || (connect && type && color && point && size))
-            {
-                commandReady = true;
-                Console.WriteLine("we have made a command");
-                Console.WriteLine(command);
+               
                 sendCommand(command);
-                    //return or event handling to send message
-
-                //ListenForTone(); 
-
-               
-            }else if (done)
-            {//sending unfinished command
-
-                Console.WriteLine("we sent unfinished command");
-                Console.WriteLine(command);
-        
-               
-                reset();
-
-            }
+              
 
         }
 
         public void sendCommand(String stringCommand)
         {
+            stopListening();
             OnNewCommand(command);
-            reset();
+           
+            //reset();
 
         }
 
@@ -452,8 +269,9 @@ namespace VoiceToPaint.VR
             pCoordinate = false;
             */
             //maybe reset string elsewhere
-            command = "";
+            commands = new Choices();
             commandReady = false;
+            command = "";
             draw = false;
             connect = false;
             type = false;
@@ -481,120 +299,13 @@ namespace VoiceToPaint.VR
         {
 
             masterEngine.RecognizeAsyncStop();
+            commands = new Choices();
             command = "";
-            commandReady = false;
-            draw = false;
-            connect = false;
-            type = false;
-            typeReady = false;
-            color = false;
-            colorReady = false;
-            point = false;
-            pointReady = false;
-            size = false;
-            sizeReady = false;
-            listen = false;
-            done = false;
+           
 
 
         }
 
-        /*
-       private void inputListener_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-       {
-           Console.Beep();
-           Console.WriteLine(e.ToString());
-
-           Console.Beep();
-           switch (e.Result.Text)
-           {
-
-
-
-               case "draw":
-                   inputListener.RecognizeAsync(RecognizeMode.Multiple);
-                   masterEngine.RecognizeAsyncCancel();
-                   if (!draw)
-                   {
-                       command +="command:" +e.Result.Text+", ";
-                       draw = true;
-                   }
-                   break;
-
-               case "connect":
-                   inputListener.RecognizeAsync(RecognizeMode.Multiple);
-                   masterEngine.RecognizeAsyncCancel();
-                   if (!connect)
-                   {
-                       command += command += "command:" + e.Result.Text + ", ";
-                       connect = true;
-                   }
-                   break;
-
-               case "line":
-                   inputListener.RecognizeAsync(RecognizeMode.Multiple);
-                   masterEngine.RecognizeAsyncCancel();
-                   if (!type)
-                   {
-                       command += "type: "+ e.Result.Text + ", ";
-                       type = true;
-                   }
-
-                   break;
-
-               case "triangle":
-                   inputListener.RecognizeAsync(RecognizeMode.Multiple);
-                   masterEngine.RecognizeAsyncCancel();
-                   if (!type)
-                   {
-                       command += "type: " + e.Result.Text + ", ";
-                       type = true;
-                   }
-
-                   break;
-
-               case "square":
-                   inputListener.RecognizeAsync(RecognizeMode.Multiple);
-                   masterEngine.RecognizeAsyncCancel();
-                   if (!type)
-                   {
-                       command += "type: "+ e.Result.Text + ", ";
-                       type = true;
-                   }
-
-                   break;
-
-               //case "b 5":  listens for positions
-               default:
-                   inputListener.RecognizeAsync(RecognizeMode.Multiple);
-                   masterEngine.RecognizeAsyncCancel();
-                   if (!coordinate)
-                   {
-                       command += "coordinate: " + e.Result.Text + ", ";
-                       coordinate = true;
-                   }
-                   //return somehow and/or start listening for tone/volume
-
-                   //can use != notation instead, this is just for style points
-                   //   readToReturn?.Invoke(command);
-                   {
-                       //maybe needs to be set apart from connect
-                   }
-
-                   if ((draw ^ connect) && type && color && coordinate && size)
-                   {
-                       Console.WriteLine(command);
-                       reset();
-                   }
-                   else { inputListener.RecognizeAsync(RecognizeMode.Multiple); }
-
-                   break;
-
-
-
-           }
-       }
-       */
 
     }
 }
