@@ -51,10 +51,12 @@ namespace VoiceToPaint.Backend
                 {
                     string[] list;
                     Commands.Commandsmap1.TryGetValue(command.ToLower(), out list);
-                    if (!Tools.Command.Contains(command))
-                        Tools.Command += " " + command;
-
                    
+                   
+                    if(!Tools.Command.Contains(command))
+                        Tools.Command += " " + command;
+                    
+
                     Console.WriteLine("GotCommand: "+ command);
                     vr.understandArray(list);
                     vr.startListening("");
@@ -63,9 +65,9 @@ namespace VoiceToPaint.Backend
                 {
                     string[] list;
                   
-                     list = command.Split(' ');
+                     list = Tools.Command.Split(' ');
                     int i = list.Length;
-                    string s = list[i-1];
+                    string s = list[i-2];
                     Commands.Commandsmap1.TryGetValue(s.ToLower(), out list);
                     Console.WriteLine("Gotoutput reset to: " + s);
                     vr.understandArray(list);
