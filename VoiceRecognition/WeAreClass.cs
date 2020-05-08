@@ -252,9 +252,11 @@ namespace VoiceToPaint.VR
 
         public void sendCommand(String stringCommand)
         {
+           
             stopListening();
             OnNewCommand(stringCommand);
-           
+
+
             //reset();
 
         }

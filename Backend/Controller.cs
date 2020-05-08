@@ -19,16 +19,16 @@ namespace VoiceToPaint.Backend
         Canvas cv;
         VoiceRecognizer vr;
         Drawables draw;
-        public void run(Canvas cv, Drawables draw, VoiceRecognizer vr)
+        public void run(Canvas cv, Drawables draw)
         {
 
 
             Commands.setupCommandsList();
             this.draw = draw;
 
-            this.vr = vr;
 
-           vr.NewCommand += PushCommand;
+     
+            
             InitiateCommand();
             this.cv = cv;
             
@@ -39,6 +39,8 @@ namespace VoiceToPaint.Backend
         
         public void PushCommand(string command)
         {
+            vr = new VoiceRecognizer();
+            vr.NewCommand += PushCommand;
             if (command.ToLower().Equals("done"))
             {
                 Console.WriteLine("The Full Command: "+Tools.Command);
