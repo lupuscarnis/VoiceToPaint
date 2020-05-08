@@ -199,9 +199,10 @@ namespace VoiceToPaint.VR
             masterEngine.LoadGrammarAsync(gram);
             masterEngine.SetInputToDefaultAudioDevice();
             masterEngine.SpeechRecognized += masterEngine_SpeechRecognized;
-            masterEngine.RecognizeAsync(RecognizeMode.Multiple);
+            //masterEngine.RecognizeAsync(RecognizeMode.Multiple);
+            masterEngine.RecognizeAsync(RecognizeMode.Single);
 
-           
+
 
         }
 
@@ -297,7 +298,7 @@ namespace VoiceToPaint.VR
        //might not need to be separate from reset
         public void stopListening()
         {
-            
+           
             masterEngine.RecognizeAsyncStop();
             commands = new Choices();
             command = "";

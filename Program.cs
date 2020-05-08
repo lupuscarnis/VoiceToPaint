@@ -6,10 +6,7 @@ using System.Windows.Forms;
 using VoiceToPaint;
 using System.Drawing;
 using VoiceToPaint.Backend;
-
-
-
-
+using VoiceToPaint.VR;
 
 namespace VoiceToPaint
 {
@@ -21,6 +18,9 @@ namespace VoiceToPaint
         [STAThread]
         static void Main()
         {
+
+            VoiceRecognizer vr = new VoiceRecognizer();
+            vr.startListening("draw|draw|draw");
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
