@@ -29,7 +29,7 @@ namespace VoiceToPaint.Backend
 
      
             
-           // InitiateCommand();
+            InitiateCommand();
             this.cv = cv;
             
        
@@ -45,6 +45,8 @@ namespace VoiceToPaint.Backend
             {
                 Console.WriteLine("The Full Command: "+Tools.Command);
                 draw.createDrawble(Tools.Command);
+                Tools.Command = "";
+                Tools.CommandPath = "";
                 InitiateCommand();
                 
             }
