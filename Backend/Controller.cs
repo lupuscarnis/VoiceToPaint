@@ -54,6 +54,7 @@ namespace VoiceToPaint.Backend
                 draw.createDrawble(Tools.Command);
                 Tools.Command = "";
                 Tools.CommandPath = "";
+                Tools.LastCommand = "";
                 InitiateCommand();
                 
             }
@@ -63,11 +64,13 @@ namespace VoiceToPaint.Backend
                 {
                     string[] list;
                     Commands.Commandsmap1.TryGetValue(command.ToLower(), out list);
-                   
-                   
-                    if(!Tools.CommandPath.Contains(command))
-  
-                        Tools.CommandPath += " " + command.ToLower();
+
+
+                    if (!Tools.CommandPath.Contains(command))
+                        if(!Tools.LastCommand.Equals(""))
+                      Tools.CommandPath += Tools.LastCommand + ":" + command.ToLower() + "," ;
+                    Console.WriteLine(Tools.CommandPath);
+
                     Tools.LastCommand = command.ToLower();
                     
 
@@ -110,26 +113,25 @@ namespace VoiceToPaint.Backend
                             vr.understandArray(list);
 
                         }
-                        
 
-                     
 
-                   
-                  
-                    vr.startListening("");
+                        string attribute = Tools.LastCommand + ":" + command + ",";
+                        if (!Tools.Command.Contains(command.ToLower()))
+                            Tools.Command += attribute;
+                        if (Tools.CommandPath.Contains(Tools.LastCommand))
+                            Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
+
+
+                        Console.WriteLine(Tools.CommandPath);
+                        Console.WriteLine(Tools.Command);
+
+
+
+                        vr.startListening("");
                    }
                 }
-                if (!Tools.LastCommand.Equals(""))
-                {
-                    string attribute = Tools.LastCommand + ":" + command + ";";
-                    if (!Tools.Command.Contains(command.ToLower()))
-                        Tools.Command += attribute;
-                    if (Tools.CommandPath.Contains(Tools.LastCommand))
-                        Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
-                }
-                
-                Console.WriteLine(Tools.CommandPath);
-                Console.WriteLine(Tools.Command);
+               
+                   
             }
         }
 
