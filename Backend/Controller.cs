@@ -46,8 +46,9 @@ namespace VoiceToPaint.Backend
                 string[] list;
                 string formCommand = "";
 
-
+                Tools.CommandPath = Tools.CommandPath.Trim();
                 list = Tools.CommandPath.Split(' ');
+                
                 for(int i = 0; i < list.Length;)
                 {
 
@@ -60,7 +61,7 @@ namespace VoiceToPaint.Backend
                 Console.WriteLine("The Full Command: "+formCommand);
 
                 
-      //          draw.createDrawble(formCommand);
+                 draw.createDrawble(formCommand);
                 Tools.Command = "";
                 Tools.CommandPath = "";
                 Tools.LastCommand = "";
