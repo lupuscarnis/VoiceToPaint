@@ -16,7 +16,7 @@ namespace VoiceToPaint.Backend
         static LinkedList<string> Objects = new LinkedList<string>();
         static Pen pen = new Pen(Color.Blue, 4);
         static Brush brush = null;
-        static bool debug = true;
+        static bool debug = false;
         static bool voice = true;
         static bool canDraw = true;
         static Canvas mainForm = null;
