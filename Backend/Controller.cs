@@ -119,7 +119,7 @@ namespace VoiceToPaint.Backend
                     vr.startListening("");
                    }
                 }
-                if (Tools.LastCommand.Equals(""))
+                if (!Tools.LastCommand.Equals(""))
                 {
                     string attribute = Tools.LastCommand + ":" + command + ";";
                     if (!Tools.Command.Contains(command.ToLower()))
