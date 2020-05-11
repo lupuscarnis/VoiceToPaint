@@ -492,7 +492,16 @@ namespace VoiceToPaint.Backend
                 int pointOnCentermap;
                 Point coords;
                 int.TryParse(coordinate, out pointOnCentermap);
-                Tools.getCenterMap.TryGetValue(pointOnCentermap, out coords);
+              
+                if(Tools.getCenterMap.TryGetValue(pointOnCentermap, out coords)){
+                    Console.WriteLine("You did it it was there");
+
+                }
+                else
+                {
+                    Console.WriteLine("failed to get coords");
+                }
+                
                 GraphicsPath Triangle = new System.Drawing.Drawing2D.GraphicsPath();
 
 
