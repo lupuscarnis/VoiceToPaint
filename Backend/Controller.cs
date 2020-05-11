@@ -43,15 +43,24 @@ namespace VoiceToPaint.Backend
             vr.NewCommand += PushCommand;
             if (command.ToLower().Equals("done"))
             {
+                string[] list;
+                string formCommand = "";
 
-                string formCommand;
+
+                list = Tools.CommandPath.Split(' ');
+                for(int i = 0; i < list.Length;)
+                {
+
+                    formCommand += list[i] + ":" + list[i + 1]+ ",";
+                    i +=2 ;
+                }
+                Console.WriteLine(formCommand + Tools.Command);
+                formCommand += Tools.Command;
+
+                Console.WriteLine("The Full Command: "+formCommand);
 
                 
-
-                Console.WriteLine("The Full Command: "+Tools.Command);
-
-                
-                draw.createDrawble(Tools.Command);
+      //          draw.createDrawble(formCommand);
                 Tools.Command = "";
                 Tools.CommandPath = "";
                 Tools.LastCommand = "";
@@ -66,9 +75,8 @@ namespace VoiceToPaint.Backend
                     Commands.Commandsmap1.TryGetValue(command.ToLower(), out list);
 
 
-                    if (!Tools.CommandPath.Contains(command))
-                        if(!Tools.LastCommand.Equals(""))
-                      Tools.CommandPath += Tools.LastCommand + ":" + command.ToLower() + "," ;
+                    
+                      Tools.CommandPath +=  " " + command.ToLower() ;
                     Console.WriteLine(Tools.CommandPath);
 
                     Tools.LastCommand = command.ToLower();
