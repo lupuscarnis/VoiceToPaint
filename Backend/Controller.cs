@@ -43,7 +43,14 @@ namespace VoiceToPaint.Backend
             vr.NewCommand += PushCommand;
             if (command.ToLower().Equals("done"))
             {
+
+                string formCommand;
+
+                
+
                 Console.WriteLine("The Full Command: "+Tools.Command);
+
+                
                 draw.createDrawble(Tools.Command);
                 Tools.Command = "";
                 Tools.CommandPath = "";
@@ -59,6 +66,7 @@ namespace VoiceToPaint.Backend
                    
                    
                     if(!Tools.CommandPath.Contains(command))
+  
                         Tools.CommandPath += " " + command.ToLower();
                     Tools.LastCommand = command.ToLower();
                     
