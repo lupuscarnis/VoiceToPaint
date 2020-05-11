@@ -502,12 +502,15 @@ namespace VoiceToPaint.Backend
                     Console.WriteLine("failed to get coords");
                 }
                 
-                GraphicsPath Triangle = new System.Drawing.Drawing2D.GraphicsPath();
+                GraphicsPath Triangle = new GraphicsPath();
 
 
                 //int x1, int y1, int x2, int y2
                 Triangle.AddLine(coords, new Point(coords.X - Size, coords.Y));
                 Triangle.AddLine(coords, new Point(coords.X + Size, coords.Y));
+
+
+
                 Triangle.AddLine(new Point(coords.X + Size, coords.Y), new Point(coords.X , coords.Y + Size));
                 Triangle.AddLine(new Point(coords.X - Size, coords.Y), new Point(coords.X, coords.Y + Size));
 
@@ -524,7 +527,7 @@ namespace VoiceToPaint.Backend
             public static GraphicsPath Circle(string coordinate, string size)
             {
 
-                GraphicsPath Triangle = new System.Drawing.Drawing2D.GraphicsPath();
+                GraphicsPath Triangle = new GraphicsPath();
                 int Size;
                 int.TryParse(size, out Size);
 
