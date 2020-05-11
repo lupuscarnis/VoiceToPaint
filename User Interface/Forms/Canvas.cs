@@ -84,9 +84,9 @@ namespace VoiceToPaint
             {
                 for (int j = 0; j <= ((this.Size.Width - 100) / 50); j++)
                 {
-                   // g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i * 50) + 20, (j * 50) + 20);
+                   // g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (j * 50) + 20, (i * 50) + 20);
                    
-                    Tools.getCenterMap.Add(counter, new Point((i * 50) + 20, (j * 50) + 20));
+                    Tools.getCenterMap.Add(counter, new Point((j * 50) + 20, (i * 50) + 20));
                     counter++;
 
 
@@ -94,7 +94,7 @@ namespace VoiceToPaint
 
             }
             //just for drawing
-
+            
             for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
             {
                 g.DrawString("" + drawCounter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (i * 50) + 20, (0 * 50) + 20);
@@ -112,7 +112,7 @@ namespace VoiceToPaint
                 drawCounter++;
 
             }
-
+            
 
 
         }
@@ -163,7 +163,6 @@ namespace VoiceToPaint
             string text;
             text = textBox1.Text;
             
-
             if (e.KeyChar == (char)13) {
                 if (text == "")
                 {
