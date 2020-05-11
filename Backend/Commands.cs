@@ -100,7 +100,7 @@ namespace VoiceToPaint.Backend
             Commandsmap.Add("draw", new string[] {"Type"});
 
 
-            Commandsmap.Add("type", new string[] { "Triangle", "Square", "Circle", });
+            Commandsmap.Add("size", new string[] { "0|100",  });
             //Object1 = int, Object2 = int
             Commandsmap.Add("connect", new string[] { "0|100", "0|100", "Done" });
             //Object = int
