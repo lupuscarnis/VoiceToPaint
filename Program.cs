@@ -19,7 +19,7 @@ namespace VoiceToPaint
         static void Main()
         {
 
-           // VoiceRecognizer vr = new VoiceRecognizer();
+            //VoiceRecognizer vr = new VoiceRecognizer();
             //vr.startListening("draw|draw|draw");
             
             Application.EnableVisualStyles();

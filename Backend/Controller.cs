@@ -119,11 +119,15 @@ namespace VoiceToPaint.Backend
                     vr.startListening("");
                    }
                 }
-                string atrribute = Tools.LastCommand + ":" + command + ";";
-                if (!Tools.Command.Contains(command.ToLower()))
-                    Tools.Command += atrribute;
-                if (Tools.CommandPath.Contains(Tools.LastCommand))
-                    Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
+                if (Tools.LastCommand.Equals(""))
+                {
+                    string attribute = Tools.LastCommand + ":" + command + ";";
+                    if (!Tools.Command.Contains(command.ToLower()))
+                        Tools.Command += attribute;
+                    if (Tools.CommandPath.Contains(Tools.LastCommand))
+                        Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
+                }
+                
                 Console.WriteLine(Tools.CommandPath);
                 Console.WriteLine(Tools.Command);
             }
