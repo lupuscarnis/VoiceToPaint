@@ -115,8 +115,6 @@ namespace VoiceToPaint.Backend
             Commandsmap.Add("circle", new string[] { "Size", "Color", "Point", "Rotation", "Done" });
             //all string
             Commandsmap.Add("triangle", new string[] { "Size", "Color", "Point", "Rotation", "Done" });
-            
-           
             //all string
             Commandsmap.Add("color", new string[] { "Black", "Red", "Blue", "Green", "Yellow", "Green", "Purple"});
 

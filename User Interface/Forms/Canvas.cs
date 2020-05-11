@@ -120,7 +120,6 @@ namespace VoiceToPaint
          
 
             cont.run(this, draw);
-           
 
 
             draw.ListChanged += OnListViewChange;
@@ -156,16 +155,20 @@ namespace VoiceToPaint
         {
             string text;
             text = textBox1.Text;
-            if (text == "")
-            {
-                Console.WriteLine("You din't input text");
-            } 
-          
+            
 
             if (e.KeyChar == (char)13) {
-                draw.createDrawble(text);
+                if (text == "")
+                {
+                    Console.WriteLine("You din't input text");
+                }
+                else
+                {
 
-                textBox1.Text = "";
+                    draw.createDrawble(text);
+
+                    textBox1.Text = "";
+                }            
             }
 
 

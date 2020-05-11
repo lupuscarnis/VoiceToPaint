@@ -29,7 +29,7 @@ namespace VoiceToPaint.Backend
 
      
             
-            InitiateCommand();
+           // InitiateCommand();
             this.cv = cv;
             
        
@@ -45,6 +45,7 @@ namespace VoiceToPaint.Backend
             {
                 Console.WriteLine("The Full Command: "+Tools.Command);
                 draw.createDrawble(Tools.Command);
+                InitiateCommand();
                 
             }
             else
@@ -125,58 +126,7 @@ namespace VoiceToPaint.Backend
 
 
 
-        public void ObjectPicker(string command)
-        {
-            //select the list of commands that are avaiable for the selected command/object
-            
-            //if String is numbers, only takes array of 2, otherwise all lengths are fine. Can be called 
-           
-
-            switch (command)
-            {
-                case "draw":
-                    {
-
-                        string[] list = new string[1];
-
-
-
-                        break;
-                    }
-                case "connect":
-                    {
-
-                        string[] list = new string[1];
-
-
-
-                        break;
-                    }
-                case "rotate":
-                    {
-
-                        string[] list = new string[1];
-
-
-
-                        break;
-                    }
-                case "edit":
-                    {
-
-
-
-                        break;
-                    }
-            }
-
-
-
-
-                      
-        }
-
-
+       
 
 
 
