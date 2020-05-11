@@ -134,7 +134,8 @@ namespace VoiceToPaint
          
 
             cont.run(this, draw);
-
+            if (Tools.Debug == false)
+                this.textBox1.Visible = false;
 
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
@@ -153,8 +154,7 @@ namespace VoiceToPaint
             
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
-            if (Tools.Debug == false)
-            this.textBox1.Visible = false;
+          
            
         }
 
