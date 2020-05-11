@@ -15,7 +15,7 @@ namespace VoiceToPaint.Backend
     class Drawables
     {
         Control control;
-           
+
         public Drawables(Control control)
         {
             this.control = control;
@@ -36,7 +36,7 @@ namespace VoiceToPaint.Backend
         }
         protected virtual void OnChangeViewList()
         {
-          if(ListChanged != null)
+            if (ListChanged != null)
             {
                 ListChanged(this, EventArgs.Empty);
             }
@@ -45,30 +45,32 @@ namespace VoiceToPaint.Backend
 
         public void createDrawble(string text)
         {
-            string command, color, point, type, size;
-            extract(text, out command,out color, out point, out type, out size);
-
+            string[] args;
+            
+            extract(text, out args);
+            string command = args[0];
 
 
             switch (command)
             {
                 case "draw":
                     {
+                        
 
-
-                        switch (type)
+                        switch (args[1])
                         {
+                           
                             case "square":
                                 {
-
+                                    string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
                                     //create the object to draw 
                                     Graphics graph = control.CreateGraphics();
                                     //Send it to the from 
                                     Tools.getPen = new Pen(Commands.getColor(color));
                                     graph.DrawRectangle(Tools.getPen, Shapes.Square(point, size));
                                     //store the object in a sorted list
-                                    Tools.getObjects.AddLast("Command: " + command+" Color: "+color+" Point: "+point+" Type: "+type+" Size: "+size);
-                                     OnChangeViewList();
+                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+                                    OnChangeViewList();
                                     //return
 
 
@@ -78,7 +80,7 @@ namespace VoiceToPaint.Backend
                                 }
                             case "circle":
                                 {
-
+                                    string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
                                     //create the object to draw 
                                     Graphics graph = control.CreateGraphics();
 
@@ -98,7 +100,7 @@ namespace VoiceToPaint.Backend
                             case "triangle":
                                 {
 
-
+                                    string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
                                     //create the object to draw 
                                     Graphics graph = control.CreateGraphics();
 
@@ -114,7 +116,7 @@ namespace VoiceToPaint.Backend
 
 
 
-                                 
+
 
 
 
@@ -132,6 +134,9 @@ namespace VoiceToPaint.Backend
                     }
                 case "connect":
                     {
+                        string object1= args[1], object2 = args[2];
+
+
 
 
 
@@ -142,6 +147,7 @@ namespace VoiceToPaint.Backend
 
                 case "Rotate":
                     {
+                        string object1 = args[1], rotation = args[2];
 
 
 
@@ -152,7 +158,7 @@ namespace VoiceToPaint.Backend
                     {
 
 
-                       
+
                         //create the object to draw 
                         Graphics graph = control.CreateGraphics();
                         //Send it to the from 
@@ -166,7 +172,7 @@ namespace VoiceToPaint.Backend
                         OnClear();
                         //Update the List // clears it 
                         OnChangeViewList();
-                      
+
 
 
 
@@ -174,7 +180,26 @@ namespace VoiceToPaint.Backend
 
                         break;
                     }
-                
+                case "delete":
+                    {
+
+
+                        string object1 = args[1];
+
+
+
+
+                       //Update the List // clears it 
+                       OnChangeViewList();
+
+
+
+
+
+
+                        break;
+                    }
+
 
 
 
@@ -183,19 +208,207 @@ namespace VoiceToPaint.Backend
 
 
         }
-        private void extract(string text,out string command, out string color, out string point, out string type, out string size)
+        private void extract(string text, out string[] args)
         {
             //The formating 
             //command:draw,color:blue,point:1,type:square,size:10,
-            string[] list, list2;
+            string[] list, list2, arg = new string[1];
             Dictionary<string, string> commandvalues = new Dictionary<string, string>();
-            command = "draw";
-            color = "red";
-            point = "1";
-            type = "square";
-            size = "10";
+            string command;
            text =  text.Replace(" ", "");
-            if(text == null || text == "")
+
+
+            //getting command
+            command = extractCommand(text);
+
+            switch (command)
+            {
+
+                case "draw":
+                    {
+                        arg = new string[10];
+
+                        arg[0] = "draw";
+                        arg[1] = "red";
+                        arg[2] = "1";
+                        arg[3] = "square";
+                        arg[4] = "10";
+                        arg[5] = "0";
+                        if (text == null || text == "")
+                        {
+                            Console.WriteLine("An empty String");
+                            Console.WriteLine("Using Default");
+
+                        }
+                        else
+                        {
+                            list = text.Split(',');
+                            foreach (string s in list)
+                            {
+                                if (s != "")
+                                {
+                                    list2 = s.Split(':');
+
+                                    if (!commandvalues.ContainsKey(list2[0].ToLower()))
+                                    {
+                                        commandvalues.Add(list2[0].ToLower(), list2[1].ToLower());
+
+                                    }
+
+
+                                }
+
+                            }
+                          
+                            commandvalues.TryGetValue("command", out arg[0]);
+
+                            commandvalues.TryGetValue("type", out arg[1]);
+
+                            commandvalues.TryGetValue("color", out arg[2]);
+
+
+                            commandvalues.TryGetValue("point", out arg[3]);
+
+                            commandvalues.TryGetValue("size", out arg[4]);
+
+                            commandvalues.TryGetValue("rotation", out arg[5]);
+
+
+
+                        }
+
+
+                        break;
+                    }
+                case "delete":
+                    {
+                        arg = new string[10];
+                        if (text == null || text == "")
+                        {
+                            Console.WriteLine("An empty String");
+                            Console.WriteLine("Using Default");
+
+                        }
+                        else
+                        {
+                            list = text.Split(',');
+                            foreach (string s in list)
+                            {
+                                if (s != "")
+                                {
+
+                                    list2 = s.Split(':');
+                                    if (list2.Contains("command"))
+                                    arg[0] = list2[1];
+                                    if(list2.Contains("object1"))
+                                     arg[1] = list2[1];
+                                    
+
+
+                                }
+
+                            }
+
+
+
+                        }
+
+
+                        break;
+                    }
+                case "rotate":
+                    {
+                        arg = new string[10];
+                        if (text == null || text == "")
+                        {
+                            Console.WriteLine("An empty String");
+                            Console.WriteLine("Using Default");
+
+                        }
+                        else
+                        {
+                            list = text.Split(',');
+                            foreach (string s in list)
+                            {
+                                if (s != "")
+                                {
+
+                                    list2 = s.Split(':');
+                                    if (list2.Contains("command"))
+                                        arg[0] = list2[1];
+                                    if (list2.Contains("object1"))
+                                        arg[1] = list2[1];
+                                    if (list2.Contains("rotation"))
+                                        arg[2] = list2[1];
+
+
+
+                                }
+
+                            }
+
+
+
+                        }
+
+
+                        break;
+                    }
+                case "connect":
+                    {
+                        arg = new string[10];
+                        if (text == null || text == "")
+                        {
+                            Console.WriteLine("An empty String");
+                            Console.WriteLine("Using Default");
+
+                        }
+                        else
+                        {
+                            list = text.Split(',');
+                            foreach (string s in list)
+                            {
+                                if (s != "")
+                                {
+
+                                    list2 = s.Split(':');
+                                    if (list2.Contains("command"))
+                                        arg[0] = list2[1];
+                                    if (list2.Contains("object1"))
+                                        arg[1] = list2[1];
+                                    if (list2.Contains("object2"))
+                                        arg[2] = list2[1];
+
+
+
+                                }
+
+                            }
+
+
+
+                        }
+
+
+                        break;
+                    }
+
+
+            };
+            args = arg;
+
+
+
+
+
+        }
+
+
+        private string extractCommand(string text)
+        {
+            string[] list, list2;
+
+            if (text == null || text == "")
             {
                 Console.WriteLine("An empty String");
                 Console.WriteLine("Using Default");
@@ -203,16 +416,16 @@ namespace VoiceToPaint.Backend
             }
             else
             {
-              list = text.Split(',');
-                foreach(string s in list)
+                list = text.Split(',');
+                foreach (string s in list)
                 {
-                    if(s != "") { 
-                   list2 = s.Split(':');
+                    if (s != "")
+                    {
+                        list2 = s.Split(':');
 
-                        if (!commandvalues.ContainsKey(list2[0].ToLower()))
+                        if (list2.Contains("command"))
                         {
-                            commandvalues.Add(list2[0].ToLower(), list2[1].ToLower());
-
+                            return list2[1];
                         }
 
 
@@ -220,29 +433,25 @@ namespace VoiceToPaint.Backend
 
                 }
 
-                commandvalues.TryGetValue("command", out command);
 
-                commandvalues.TryGetValue("color",out color);
-
-                commandvalues.TryGetValue("point", out point);
-
-                commandvalues.TryGetValue("type", out type);
-
-                commandvalues.TryGetValue("size", out size);
 
             }
-
-
-
-
-
-
-
-
-
-
-
+            return "";
         }
+
+
+
+
+
+
+
+
+
+
+    }
+      
+
+
 
 
         public static class Shapes 
