@@ -112,6 +112,11 @@ namespace VoiceToPaint.Backend
             Commandsmap.Add("edit", new string[] { "0", "100"  });
             //Object = int
             Commandsmap.Add("delete", new string[] {"0","100" });
+            //
+            Commandsmap.Add("rotation", new string[] { "0", "360" });
+            
+            //
+            Commandsmap.Add("point", new string[] { "0", "360" });
             //all string
             Commandsmap.Add("type", new string[] { "Square", "Rectangle", "Circle", "Triangle" });
             //all string
