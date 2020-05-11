@@ -19,6 +19,7 @@ namespace VoiceToPaint.Backend
         Canvas cv;
         VoiceRecognizer vr;
         Drawables draw;
+        String LastAttribute = "";
         public void run(Canvas cv, Drawables draw)
         {
 
@@ -126,7 +127,17 @@ namespace VoiceToPaint.Backend
 
                         string attribute = Tools.LastCommand + ":" + command + ",";
                         if (!Tools.Command.Contains(command.ToLower()))
+                        {
+                            if (Tools.Command.Contains(Tools.LastCommand))
+                                Tools.Command.Replace(LastAttribute, attribute);
+
+
                             Tools.Command += attribute;
+                            LastAttribute = attribute;
+                        
+                        
+                        }
+                           
                         if (Tools.CommandPath.Contains(Tools.LastCommand))
                             Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
 
