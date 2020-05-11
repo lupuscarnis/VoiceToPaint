@@ -8,8 +8,6 @@ using System.Speech.Recognition;
 namespace VoiceToPaint.VR
 {
 
-
-
     
     public unsafe class VoiceRecognizer
     {
@@ -27,95 +25,16 @@ namespace VoiceToPaint.VR
         private int BUFFERSIZE = (int)Math.Pow(2, 10);
         public BufferedWaveProvider bwp;
         */
-        Boolean type = false;
-        Boolean typeReady = false;
-        //Boolean* pTxype = &type;
-        Boolean color = false;
-        Boolean colorReady = false;
-        //Boolean* pColor = &color;
-        Boolean coordinate = false;
-        //Boolean* pCoordinate = &coordinate;
-        Boolean point = false;
-        Boolean pointReady = false;
-        Boolean listen = false;
-        Boolean done = false;
-
-        Boolean rectangle = false;
-        Boolean connect = false;
-        Boolean draw = false;
-        Boolean size = false;
-        Boolean sizeReady = false;
-        Choices numbers;
-        Choices pointNumbers;
+      
         Choices commands;
-
-        //  public event Func<String> readToReturn;
-
-        /*
-                void AudioDataAvailable(object sender, WaveInEventArgs e)
-                {
-                    bwp.AddSamples(e.Buffer, 0, e.BytesRecorded);
-                }
-
-                public void StartListeningToMicrophone(int audioDeviceNumber = 0)
-                {
-                    WaveIn wi = new WaveIn();
-                    wi.DeviceNumber = audioDeviceNumber;
-                    wi.WaveFormat = new NAudio.Wave.WaveFormat(RATE, 1);
-                    wi.BufferMilliseconds = (int)((double)BUFFERSIZE / (double)RATE * 1000.0);
-                    wi.DataAvailable += new EventHandler<WaveInEventArgs>(AudioDataAvailable);
-                    bwp = new BufferedWaveProvider(wi.WaveFormat);
-                    bwp.BufferLength = BUFFERSIZE * 2;
-                    bwp.DiscardOnBufferOverflow = true;
-                    try
-                    {
-                        wi.StartRecording();
-                    }
-                    catch
-                    {
-                        string msg = "Could not record from audio device!\n\n";
-                        msg += "Is your microphone plugged in?\n";
-                        msg += "Is it set as your default recording device?";
-                        Console.WriteLine(msg, "ERROR");
-                    }
-                }
-                */
-
+        
         public VoiceRecognizer()
         {
             
             masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             inputListener = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             commands = new Choices();
-            /*
-            numbers = new Choices();
-            pointNumbers = new Choices();
-            for (int i = 0; i < 100; i++)
-            {
-                numbers.Add("" + i);
-            }
-            for (int i = 101; i < 1000; i++)
-            {
-                pointNumbers.Add("" + i);
-            }
-            */
-
-            /*
-            Choices commands = new Choices();
-            //not sure how to do this in a non-hardcoded manner, coordinates going to be a pain. 
-            //Could use for loop + contains further down, but this part seems necessarily hardcoded.
-            commands.Add(new String[] { "draw", "connect", "line", "triangle", "square", "b 5" });
-            commands.Add(numbers);
-            GrammarBuilder gBuilder = new GrammarBuilder();
-            gBuilder.Append(commands);
-            Grammar gram = new Grammar(gBuilder);
-            masterEngine.LoadGrammarAsync(gram);
-            masterEngine.SetInputToDefaultAudioDevice();
-            masterEngine.SpeechRecognized += masterEngine_SpeechRecognized;
-            masterEngine.RecognizeAsync(RecognizeMode.Multiple);
-            */
-
-
+          
         }
 
         //probably just use startListening all the time
@@ -152,10 +71,9 @@ namespace VoiceToPaint.VR
                 for(int i = 0; i < int.Parse(newCommands[1]); i++)
                 {
                     tempString[i] = "" + i;
-                    Console.WriteLine(tempString[i]);
+                   
                 }
-                Console.WriteLine(tempString[5]+" temp");
-                Console.WriteLine(commands.ToString()+" commands");
+              
                 commands.Add(tempString);
             }
             else
@@ -239,7 +157,6 @@ namespace VoiceToPaint.VR
         {
             Console.Beep();
 
-
             // += not needed when only doing single words
             command += e.Result.Text;
 
@@ -248,7 +165,6 @@ namespace VoiceToPaint.VR
                
                 sendCommand(command);
               
-
         }
 
         public void sendCommand(String stringCommand)
@@ -263,30 +179,11 @@ namespace VoiceToPaint.VR
 
         public void reset()
         {
-            /*
-            command = "";
-            pType = false;
-            pColor = false;
-            pCoordinate = false;
-            */
             //maybe reset string elsewhere
             commands = new Choices();
             commandReady = false;
             command = "";
-            draw = false;
-            connect = false;
-            type = false;
-            typeReady = false;
-            color = false;
-            colorReady = false;
-            point = false;
-            pointReady = false;
-            size = false;
-            sizeReady = false;
-            listen = false;
-            done = false;
-
-
+          
         }
 
         /*
@@ -298,13 +195,10 @@ namespace VoiceToPaint.VR
        //might not need to be separate from reset
         public void stopListening()
         {
-           
             masterEngine.RecognizeAsyncStop();
             commands = new Choices();
             command = "";
            
-
-
         }
 
 

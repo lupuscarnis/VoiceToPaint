@@ -31,10 +31,7 @@ namespace VoiceToPaint
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             drw = false;
-
             
-            
-
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -132,23 +129,16 @@ namespace VoiceToPaint
         private void Canvas_Layout(object sender, LayoutEventArgs e)
         {
 
-        
-
-
-
-
         }
 
         private void Canvas_Shown(object sender, EventArgs e)
         {
-
-
+            
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
             if (Tools.Debug == false)
             this.textBox1.Visible = false;
            
-
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -176,8 +166,7 @@ namespace VoiceToPaint
 
         private void Canvas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-         
+                     
         }
 
 
