@@ -66,22 +66,48 @@ namespace VoiceToPaint.Backend
                 }
                 else
                 {
-                    if (!Tools.Command.Contains(command)) { 
+                    if (!Tools.Command.Contains(command)) {
+
                         string[] list;
-                  
-                     list = Tools.CommandPath.Split(' ');
-                    int i = list.Length;
-                    string s = list[i-2];
-                    string c = list[i - 1];
-                    string b = c + ":" + command + ";";
+
+                        if (Tools.CommandPath.Contains("draw"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("draw", out list);
+                            vr.understandArray(list);
+
+                        }
+                        else if(Tools.CommandPath.Contains("type"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("type", out list);
+                            vr.understandArray(list);
+                        }
+                        else if (Tools.CommandPath.Contains("circle"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("circle", out list);
+                            vr.understandArray(list);
+                        }
+                        else if (Tools.CommandPath.Contains("triangle"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("triangle", out list);
+                            vr.understandArray(list);
+                        }
+                        else if (Tools.CommandPath.Contains("square"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("square", out list);
+                            vr.understandArray(list);
+                        }                
+
+
+                     
+
+                     string b = Tools.LastCommand + ":" + command + ";";
                     if (!Tools.Command.Contains(b))
                     Tools.Command += b;
                     if(Tools.CommandPath.Contains(Tools.LastCommand))
                     Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
                     Console.WriteLine(Tools.CommandPath);
                     Console.WriteLine(Tools.Command);
-                    Commands.Commandsmap1.TryGetValue(s.ToLower(), out list);
-                    vr.understandArray(list);
+                  
                     vr.startListening("");
                    }
                 }
