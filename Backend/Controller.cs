@@ -57,8 +57,8 @@ namespace VoiceToPaint.Backend
                    
                    
                     if(!Tools.CommandPath.Contains(command))
-                        Tools.CommandPath += " " + command;
-                    Tools.LastCommand = command;
+                        Tools.CommandPath += " " + command.ToLower();
+                    Tools.LastCommand = command.ToLower();
                     
 
                     Console.WriteLine("GotCommand: "+ command);
@@ -68,21 +68,11 @@ namespace VoiceToPaint.Backend
                 else
                 {
                     if (!Tools.Command.Contains(command)) {
-
+                        int index;
                         string[] list;
 
-                        if (Tools.CommandPath.Contains("draw"))
-                        {
-                            Commands.Commandsmap1.TryGetValue("draw", out list);
-                            vr.understandArray(list);
 
-                        }
-                        else if(Tools.CommandPath.Contains("type"))
-                        {
-                            Commands.Commandsmap1.TryGetValue("type", out list);
-                            vr.understandArray(list);
-                        }
-                        else if (Tools.CommandPath.Contains("circle"))
+                        if (Tools.CommandPath.Contains("circle"))
                         {
                             Commands.Commandsmap1.TryGetValue("circle", out list);
                             vr.understandArray(list);
@@ -96,14 +86,27 @@ namespace VoiceToPaint.Backend
                         {
                             Commands.Commandsmap1.TryGetValue("square", out list);
                             vr.understandArray(list);
-                        }                
+                        }
 
+                        else if (Tools.CommandPath.Contains("type"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("type", out list);
+                            vr.understandArray(list);
+                        }
+
+                        else if (Tools.CommandPath.Contains("draw"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("draw", out list);
+                            vr.understandArray(list);
+
+                        }
+                        
 
                      
 
-                     string b = Tools.LastCommand + ":" + command + ";";
-                    if (!Tools.Command.Contains(b))
-                    Tools.Command += b;
+                     string atrribute = Tools.LastCommand + ":" + command + ";";
+                    if (!Tools.Command.Contains(atrribute))
+                    Tools.Command += atrribute;
                     if(Tools.CommandPath.Contains(Tools.LastCommand))
                     Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
                     Console.WriteLine(Tools.CommandPath);
