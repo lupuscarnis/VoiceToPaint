@@ -469,24 +469,17 @@ namespace VoiceToPaint.Backend
 
                 int Size;
                 int.TryParse(size, out Size);
-            
+                
+                Point center = new Point(coords.X-Size/2,coords.Y-Size/2);
 
-
-
-
-
-
-
-
-
-                return new Rectangle(coords, new Size(Size, Size));
+                return new Rectangle(center, new Size(Size, Size));
             }
             public static GraphicsPath Triangle(string coordinate, string size)
             {
 
 
-                int Size;
-                int.TryParse(size, out Size);
+                Double Size;
+                Double.TryParse(size, out Size);
 
 
                 int pointOnCentermap;
@@ -503,16 +496,15 @@ namespace VoiceToPaint.Backend
                 }
                 
                 GraphicsPath Triangle = new GraphicsPath();
-
-
+                
+                Point P1 = CirclePointCoordinate(90,Size,coords);
+                Point P2 = CirclePointCoordinate(210,Size,coords);
+                Point P3 = CirclePointCoordinate(330,Size,coords);
                 //int x1, int y1, int x2, int y2
-                Triangle.AddLine(coords, new Point(coords.X - Size, coords.Y));
-                Triangle.AddLine(coords, new Point(coords.X + Size, coords.Y));
-
-
-
-                Triangle.AddLine(new Point(coords.X + Size, coords.Y), new Point(coords.X , coords.Y + Size));
-                Triangle.AddLine(new Point(coords.X - Size, coords.Y), new Point(coords.X, coords.Y + Size));
+                
+                Triangle.AddLine(P1, P2);
+                Triangle.AddLine(P2, P3);
+                Triangle.AddLine(P3, P1);
 
 
 
@@ -539,9 +531,9 @@ namespace VoiceToPaint.Backend
                 int.TryParse(coordinate, out pointOnCentermap);
                 Tools.getCenterMap.TryGetValue(pointOnCentermap, out coords);
 
-
-
-                Rectangle set = new Rectangle(coords, new Size(Size, Size));
+                //int SideLength = Convert.ToInt32(Size*Math.Sqrt(2));
+                Point center = new Point(coords.X-Size/2,coords.Y-Size/2);
+                Rectangle set = new Rectangle(center, new Size(Size, Size));
 
 
 
@@ -558,7 +550,10 @@ namespace VoiceToPaint.Backend
             }
 
 
-
+            private static Point CirclePointCoordinate(int angle, double size, Point center) {
+                
+                return  new Point(center.X + Convert.ToInt32(Math.Cos((double)angle/360*2*Math.PI)*size/2), center.Y + Convert.ToInt32(Math.Sin((double)angle/360*2*Math.PI)*size/2));
+            }
 
 
 
