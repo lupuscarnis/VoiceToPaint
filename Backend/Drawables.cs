@@ -501,7 +501,7 @@ namespace VoiceToPaint.Backend
                 Double P1deltaX = Size*Ratio/100*Math.Abs(Math.Sin((double)Angle/360*2*Math.PI));
                 Double P1deltaY = Size*Ratio/100*Math.Abs(Math.Cos((double)Angle/360*2*Math.PI))+Size;
                 Double P2deltaX = P1deltaX;
-                Double P2deltaY = Size - Size/2*Ratio/100*Math.Abs(Math.Cos((double)Angle/360*2*Math.PI));
+                Double P2deltaY = Size - Size*Ratio/100*Math.Abs(Math.Cos((double)Angle/360*2*Math.PI));
 
                 Point P1 = CirclePointCoordinate(Convert.ToInt32((Math.PI-Math.Atan2(P1deltaY,P1deltaX))*360/(2*Math.PI)+Rotation),Math.Sqrt(Math.Pow(P1deltaX,2)+Math.Pow(P1deltaY,2)),coords);
                 Point P3 = Point.Subtract(Point.Add(coords,new Size(coords)),new Size(P1));
