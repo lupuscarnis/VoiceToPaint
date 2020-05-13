@@ -201,7 +201,7 @@ namespace VoiceToPaint
 
         private void OnListViewChange(object source, EventArgs e)
         {
-            // command: draw,color: blue,point: 33,type: square,size: 55,
+          
 
             /*
              listView1.Clear();
@@ -224,19 +224,21 @@ namespace VoiceToPaint
 
         private void changeRichTextBox1(object sender, EventArgs e)
         {
+            // command: draw,color: blue,point: 33,type: square,size: 55,
+
             richTextBox1.Text = "";
-
-
+            String tempInput = "";
+            String[] prettyStrings = tempInput.Split(' ');
+           
             int i = 0;
             foreach (string s in Tools.getObjects)
             {
-                String tempInput = s.Remove(0, 14);
-
-                richTextBox1.Text += (tempInput + " Number: " + i+ "\n"+ "\n");
-
+                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n";
+               
                 i++;
             }
-           
+                       
+            richTextBox1.Text = tempInput;
 
         }
 

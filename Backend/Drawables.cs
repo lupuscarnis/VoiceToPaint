@@ -116,11 +116,6 @@ namespace VoiceToPaint.Backend
                                     //return
 
 
-
-
-
-
-
                                     break;
                                 }
 
@@ -328,6 +323,7 @@ namespace VoiceToPaint.Backend
                         }
                         else
                         {
+                            
                             list = text.Split(',');
                             foreach (string s in list)
                             {
