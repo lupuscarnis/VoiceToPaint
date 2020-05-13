@@ -499,9 +499,9 @@ namespace VoiceToPaint.Backend
                 Double P2deltaX = -P1deltaX;
                 Double P2deltaY = -Size/2*Ratio/100*Math.Cos((double)Angle/360*2*Math.PI)+Size/2;
 
-                Point P1 = CirclePointCoordinate(Convert.ToInt32((Math.PI-Math.Atan(P1deltaX/P1deltaY))*360/(2*Math.PI)+Rotation),Math.Sqrt(Math.Pow(P1deltaX,2)+Math.Pow(P1deltaY,2)),coords);
+                Point P1 = CirclePointCoordinate(Convert.ToInt32((Math.PI-Math.Atan(P1deltaX/P1deltaY))*360/(2*Math.PI)+Rotation),2*Math.Sqrt(Math.Pow(P1deltaX,2)+Math.Pow(P1deltaY,2)),coords);
                 Point P3 = Point.Subtract(Point.Add(coords,new Size(coords)),new Size(P1));
-                Point P2 = CirclePointCoordinate(Convert.ToInt32((-Math.PI/2+Math.Atan(P2deltaX/P2deltaY))*360/(2*Math.PI)+Rotation),Math.Sqrt(Math.Pow(P2deltaX,2)+Math.Pow(P2deltaY,2)),coords);
+                Point P2 = CirclePointCoordinate(Convert.ToInt32((-Math.PI/2+Math.Atan(P2deltaX/P2deltaY))*360/(2*Math.PI)+Rotation),2*Math.Sqrt(Math.Pow(P2deltaX,2)+Math.Pow(P2deltaY,2)),coords);
                 Point P4 = Point.Subtract(Point.Add(coords,new Size(coords)),new Size(P2));
 
                 //Square.AddLine(P1,P3);
