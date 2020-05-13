@@ -112,8 +112,8 @@ namespace VoiceToPaint
                 drawCounter++;
 
             }
-            
 
+            richTextBox1.Text = "";
 
         }
      
@@ -134,8 +134,7 @@ namespace VoiceToPaint
          
 
             cont.run(this, draw);
-            if (Tools.Debug == false)
-                this.textBox1.Visible = false;
+
 
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
@@ -195,21 +194,73 @@ namespace VoiceToPaint
             UpdateDraw(null,null);
         }
 
-      
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
 
         private void OnListViewChange(object source, EventArgs e)
         {
+          
 
+            /*
+             listView1.Clear();
+             int i = 0;
+             foreach (string s in Tools.getObjects)
+             {
+
+                 listView1.Items.Add(s + " Number: " + i);
+
+                 i++;
+             }
+              // listView1.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+             listView1.AutoResizeColumns( ColumnHeaderAutoResizeStyle.HeaderSize);
+             */
+            // listView1.AutoResizeColumns( ColumnHeaderAutoResizeStyle.ColumnContent);
+            changeRichTextBox1(source, e);
+
+
+        }
+
+        private void changeRichTextBox1(object sender, EventArgs e)
+        {
+            // command: draw,color: blue,point: 33,type: square,size: 55,
+
+            richTextBox1.Text = "";
+            String tempInput = "";
+            String[] prettyStrings = tempInput.Split(' ');
            
-            listView1.Clear();
             int i = 0;
             foreach (string s in Tools.getObjects)
             {
-
-                listView1.Items.Add(s + " Number: " + i);
+                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n";
+               
                 i++;
             }
+                       
+            richTextBox1.Text = tempInput;
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
           
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        void view_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            Font drawFont = new Font("Arial", 16);
+            e.Graphics.DrawString(e.Item.Text, drawFont, Brushes.Black,
+                new RectangleF(e.Item.Position.X,
+                    e.Item.Position.Y,
+                    20,
+                    160));
 
         }
     }
