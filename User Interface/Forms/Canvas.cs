@@ -77,14 +77,14 @@ namespace VoiceToPaint
                 g.DrawLine(p, new Point(0, i * 50), new Point(this.Size.Width, i * 50));
 
             }
-            int counter = 0;
+            int counter = 1;
             int drawCounter = 0;
             //just for adding
             for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
             {
-                for (int j = 0; j <= ((this.Size.Width - 100) / 50); j++)
+                for (int j = 1; j <= ((this.Size.Width - 100) / 50); j++)
                 {
-                   // g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (j * 50) + 20, (i * 50) + 20);
+                  // g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (j * 50) + 20, (i * 50) + 20);
                    
                     Tools.getCenterMap.Add(counter, new Point((j * 50) + 20, (i * 50) + 20));
                     counter++;
@@ -136,6 +136,9 @@ namespace VoiceToPaint
             cont.run(this, draw);
 
             
+            if (Tools.Debug == false)
+                this.textBox1.Visible = false;
+
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
         
@@ -153,8 +156,7 @@ namespace VoiceToPaint
             
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
-            if (Tools.Debug == false)
-            this.textBox1.Visible = false;
+          
            
         }
 

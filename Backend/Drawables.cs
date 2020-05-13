@@ -67,7 +67,8 @@ namespace VoiceToPaint.Backend
                                     Graphics graph = control.CreateGraphics();
                                     //Send it to the from 
                                     Tools.getPen = new Pen(Commands.getColor(color));
-                                    graph.DrawRectangle(Tools.getPen, Shapes.Square(point, size));
+                                    //graph.DrawRectangle(Tools.getPen, Shapes.Square(point,size));
+                                    graph.DrawPath(Tools.getPen, Shapes.Square(point, size, "100", "90", rotation));
                                     //store the object in a sorted list
                                     Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
                                     OnChangeViewList();
@@ -107,7 +108,7 @@ namespace VoiceToPaint.Backend
                                     Tools.getPen = new Pen(Commands.getColor(color));
                                     //Send it to the from 
 
-                                    graph.DrawPath(Tools.getPen, Shapes.Triangle(point, size));
+                                    graph.DrawPath(Tools.getPen, Shapes.Triangle(point, size, rotation));
 
                                     //store the object in a sorted list
                                     Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
@@ -148,7 +149,7 @@ namespace VoiceToPaint.Backend
                 case "Rotate":
                     {
                         string object1 = args[1], rotation = args[2];
-
+                        //requires object info, because to rotate you must redraw the object with new rotation.
 
 
 
@@ -456,10 +457,8 @@ namespace VoiceToPaint.Backend
         public static class Shapes 
         {
 
-            public static Rectangle Square( string coordinate, string size)
+            public static Rectangle Square(string coordinate, string size)
             {
-
-
 
                 int pointOnCentermap;
                 Point coords;
@@ -469,24 +468,63 @@ namespace VoiceToPaint.Backend
 
                 int Size;
                 int.TryParse(size, out Size);
-            
 
+                Point center = new Point(coords.X-Size/2,coords.Y-Size/2);
 
-
-
-
-
-
-
-
-                return new Rectangle(coords, new Size(Size, Size));
+                return new Rectangle(center, new Size(Size, Size));
             }
-            public static GraphicsPath Triangle(string coordinate, string size)
+
+            public static GraphicsPath Square(string coordinate, string nearRightHandSide, string ratio, string angle, string rotation) {
+                
+                int pointOnCentermap;
+                Point coords;
+
+                int.TryParse(coordinate, out pointOnCentermap);
+                Tools.getCenterMap.TryGetValue(pointOnCentermap, out coords);
+
+                int Size;
+                int.TryParse(nearRightHandSide, out Size);
+
+                int Rotation;
+                int.TryParse(rotation, out Rotation);
+
+                int Ratio;
+                int.TryParse(ratio, out Ratio);
+
+                int Angle;
+                int.TryParse(angle, out Angle);
+                
+                new PointF(10,20);
+                
+                GraphicsPath Square = new GraphicsPath();
+
+                Double P1deltaX = Size*Ratio/100*Math.Abs(Math.Sin((double)Angle/360*2*Math.PI));
+                Double P1deltaY = Size*Ratio/100*Math.Abs(Math.Cos((double)Angle/360*2*Math.PI))+Size;
+                Double P2deltaX = P1deltaX;
+                Double P2deltaY = Size - Size*Ratio/100*Math.Abs(Math.Cos((double)Angle/360*2*Math.PI));
+
+                Point P1 = CirclePointCoordinate(Convert.ToInt32((Math.PI-Math.Atan2(P1deltaY,P1deltaX))*360/(2*Math.PI)+Rotation),Math.Sqrt(Math.Pow(P1deltaX,2)+Math.Pow(P1deltaY,2)),coords);
+                Point P3 = Point.Subtract(Point.Add(coords,new Size(coords)),new Size(P1));
+                Point P2 = CirclePointCoordinate(Convert.ToInt32(Math.Atan2(P2deltaY,P2deltaX)*360/(2*Math.PI)+Rotation),Math.Sqrt(Math.Pow(P2deltaX,2)+Math.Pow(P2deltaY,2)),coords);
+                Point P4 = Point.Subtract(Point.Add(coords,new Size(coords)),new Size(P2));
+
+                Square.AddLine(P1, P2);
+                Square.AddLine(P2, P3);
+                Square.AddLine(P3, P4);
+                Square.AddLine(P4, P1);
+                
+                return Square;
+            }
+
+            public static GraphicsPath Triangle(string coordinate, string size, string rotation)
             {
 
 
-                int Size;
-                int.TryParse(size, out Size);
+                Double Size;
+                Double.TryParse(size, out Size);
+
+                int Rotation;
+                int.TryParse(rotation, out Rotation);
 
 
                 int pointOnCentermap;
@@ -502,21 +540,16 @@ namespace VoiceToPaint.Backend
                     Console.WriteLine("failed to get coords");
                 }
                 
-                GraphicsPath Triangle = new System.Drawing.Drawing2D.GraphicsPath();
-
-
+                GraphicsPath Triangle = new GraphicsPath();
+                
+                Point P1 = CirclePointCoordinate(90+Rotation,Size,coords);
+                Point P2 = CirclePointCoordinate(210+Rotation,Size,coords);
+                Point P3 = CirclePointCoordinate(330+Rotation,Size,coords);
                 //int x1, int y1, int x2, int y2
-                Triangle.AddLine(coords, new Point(coords.X - Size, coords.Y));
-                Triangle.AddLine(coords, new Point(coords.X + Size, coords.Y));
-                Triangle.AddLine(new Point(coords.X + Size, coords.Y), new Point(coords.X , coords.Y + Size));
-                Triangle.AddLine(new Point(coords.X - Size, coords.Y), new Point(coords.X, coords.Y + Size));
-
-
-
-
-
-
-
+                
+                Triangle.AddLine(P1, P2);
+                Triangle.AddLine(P2, P3);
+                Triangle.AddLine(P3, P1);
 
                 return Triangle;
             }
@@ -524,21 +557,17 @@ namespace VoiceToPaint.Backend
             public static GraphicsPath Circle(string coordinate, string size)
             {
 
-                GraphicsPath Triangle = new System.Drawing.Drawing2D.GraphicsPath();
+                GraphicsPath Triangle = new GraphicsPath();
                 int Size;
                 int.TryParse(size, out Size);
-
-
-              
-             
+   
                 int pointOnCentermap;
                 Point coords;
                 int.TryParse(coordinate, out pointOnCentermap);
                 Tools.getCenterMap.TryGetValue(pointOnCentermap, out coords);
 
-
-
-                Rectangle set = new Rectangle(coords, new Size(Size, Size));
+                Point center = new Point(coords.X-Size/2,coords.Y-Size/2);
+                Rectangle set = new Rectangle(center, new Size(Size, Size));
 
 
 
@@ -555,7 +584,10 @@ namespace VoiceToPaint.Backend
             }
 
 
-
+            private static Point CirclePointCoordinate(int angle, double size, Point center) {
+                
+                return  new Point(center.X + Convert.ToInt32(Math.Cos((double)angle/360*2*Math.PI)*size/2), center.Y + Convert.ToInt32(Math.Sin((double)angle/360*2*Math.PI)*size/2));
+            }
 
 
 

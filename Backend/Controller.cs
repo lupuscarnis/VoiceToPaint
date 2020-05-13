@@ -30,7 +30,7 @@ namespace VoiceToPaint.Backend
 
      
             
-            InitiateCommand();
+           InitiateCommand();
             this.cv = cv;
             
        
@@ -129,7 +129,7 @@ namespace VoiceToPaint.Backend
                         if (!Tools.Command.Contains(command.ToLower()))
                         {
                             if (Tools.Command.Contains(Tools.LastCommand))
-                                Tools.Command.Replace(LastAttribute, attribute);
+                             Tools.Command = Tools.Command.Replace(LastAttribute, attribute);
 
 
                             Tools.Command += attribute;
