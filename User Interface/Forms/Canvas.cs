@@ -21,11 +21,11 @@ namespace VoiceToPaint
         bool drw;
         int beginX, beginY; 
         Drawables draw;
-   
+        Size boardSize = new Size(10*50+120, 10*50);
         public Canvas()
         {
             InitializeComponent();
-          
+            this.Size = boardSize;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -80,13 +80,13 @@ namespace VoiceToPaint
             int counter = 1;
             int drawCounter = 0;
             //just for adding
-            for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
+            for (int i = 0; i <= 9; i++)
             {
-                for (int j = 1; j <= ((this.Size.Width - 100) / 50); j++)
+                for (int j = 0; j <= 9; j++)
                 {
                   // g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (j * 50) + 20, (i * 50) + 20);
                    
-                    Tools.getCenterMap.Add(counter, new Point((j * 50) + 20, (i * 50) + 20));
+                    Tools.getCenterMap.Add(counter, new Point(((j+1) * 50 + 25), (i * 50 + 25)));
                     counter++;
 
 
