@@ -74,9 +74,6 @@ namespace VoiceToPaint.Backend
                                     OnChangeViewList();
                                     //return
 
-
-
-
                                     break;
                                 }
                             case "circle":
