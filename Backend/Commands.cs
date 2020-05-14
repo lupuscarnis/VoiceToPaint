@@ -95,15 +95,17 @@ namespace VoiceToPaint.Backend
             //If it just says int i don't know the assume max 100 for now
 
             //strings
-            Commandsmap.Add("command", new string[] { "Draw", "Connect", "Edit", "Delete", "Done" });
+            Commandsmap.Add("command", new string[] { "Draw", "Connect", "Edit", "Delete", "Done", "Rotate" });
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
             Commandsmap.Add("draw", new string[] {"Type"});
             //
-            Commandsmap.Add("rotate", new string[] { "object1" });
+            Commandsmap.Add("rotate", new string[] { "objectkey", "Rotation" });
             //
             Commandsmap.Add("size", new string[] { "0", "100",  });
             //Object1 = int, Object2 = int
             Commandsmap.Add("connect", new string[] { "object1", "object2" });
+            //subset
+            Commandsmap.Add("objectkey", new string[] { "0", "200" });
             //subset
             Commandsmap.Add("object1", new string[] { "0", "100",});
             //subset
