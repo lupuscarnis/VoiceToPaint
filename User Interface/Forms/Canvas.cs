@@ -219,37 +219,58 @@ namespace VoiceToPaint
             // listView1.AutoResizeColumns( ColumnHeaderAutoResizeStyle.ColumnContent);
             changeRichTextBox1(source, e);
 
-
         }
+            
 
         private void changeRichTextBox1(object sender, EventArgs e)
         {
-            // command: draw,color: blue,point: 33,type: square,size: 55,
+            // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
 
-            richTextBox1.Text = "";
+
+            //connect should perhaps be called edit throughtout?
+            richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
+            richTextBox1.Text += "Connect, object number \n \n";
+            
             String tempInput = "";
             String[] prettyStrings = tempInput.Split(' ');
            
             int i = 0;
             foreach (string s in Tools.getObjects)
             {
-                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n";
+                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n ";
                
                 i++;
             }
-                       
-            richTextBox1.Text = tempInput;
+            Font drawFont = new Font("Arial", 16);
+            richTextBox1.SelectionStart = 0; //Next section to format
+            richTextBox1.SelectionLength = 10;
+            richTextBox1.SelectionFont = new System.Drawing.Font("Arial", 16);
+
+            this.richTextBox1.SelectionStart = 10;
+            this.richTextBox1.SelectionLength = 20; // this.richTextBox1.SelectionLength;
+            this.richTextBox1.SelectionFont = new System.Drawing.Font("Maiandra GD", 12);
+
+            richTextBox1.Text += "Objects \n \n";
+            richTextBox1.Text += tempInput;
 
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-          
+            if (richTextBox1.Text.Equals(""))
+            {
+                richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
+                richTextBox1.Text += "Connect, object number \n \n";
+
+            }
+            
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            //richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
+            //richTextBox1.Text += "Connect, object number \n \n";
 
         }
 

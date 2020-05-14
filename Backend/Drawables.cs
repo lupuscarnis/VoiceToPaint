@@ -70,7 +70,7 @@ namespace VoiceToPaint.Backend
                                     //graph.DrawRectangle(Tools.getPen, Shapes.Square(point,size));
                                     graph.DrawPath(Tools.getPen, Shapes.Square(point, size, "100", "90", rotation));
                                     //store the object in a sorted list
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size + " Rotation: "+rotation);
                                     OnChangeViewList();
                                     //return
 
@@ -91,7 +91,7 @@ namespace VoiceToPaint.Backend
                                     graph.DrawPath(Tools.getPen, Shapes.Circle(point, size));
 
                                     //store the object in a sorted list
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size + " Rotation: " + rotation);
                                     OnChangeViewList();
                                     //return
 
@@ -111,7 +111,7 @@ namespace VoiceToPaint.Backend
                                     graph.DrawPath(Tools.getPen, Shapes.Triangle(point, size, rotation));
 
                                     //store the object in a sorted list
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size + " Rotation: " + rotation);
                                     OnChangeViewList();
                                     //return
 

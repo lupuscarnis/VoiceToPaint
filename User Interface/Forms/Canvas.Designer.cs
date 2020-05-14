@@ -84,11 +84,13 @@ namespace VoiceToPaint
             // richTextBox1
             // 
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.richTextBox1.Enabled = false;
             this.richTextBox1.Location = new System.Drawing.Point(483, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(100, 562);
             this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.richTextBox1.Text = "Draw, type, color, point, size, rotation \\n \\nDelete, object number, \\n \\nClear \\" +
+    "n \\nRotate, object number";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // Canvas
