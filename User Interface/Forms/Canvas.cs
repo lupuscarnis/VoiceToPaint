@@ -21,11 +21,11 @@ namespace VoiceToPaint
         bool drw;
         int beginX, beginY; 
         Drawables draw;
-   
+        Size boardSize = new Size(10*50+120, 10*50);
         public Canvas()
         {
             InitializeComponent();
-          
+            this.Size = boardSize;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -80,13 +80,13 @@ namespace VoiceToPaint
             int counter = 1;
             int drawCounter = 0;
             //just for adding
-            for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
+            for (int i = 0; i <= 9; i++)
             {
-                for (int j = 1; j <= ((this.Size.Width - 100) / 50); j++)
+                for (int j = 0; j <= 9; j++)
                 {
                   // g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (j * 50) + 20, (i * 50) + 20);
                    
-                    Tools.getCenterMap.Add(counter, new Point((j * 50) + 20, (i * 50) + 20));
+                    Tools.getCenterMap.Add(counter, new Point(((j+1) * 50 + 25), (i * 50 + 25)));
                     counter++;
 
 
@@ -112,8 +112,8 @@ namespace VoiceToPaint
                 drawCounter++;
 
             }
-            
 
+            richTextBox1.Text = "";
 
         }
      
@@ -134,8 +134,7 @@ namespace VoiceToPaint
          
 
             cont.run(this, draw);
-            if (Tools.Debug == false)
-                this.textBox1.Visible = false;
+
 
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
@@ -195,21 +194,73 @@ namespace VoiceToPaint
             UpdateDraw(null,null);
         }
 
-      
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
 
         private void OnListViewChange(object source, EventArgs e)
         {
+          
 
+            /*
+             listView1.Clear();
+             int i = 0;
+             foreach (string s in Tools.getObjects)
+             {
+
+                 listView1.Items.Add(s + " Number: " + i);
+
+                 i++;
+             }
+              // listView1.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+             listView1.AutoResizeColumns( ColumnHeaderAutoResizeStyle.HeaderSize);x½
+             */
+            // listView1.AutoResizeColumns( ColumnHeaderAutoResizeStyle.ColumnContent);
+            changeRichTextBox1(source, e);
+
+
+        }
+
+        private void changeRichTextBox1(object sender, EventArgs e)
+        {
+            // command: draw,color: blue,point: 33,type: square,size: 55,
+
+            richTextBox1.Text = "";
+            String tempInput = "";
+            String[] prettyStrings = tempInput.Split(' ');
            
-            listView1.Clear();
             int i = 0;
             foreach (string s in Tools.getObjects)
             {
-
-                listView1.Items.Add(s + " Number: " + i);
+                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n";
+               
                 i++;
             }
+                       
+            richTextBox1.Text = tempInput;
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
           
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        void view_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            Font drawFont = new Font("Arial", 16);
+            e.Graphics.DrawString(e.Item.Text, drawFont, Brushes.Black,
+                new RectangleF(e.Item.Position.X,
+                    e.Item.Position.Y,
+                    20,
+                    160));
 
         }
     }
