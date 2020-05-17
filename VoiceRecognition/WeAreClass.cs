@@ -174,6 +174,8 @@ namespace VoiceToPaint.VR
         public void sendCommand(String stringCommand)
         {
             stopListening();
+
+            Console.WriteLine("gotCommand");
             OnNewCommand(stringCommand);
            
             //reset();

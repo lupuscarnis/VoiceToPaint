@@ -128,16 +128,9 @@ namespace VoiceToPaint
         private void Canvas_Load(object sender, EventArgs e)
         {
             draw = new Drawables(this);
-            Controller cont = new Controller();
-            Sketch scrat = new Sketch();
+           
 
          
-
-            cont.run(this, draw);
-
-            cont.CommandListChanged += OnChangeRichTextBox1;
-            draw.ListChanged += OnChangeRichTextBox1;
-            draw.GraphicsCleared += UpdateDraw;
 
 
             richTextBox1.Text = "Commands: \n \n";
@@ -150,10 +143,6 @@ namespace VoiceToPaint
 
         }
 
-        private void Cont_CommandListChanged(string text)
-        {
-            throw new NotImplementedException();
-        }
 
         private void Canvas_Layout(object sender, LayoutEventArgs e)
         {
@@ -162,7 +151,14 @@ namespace VoiceToPaint
 
         private void Canvas_Shown(object sender, EventArgs e)
         {
-            
+
+            Controller cont = new Controller();
+            Sketch scrat = new Sketch();
+            cont.run(this, draw);
+
+            cont.CommandListChanged += OnChangeRichTextBox1;
+            draw.ListChanged += OnChangeRichTextBox1;
+            draw.GraphicsCleared += UpdateDraw;
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
           
