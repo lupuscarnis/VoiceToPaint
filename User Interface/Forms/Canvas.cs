@@ -225,7 +225,7 @@ namespace VoiceToPaint
             int i = 0;
             foreach (string s in Tools.getObjects)
             {
-                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n ";
+                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n";
                
                 i++;
             }
