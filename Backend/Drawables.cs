@@ -23,7 +23,7 @@ namespace VoiceToPaint.Backend
             this.control = control;
         }
 
-        public delegate void UpdateViewListEventHandler(object source, EventArgs e);
+        public delegate void UpdateViewListEventHandler(string[] list);
         public event UpdateViewListEventHandler ListChanged;
         public delegate void UpdateGraphicEventHandler(object source, EventArgs e);
         public event UpdateGraphicEventHandler GraphicsCleared;
@@ -73,7 +73,7 @@ namespace VoiceToPaint.Backend
         {
             if (ListChanged != null)
             {
-                ListChanged(this, EventArgs.Empty);
+                ListChanged(new string[0]); 
             }
 
         }

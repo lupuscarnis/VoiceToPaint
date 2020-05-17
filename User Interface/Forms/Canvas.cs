@@ -135,8 +135,8 @@ namespace VoiceToPaint
 
             cont.run(this, draw);
 
-
-            draw.ListChanged += OnListViewChange;
+            cont.CommandListChanged += OnChangeRichTextBox1;
+            draw.ListChanged += OnChangeRichTextBox1;
             draw.GraphicsCleared += UpdateDraw;
 
 
@@ -150,7 +150,11 @@ namespace VoiceToPaint
 
         }
 
-      
+        private void Cont_CommandListChanged(string text)
+        {
+            throw new NotImplementedException();
+        }
+
         private void Canvas_Layout(object sender, LayoutEventArgs e)
         {
 
@@ -207,15 +211,9 @@ namespace VoiceToPaint
 
         }
 
-        private void OnListViewChange(object source, EventArgs e)
-        {
-          
-            changeRichTextBox1(source, e);
+     
 
-        }
-            
-
-        private void changeRichTextBox1(object sender, EventArgs e)
+        private void OnChangeRichTextBox1(string[] text)
         {
             // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
 

@@ -20,6 +20,9 @@ namespace VoiceToPaint.Backend
         VoiceRecognizer vr;
         Drawables draw;
         String LastAttribute = "";
+        public delegate void CommandListEventHandler(string[] text);
+        public event CommandListEventHandler CommandListChanged ;
+
         public void run(Canvas cv, Drawables draw)
         {
             
@@ -27,12 +30,22 @@ namespace VoiceToPaint.Backend
             this.draw = draw;
 
             
-           InitiateCommand();
+          // InitiateCommand();
             this.cv = cv;
             
         
         }
-        
+        protected virtual void OnCommandList(string[] text)
+        {
+            if (CommandListChanged != null)
+            {
+                CommandListChanged(text);
+            }
+
+        }
+
+
+
         public void PushCommand(string command)
         {
             vr = new VoiceRecognizer();
