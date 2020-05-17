@@ -97,13 +97,13 @@ namespace VoiceToPaint.Backend
             //strings
             Commandsmap.Add("command", new string[] { "draw","rotate","delete"});
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
-            Commandsmap.Add("draw", new string[] {"type"});
+            Commandsmap.Add("draw", new string[] { "square", "circle", "triangle", "return" });
             //
-            Commandsmap.Add("rotate", new string[] { "objectkey", "rotation", "done" });
+            Commandsmap.Add("rotate", new string[] { "objectkey", "rotation", "done", "return" });
             //
             Commandsmap.Add("size", new string[] { "0", "100",  });
             //Object1 = int, Object2 = int
-            Commandsmap.Add("connect", new string[] { "object1", "object2" });
+            Commandsmap.Add("connect", new string[] { "object1", "object2", "return" });
             //subset
             Commandsmap.Add("objectkey", new string[] { "0", "200",  });
             //subset
@@ -113,20 +113,20 @@ namespace VoiceToPaint.Backend
             //Object = int
             Commandsmap.Add("edit", new string[] { "0", "100"  });
             //Object = int
-            Commandsmap.Add("delete", new string[] {"objectkey","done" });
+            Commandsmap.Add("delete", new string[] {"objectkey","done", "return" });
             //
             Commandsmap.Add("rotation", new string[] { "0", "360" });
             
             //
             Commandsmap.Add("point", new string[] { "0", "360" });
             //all string
-            Commandsmap.Add("type", new string[] { "square", "circle", "triangle" });
+   
             //all string
-            Commandsmap.Add("square", new string[] { "size", "color", "point", "rotation", "done" });
+            Commandsmap.Add("square", new string[] { "size", "color", "point", "rotation", "done", "return" });
             //all string
-            Commandsmap.Add("circle", new string[] { "size", "color", "point", "rotation", "done" });
+            Commandsmap.Add("circle", new string[] { "size", "color", "point", "rotation", "done", "return" });
             //all string
-            Commandsmap.Add("triangle", new string[] { "size", "color", "point", "rotation", "done" });
+            Commandsmap.Add("triangle", new string[] { "size", "color", "point", "rotation", "done", "return" });
             //all string
             Commandsmap.Add("color", new string[] { "black", "red", "blue", "green", "yellow", "green", "purple"});
 

@@ -152,6 +152,13 @@ namespace VoiceToPaint.Backend
                             
 
                         }
+                        else if (Tools.CommandPath.Contains("return"))
+                        {
+                            Commands.Commandsmap1.TryGetValue(Tools.LastCommand, out list);
+                            vr.understandArray(list);
+
+
+                        }
 
 
 
