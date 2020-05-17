@@ -21,11 +21,11 @@ namespace VoiceToPaint
         bool drw;
         int beginX, beginY; 
         Drawables draw;
-   
+        Size boardSize = new Size(10*50+120, 10*50);
         public Canvas()
         {
             InitializeComponent();
-          
+            this.Size = boardSize;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -80,13 +80,13 @@ namespace VoiceToPaint
             int counter = 1;
             int drawCounter = 0;
             //just for adding
-            for (int i = 0; i <= ((this.Size.Height - 100) / 50); i++)
+            for (int i = 0; i <= 9; i++)
             {
-                for (int j = 1; j <= ((this.Size.Width - 100) / 50); j++)
+                for (int j = 0; j <= 9; j++)
                 {
                   // g.DrawString("" + counter, new Font("Times New Roman", 10, FontStyle.Bold), new SolidBrush(Color.Black), (j * 50) + 20, (i * 50) + 20);
                    
-                    Tools.getCenterMap.Add(counter, new Point((j * 50) + 20, (i * 50) + 20));
+                    Tools.getCenterMap.Add(counter, new Point(((j+1) * 50 + 25), (i * 50 + 25)));
                     counter++;
 
 
@@ -112,8 +112,8 @@ namespace VoiceToPaint
                 drawCounter++;
 
             }
-            
 
+            richTextBox1.Text = "";
 
         }
      
@@ -134,11 +134,19 @@ namespace VoiceToPaint
          
 
             cont.run(this, draw);
-          
+
 
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
-        
+
+
+            richTextBox1.Text = "Commands: \n \n";
+
+            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+
+            richTextBox1.Text += "TextBox only:\n \n";
+
+            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
 
         }
 
@@ -153,9 +161,8 @@ namespace VoiceToPaint
             
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
-
-            if (Tools.Debug == false)
-                this.textBox1.Visible = false;
+          
+           
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -195,21 +202,117 @@ namespace VoiceToPaint
             UpdateDraw(null,null);
         }
 
-      
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
 
         private void OnListViewChange(object source, EventArgs e)
         {
+          
+            changeRichTextBox1(source, e);
 
+        }
+            
+
+        private void changeRichTextBox1(object sender, EventArgs e)
+        {
+            // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
+
+            //connect should perhaps be called edit throughtout?
+            richTextBox1.Text = "Commands: \n \n";
+
+            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+
+            richTextBox1.Text += "TextBox only:\n \n";
+
+            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
+
+
+            String tempInput = "";
+            String[] prettyStrings = tempInput.Split(' ');
            
-            listView1.Clear();
             int i = 0;
             foreach (string s in Tools.getObjects)
             {
-
-                listView1.Items.Add(s + " Number: " + i);
+                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n";
+               
                 i++;
             }
-          
+            Font drawFont = new Font("Arial", 16);
+                        
+
+            richTextBox1.Text += "Objects: \n \n";
+            richTextBox1.Text += tempInput;
+
+            this.richTextBox1.SelectionStart = 133;
+            this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
+
+            richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+            this.richTextBox1.SelectionStart = 56;
+            this.richTextBox1.SelectionLength = 13;//this.richTextBox1.Text.Length + 50;
+
+            richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.SelectionLength = 9;
+            richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+            // richTextBox1.SelectionColor = System.Drawing.Color.Red;
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.richTextBox1.SelectionStart = 10;
+            this.richTextBox1.SelectionLength = 20;
+            
+           
+            if (richTextBox1.Text.Equals(""))
+            {
+               
+                richTextBox1.Text = "Commands: \n \n";
+                
+                richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+
+                richTextBox1.Text += "TextBox only:\n \n";
+
+                richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
+
+                this.richTextBox1.SelectionStart = 0;
+                this.richTextBox1.SelectionLength = 9;
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+                this.richTextBox1.SelectionStart = 150;
+                this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
+
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+                this.richTextBox1.SelectionStart = 56;
+                this.richTextBox1.SelectionLength = 13;//this.richTextBox1.Text.Length + 50;
+
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+            }
+            
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+            //richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
+            //richTextBox1.Text += "Connect, object number \n \n";
+
+        }
+
+        void view_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            Font drawFont = new Font("Arial", 16);
+            e.Graphics.DrawString(e.Item.Text, drawFont, Brushes.Black,
+                new RectangleF(e.Item.Position.X,
+                    e.Item.Position.Y,
+                    20,
+                    160));
 
         }
     }

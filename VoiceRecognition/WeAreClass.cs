@@ -20,11 +20,7 @@ namespace VoiceToPaint.VR
         SpeechRecognitionEngine inputListener;
         public String command = "";
         Boolean commandReady = false;
-        /*
-        private int RATE = 44100; 
-        private int BUFFERSIZE = (int)Math.Pow(2, 10);
-        public BufferedWaveProvider bwp;
-        */
+      
       
         Choices commands;
         
@@ -82,8 +78,7 @@ namespace VoiceToPaint.VR
             }
 
         }
-
-
+        
         public void startListening(String newCommands)
         {
             Console.Beep();
@@ -111,16 +106,25 @@ namespace VoiceToPaint.VR
                 commands.Add(newCommands.Split('|'));
             }
         }
+
+            //System.Speech.Recognition.Choices
             GrammarBuilder gBuilder = new GrammarBuilder();
+            
+           /*
+            if (commands.ToString == null)
+            {
+                commands.Add("Bananananana");
+            }
+            */
             gBuilder.Append(commands);
+           
             Grammar gram = new Grammar(gBuilder);
             masterEngine.LoadGrammarAsync(gram);
             masterEngine.SetInputToDefaultAudioDevice();
             masterEngine.SpeechRecognized += masterEngine_SpeechRecognized;
-            //masterEngine.RecognizeAsync(RecognizeMode.Multiple);
-            masterEngine.RecognizeAsync(RecognizeMode.Single);
-
-
+            masterEngine.RecognizeAsync(RecognizeMode.Multiple);
+            Console.WriteLine(gBuilder.DebugShowPhrases);
+            //masterEngine.RecognizeAsync(RecognizeMode.Single);
 
         }
 
@@ -186,12 +190,7 @@ namespace VoiceToPaint.VR
           
         }
 
-        /*
-        public void stopListening()
-        {
-            masterEngine.RecognizeAsyncStop();
-        }
-       */
+        
        //might not need to be separate from reset
         public void stopListening()
         {
