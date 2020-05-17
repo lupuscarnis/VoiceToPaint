@@ -98,6 +98,7 @@ namespace VoiceToPaint.Backend
                             case "square":
                                 {
                                     string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+
                                     DrawSquare(args);
                                      //store the object in a sorted list
                                     int ListKeyMod = 0;
@@ -107,6 +108,7 @@ namespace VoiceToPaint.Backend
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
 
                                     Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+
                                     OnChangeViewList();
                                    
                                     break;
@@ -115,6 +117,7 @@ namespace VoiceToPaint.Backend
                             case "circle":
                                 {
                                     string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+
                                     DrawCircle(args);
                                     int ListKeyMod = 0;
                                     do{
@@ -122,6 +125,7 @@ namespace VoiceToPaint.Backend
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));                                    
                                     Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+
                                     OnChangeViewList();
                                     
                                     break;
@@ -130,6 +134,7 @@ namespace VoiceToPaint.Backend
                             case "triangle":
                                 {
                                     string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+
                                     DrawTriangle(args);
                                     int ListKeyMod = 0;
                                     do{
@@ -137,6 +142,7 @@ namespace VoiceToPaint.Backend
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
                                     Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+
                                     OnChangeViewList();
                                     
                                     break;
