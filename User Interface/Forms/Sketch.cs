@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace VoiceToPaint
+namespace VoiceToPaint.User_Interface.Forms
 {
-    public partial class Form1 : Form
+    public partial class Sketch : Form
     {
-        public Form1()
+        public Sketch()
         {
             InitializeComponent();
         }

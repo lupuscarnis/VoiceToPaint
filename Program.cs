@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
+using VoiceToPaint;
+using System.Drawing;
+using VoiceToPaint.Backend;
+using VoiceToPaint.VR;
 
 namespace VoiceToPaint
 {
@@ -14,9 +18,19 @@ namespace VoiceToPaint
         [STAThread]
         static void Main()
         {
+
+            //VoiceRecognizer vr = new VoiceRecognizer();
+            //vr.startListening("draw|draw|draw");
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Canvas cv;
+            Tools.Debug = true;
+            cv = new Canvas();
+            Application.Run(cv);
+            
+
+
         }
     }
 }
