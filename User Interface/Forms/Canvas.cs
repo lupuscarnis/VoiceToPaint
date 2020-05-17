@@ -220,7 +220,9 @@ namespace VoiceToPaint
                 list = Tools.Command.Split(',');
                     foreach(string s in list)
                 {
+
                     list2 = s.Split(':');
+                    if(list2.Length > 2)
                     values.Add(list2[0], list2[1]);
                 }
 
@@ -234,7 +236,7 @@ namespace VoiceToPaint
                 }
                 else
                 {
-                    richTextBox1.Text += s + " Value: " + "-------"+ " \n";
+                    richTextBox1.Text += s + " \n";
                 }
 
             }
