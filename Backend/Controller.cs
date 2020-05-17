@@ -161,8 +161,21 @@ namespace VoiceToPaint.Backend
                                                                      
                         if (!Tools.Command.Contains(command.ToLower()))
                         {
+                            string[] list1, list2;
+
                             if (Tools.Command.Contains(Tools.LastCommand))
                             {
+                                list1=Tools.Command.Split(',');
+                                foreach(string s in list1)
+                                {
+                                   list2= s.Split(':');
+                                    if (Tools.LastCommand.Equals(list2[0]))
+                                    {
+                                        Tools.LastAttribute = Tools.LastCommand + ":" + list2[1] + ",";
+                                    }
+                                }
+
+
                                 Tools.Command = Tools.Command.Replace(Tools.LastAttribute, attribute);
                             }
                             else
