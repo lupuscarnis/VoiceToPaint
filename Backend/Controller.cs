@@ -145,7 +145,14 @@ namespace VoiceToPaint.Backend
                             OnCommandList(list);
 
                         }
-                        
+                        else if (Tools.CommandPath.Contains("delete"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("delete", out list);
+                            vr.understandArray(list);
+                            OnCommandList(list);
+
+                        }
+
 
 
 

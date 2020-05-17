@@ -342,7 +342,7 @@ namespace VoiceToPaint.Backend
                                     list2 = s.Split(':');
                                     if (list2.Contains("command"))
                                     arg[0] = list2[1];
-                                    if(list2.Contains("object1"))
+                                    if(list2.Contains("objectkey"))
                                      arg[1] = list2[1];
                                     
                                 }
@@ -452,6 +452,7 @@ namespace VoiceToPaint.Backend
                     }
 
             };
+
             args = arg;
 
         }

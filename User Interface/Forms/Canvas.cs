@@ -133,13 +133,6 @@ namespace VoiceToPaint
          
 
 
-            richTextBox1.Text = "Commands: \n \n";
-
-            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
-
-            richTextBox1.Text += "TextBox only:\n \n";
-
-            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
 
         }
 
@@ -155,6 +148,11 @@ namespace VoiceToPaint
             Controller cont = new Controller();
             Sketch scrat = new Sketch();
             cont.run(this, draw);
+
+
+            richTextBox1.Text = "Commands: \n \n";
+
+         
 
             cont.CommandListChanged += OnChangeRichTextBox1;
             draw.ListChanged += OnChangeRichTextBox1;
@@ -215,18 +213,14 @@ namespace VoiceToPaint
 
             //connect should perhaps be called edit throughtout?
             richTextBox1.Text = "Commands:  \n";
-      
+       
             foreach (string s in text)
             {
-                
                 richTextBox1.Text += s+" \n";
             }
             
 
-            richTextBox1.Text += "TextBox only:\n \n";
-
-            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
-
+           
 
             String tempInput = "";
             String[] prettyStrings = tempInput.Split(' ');
@@ -242,7 +236,7 @@ namespace VoiceToPaint
                         
 
             richTextBox1.Text += "Objects: \n \n";
-            richTextBox1.Text += tempInput;
+            richTextBox1.Text += tempInput.ToLower();
 
             this.richTextBox1.SelectionStart = 133;
             this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
@@ -271,12 +265,10 @@ namespace VoiceToPaint
             {
                
                 richTextBox1.Text = "Commands: \n \n";
-                
-                richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+                richTextBox1.Text += "Draw\nRotate\nDelete \n \n";
 
-                richTextBox1.Text += "TextBox only:\n \n";
 
-                richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
+
 
                 this.richTextBox1.SelectionStart = 0;
                 this.richTextBox1.SelectionLength = 9;
