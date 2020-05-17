@@ -222,7 +222,7 @@ namespace VoiceToPaint
                 {
 
                     list2 = s.Split(':');
-                    if(list2.Length > 2)
+                    if(list2.Length >= 2)
                     values.Add(list2[0], list2[1]);
                 }
 
