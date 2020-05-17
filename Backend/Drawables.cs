@@ -488,7 +488,7 @@ namespace VoiceToPaint.Backend
             }
             return "";
         }
-
+     
 
         private void DrawSquare(string[] args) {
             string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
