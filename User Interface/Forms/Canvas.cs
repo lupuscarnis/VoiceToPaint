@@ -214,12 +214,14 @@ namespace VoiceToPaint
             // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
 
             //connect should perhaps be called edit throughtout?
-            richTextBox1.Text = "Commands: \n \n";
-            foreach(string s in text)
+            richTextBox1.Text = "Commands:  \n";
+      
+            foreach (string s in text)
             {
-                richTextBox1.Text += s+"\n \n";
+                
+                richTextBox1.Text += s+" \n";
             }
-          
+            
 
             richTextBox1.Text += "TextBox only:\n \n";
 
