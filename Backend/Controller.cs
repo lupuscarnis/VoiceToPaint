@@ -148,6 +148,7 @@ namespace VoiceToPaint.Backend
                         
 
 
+
                         string attribute = Tools.LastCommand + ":" + command + ",";
 
                                                                      
