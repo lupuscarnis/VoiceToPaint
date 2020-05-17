@@ -106,8 +106,18 @@ namespace VoiceToPaint.VR
                 commands.Add(newCommands.Split('|'));
             }
         }
+
+            //System.Speech.Recognition.Choices
             GrammarBuilder gBuilder = new GrammarBuilder();
+            
+           /*
+            if (commands.ToString == null)
+            {
+                commands.Add("Bananananana");
+            }
+            */
             gBuilder.Append(commands);
+           
             Grammar gram = new Grammar(gBuilder);
             masterEngine.LoadGrammarAsync(gram);
             masterEngine.SetInputToDefaultAudioDevice();

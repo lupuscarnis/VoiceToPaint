@@ -139,9 +139,14 @@ namespace VoiceToPaint
             draw.ListChanged += OnListViewChange;
             draw.GraphicsCleared += UpdateDraw;
 
-            
-            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
-            richTextBox1.Text += "Connect, object number \n \n";
+
+            richTextBox1.Text = "Commands: \n \n";
+
+            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+
+            richTextBox1.Text += "TextBox only:\n \n";
+
+            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
 
         }
 
@@ -216,8 +221,13 @@ namespace VoiceToPaint
 
             //connect should perhaps be called edit throughtout?
             richTextBox1.Text = "Commands: \n \n";
-            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
-            
+
+            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+
+            richTextBox1.Text += "TextBox only:\n \n";
+
+            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
+
 
             String tempInput = "";
             String[] prettyStrings = tempInput.Split(' ');
@@ -235,8 +245,13 @@ namespace VoiceToPaint
             richTextBox1.Text += "Objects: \n \n";
             richTextBox1.Text += tempInput;
 
-            this.richTextBox1.SelectionStart = 139;
+            this.richTextBox1.SelectionStart = 133;
             this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
+
+            richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+            this.richTextBox1.SelectionStart = 56;
+            this.richTextBox1.SelectionLength = 13;//this.richTextBox1.Text.Length + 50;
 
             richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
 
@@ -258,11 +273,24 @@ namespace VoiceToPaint
                
                 richTextBox1.Text = "Commands: \n \n";
                 
-                richTextBox1.Text += "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
-               
+                richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+
+                richTextBox1.Text += "TextBox only:\n \n";
+
+                richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
 
                 this.richTextBox1.SelectionStart = 0;
                 this.richTextBox1.SelectionLength = 9;
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+                this.richTextBox1.SelectionStart = 150;
+                this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
+
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+                this.richTextBox1.SelectionStart = 56;
+                this.richTextBox1.SelectionLength = 13;//this.richTextBox1.Text.Length + 50;
+
                 richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
             }
             
