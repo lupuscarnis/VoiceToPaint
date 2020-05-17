@@ -64,10 +64,7 @@ namespace VoiceToPaint.Backend
                     formCommand += list[i] + ":" + list[i + 1]+ ",";
                     i +=2 ;
                 }
-                if (list[2] == null)
-                {
-                    list[2] = "";
-                }
+               
 
                 Console.WriteLine(formCommand + Tools.Command);
                 formCommand += Tools.Command;
@@ -141,8 +138,16 @@ namespace VoiceToPaint.Backend
                             OnCommandList(list);
 
                         }
+                        else if (Tools.CommandPath.Contains("rotate"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("rotate", out list);
+                            vr.understandArray(list);
+                            OnCommandList(list);
 
+                        }
                         
+
+
                         string attribute = Tools.LastCommand + ":" + command + ",";
 
                                                                      
