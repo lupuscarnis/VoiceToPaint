@@ -219,8 +219,11 @@ namespace VoiceToPaint
 
             //connect should perhaps be called edit throughtout?
             richTextBox1.Text = "Commands: \n \n";
-
-            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+            foreach(string s in text)
+            {
+                richTextBox1.Text += s+"\n \n";
+            }
+          
 
             richTextBox1.Text += "TextBox only:\n \n";
 

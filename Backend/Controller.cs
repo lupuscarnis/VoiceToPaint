@@ -97,6 +97,7 @@ namespace VoiceToPaint.Backend
                     
 
                     Console.WriteLine("GotCommand: "+ command);
+                    OnCommandList(list);
                     vr.understandArray(list);
                     vr.startListening("");
                 }
@@ -111,28 +112,33 @@ namespace VoiceToPaint.Backend
                         {
                             Commands.Commandsmap1.TryGetValue("circle", out list);
                             vr.understandArray(list);
+                            OnCommandList(list);
                         }
                         else if (Tools.CommandPath.Contains("triangle"))
                         {
                             Commands.Commandsmap1.TryGetValue("triangle", out list);
                             vr.understandArray(list);
+                            OnCommandList(list);
                         }
                         else if (Tools.CommandPath.Contains("square"))
                         {
                             Commands.Commandsmap1.TryGetValue("square", out list);
                             vr.understandArray(list);
+                            OnCommandList(list);
                         }
 
                         else if (Tools.CommandPath.Contains("type"))
                         {
                             Commands.Commandsmap1.TryGetValue("type", out list);
                             vr.understandArray(list);
+                            OnCommandList(list);
                         }
 
                         else if (Tools.CommandPath.Contains("draw"))
                         {
                             Commands.Commandsmap1.TryGetValue("draw", out list);
                             vr.understandArray(list);
+                            OnCommandList(list);
 
                         }
 
@@ -175,7 +181,7 @@ namespace VoiceToPaint.Backend
 
 
             PushCommand("command");
-
+            OnCommandList(Commands.Commandsmap1);
         }
 
 
