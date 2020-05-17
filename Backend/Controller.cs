@@ -76,8 +76,7 @@ namespace VoiceToPaint.Backend
                     string[] list;
                     Commands.Commandsmap1.TryGetValue(command.ToLower(), out list);
 
-
-                    
+                                        
                       Tools.CommandPath +=  " " + command.ToLower() ;
                     Console.WriteLine(Tools.CommandPath);
 
@@ -159,7 +158,7 @@ namespace VoiceToPaint.Backend
         {
 
 
-            PushCommand("command");
+            //PushCommand("command");
 
         }
 

@@ -118,9 +118,8 @@ namespace VoiceToPaint.VR
             masterEngine.SetInputToDefaultAudioDevice();
             masterEngine.SpeechRecognized += masterEngine_SpeechRecognized;
             //masterEngine.RecognizeAsync(RecognizeMode.Multiple);
+            Console.WriteLine(gBuilder.DebugShowPhrases);
             masterEngine.RecognizeAsync(RecognizeMode.Single);
-
-
 
         }
 

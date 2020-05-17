@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 using VoiceToPaint;
 using VoiceToPaint.User_Interface;
 using System.IO;
@@ -15,6 +16,7 @@ namespace VoiceToPaint.Backend
     class Drawables
     {
         Control control;
+        private IDictionary<int, string[]> ObjectStorage = new Dictionary<int, string[]>();
 
         public Drawables(Control control)
         {
@@ -26,6 +28,37 @@ namespace VoiceToPaint.Backend
         public delegate void UpdateGraphicEventHandler(object source, EventArgs e);
         public event UpdateGraphicEventHandler GraphicsCleared;
 
+        public Dictionary<int, string[]> GetObjectDict() {
+            return (Dictionary<int, string[]>) ObjectStorage;
+        }
+
+        public string[] GetObject(int key) {
+            string[] Output; 
+            ObjectStorage.TryGetValue(key, out Output);
+            return Output;
+        }
+
+
+        public void SetObject(int key, string[] args) {
+            string[] drawing;
+            if (ObjectStorage.TryGetValue(key, out drawing))
+            {
+                ObjectStorage[key] = args;
+            }
+            else
+            {
+            ObjectStorage.Add(key, args);
+            }
+        }
+
+
+        public void RemoveObject(int key) {
+            if(ObjectStorage.ContainsKey(key)) {
+                ObjectStorage.Remove(key);
+            }
+        }
+
+
         protected virtual void OnClear()
         {
             if (GraphicsCleared != null)
@@ -34,6 +67,8 @@ namespace VoiceToPaint.Backend
             }
 
         }
+
+
         protected virtual void OnChangeViewList()
         {
             if (ListChanged != null)
@@ -42,6 +77,7 @@ namespace VoiceToPaint.Backend
             }
 
         }
+
 
         public void createDrawble(string text)
         {
@@ -56,109 +92,117 @@ namespace VoiceToPaint.Backend
                 case "draw":
                     {
                         
-
                         switch (args[1])
                         {
                            
                             case "square":
                                 {
                                     string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
-                                    //create the object to draw 
-                                    Graphics graph = control.CreateGraphics();
-                                    //Send it to the from 
-                                    Tools.getPen = new Pen(Commands.getColor(color));
-                                    //graph.DrawRectangle(Tools.getPen, Shapes.Square(point,size));
-                                    graph.DrawPath(Tools.getPen, Shapes.Square(point, size, "100", "90", rotation));
-                                    //store the object in a sorted list
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size + " Rotation: "+rotation);
-                                    OnChangeViewList();
-                                    //return
 
+                                    DrawSquare(args);
+                                     //store the object in a sorted list
+                                    int ListKeyMod = 0;
+                                    do{
+                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
+                                        ListKeyMod++;
+                                    }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
+
+                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+
+                                    OnChangeViewList();
+                                   
                                     break;
                                 }
+
                             case "circle":
                                 {
                                     string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
-                                    //create the object to draw 
-                                    Graphics graph = control.CreateGraphics();
 
-                                    Tools.getPen = new Pen(Commands.getColor(color));
-                                    //Send it to the from 
+                                    DrawCircle(args);
+                                    int ListKeyMod = 0;
+                                    do{
+                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
+                                        ListKeyMod++;
+                                    }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));                                    
+                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
 
-                                    graph.DrawPath(Tools.getPen, Shapes.Circle(point, size));
-
-                                    //store the object in a sorted list
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size + " Rotation: " + rotation);
                                     OnChangeViewList();
-                                    //return
-
-
+                                    
                                     break;
                                 }
+
                             case "triangle":
                                 {
-
                                     string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
-                                    //create the object to draw 
-                                    Graphics graph = control.CreateGraphics();
 
-                                    Tools.getPen = new Pen(Commands.getColor(color));
-                                    //Send it to the from 
+                                    DrawTriangle(args);
+                                    int ListKeyMod = 0;
+                                    do{
+                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
+                                        ListKeyMod++;
+                                    }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
+                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
 
-                                    graph.DrawPath(Tools.getPen, Shapes.Triangle(point, size, rotation));
-
-                                    //store the object in a sorted list
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size + " Rotation: " + rotation);
                                     OnChangeViewList();
-                                    //return
-
-
+                                    
                                     break;
                                 }
 
                         }
 
-
-
-
-
-
                         break;
                     }
+
                 case "connect":
                     {
                         string object1= args[1], object2 = args[2];
 
-
-
-
-
-
                         break;
                     }
 
 
-                case "Rotate":
+                case "rotate":
                     {
                         string object1 = args[1], rotation = args[2];
                         //requires object info, because to rotate you must redraw the object with new rotation.
+                        OnClear();
+                        int objectKey = int.Parse(object1);
+                        string[] drawCommand = GetObject(objectKey);
+                        drawCommand[5] = rotation;
+                        SetObject(objectKey, drawCommand);
 
+                        Dictionary<int,string[]> Drawings = GetObjectDict();
+                        string[] s;
+                        int counter = 0;
+                        for(int i=0;i<200;i++)  {
+                            if(Drawings.ContainsKey(i)) {
+                                counter++;
+                                s = GetObject(i);
+                                if (s[1].Equals("square")) {
+                                    DrawSquare(s);
+                                }
+
+                                if (s[1].Equals("triangle")) {
+                                    DrawTriangle(s);
+                                }
+
+                                if (s[1].Equals("circle")) {
+                                    DrawCircle(s);
+                                }
+                            }
+                        }
+
+                        OnChangeViewList();
+
+                        OnChangeViewList();
 
 
                         break;
                     }
+
                 case "clear":
                     {
-
-
-
-                        //create the object to draw 
-                        Graphics graph = control.CreateGraphics();
-                        //Send it to the from 
-                        //set background color
-                        graph.Clear(Color.White);
-
-
+                                                                     
                         //clears the list of object
                         Tools.getObjects.Clear();
                         //clears the borad and redraws it with a delegate
@@ -166,38 +210,47 @@ namespace VoiceToPaint.Backend
                         //Update the List // clears it 
                         OnChangeViewList();
 
-
-
-
-
-
                         break;
                     }
+
                 case "delete":
-                    {
+                    {   
 
 
                         string object1 = args[1];
+                        int objectKey = int.Parse(object1);
+                        RemoveObject(objectKey);
 
+                        OnClear();
 
+                        Dictionary<int,string[]> Drawings = GetObjectDict();
+                        string[] s;
+                        int counter = 0;
+                        for(int i=0;i<200;i++)  {
+                            if(Drawings.ContainsKey(i)) {
+                                counter++;
+                                s = GetObject(i);
+                                if (s[1].Equals("square")) {
+                                    DrawSquare(s);
+                                }
 
+                                if (s[1].Equals("triangle")) {
+                                    DrawTriangle(s);
+                                }
 
-                       //Update the List // clears it 
-                       OnChangeViewList();
+                                if (s[1].Equals("circle")) {
+                                    DrawCircle(s);
+                                }
+                            }
+                        }
 
-
-
-
-
+                        //Update the List // clears it 
+                        OnChangeViewList();
 
                         break;
                     }
-
-
-
-
+                    
             }
-
 
 
         }
@@ -248,7 +301,6 @@ namespace VoiceToPaint.Backend
 
                                     }
 
-
                                 }
 
                             }
@@ -259,14 +311,11 @@ namespace VoiceToPaint.Backend
 
                             commandvalues.TryGetValue("color", out arg[2]);
 
-
                             commandvalues.TryGetValue("point", out arg[3]);
 
                             commandvalues.TryGetValue("size", out arg[4]);
 
                             commandvalues.TryGetValue("rotation", out arg[5]);
-
-
 
                         }
 
@@ -296,16 +345,11 @@ namespace VoiceToPaint.Backend
                                     if(list2.Contains("object1"))
                                      arg[1] = list2[1];
                                     
-
-
                                 }
 
                             }
 
-
-
                         }
-
 
                         break;
                     }
@@ -330,21 +374,16 @@ namespace VoiceToPaint.Backend
                                     list2 = s.Split(':');
                                     if (list2.Contains("command"))
                                         arg[0] = list2[1];
-                                    if (list2.Contains("object1"))
+                                    if (list2.Contains("objectkey"))
                                         arg[1] = list2[1];
                                     if (list2.Contains("rotation"))
                                         arg[2] = list2[1];
-
-
 
                                 }
 
                             }
 
-
-
                         }
-
 
                         break;
                     }
@@ -373,27 +412,47 @@ namespace VoiceToPaint.Backend
                                     if (list2.Contains("object2"))
                                         arg[2] = list2[1];
 
+                                }
 
+                            }
+
+                        }
+
+                        break;
+                    }
+                case "clear":
+                    {
+                        arg = new string[10];
+                        if (text == null || text == "")
+                        {
+                            Console.WriteLine("An empty String");
+                            Console.WriteLine("Using Default");
+
+                        }
+                        else
+                        {
+                            
+                            list = text.Split(',');
+                            foreach (string s in list)
+                            {
+                                if (s != "")
+                                {
+
+                                    list2 = s.Split(':');
+                                    if (list2.Contains("command"))
+                                        arg[0] = list2[1];
 
                                 }
 
                             }
 
-
-
                         }
-
 
                         break;
                     }
 
-
             };
             args = arg;
-
-
-
-
 
         }
 
@@ -422,30 +481,55 @@ namespace VoiceToPaint.Backend
                             return list2[1];
                         }
 
-
                     }
 
                 }
-
-
 
             }
             return "";
         }
 
 
+        private void DrawSquare(string[] args) {
+            string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+            //create the object to draw 
+            Graphics graph = control.CreateGraphics();
+            //Send it to the form 
+            Tools.getPen = new Pen(Commands.getColor(color));
+            //graph.DrawRectangle(Tools.getPen, Shapes.Square(point,size));
+                                    
+            //Send it to the form 
+            graph.DrawPath(Tools.getPen, Shapes.Square(point, size, "100", "90", rotation));
+                              
+           
+            
+        }
 
+        private void DrawTriangle(string[] args) {
+            string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+            //create the object to draw 
+            Graphics graph = control.CreateGraphics();
+            //Send it to the form 
+            Tools.getPen = new Pen(Commands.getColor(color));
+                               
+            //Send it to the form 
+            graph.DrawPath(Tools.getPen, Shapes.Triangle(point, size, rotation));
 
+            
+        }
 
+        private void DrawCircle(string[] args) {
+            string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+            //create the object to draw 
+            Graphics graph = control.CreateGraphics();
+            //Send it to the form 
+            Tools.getPen = new Pen(Commands.getColor(color));
+                               
+            //Send it to the form 
+            graph.DrawPath(Tools.getPen, Shapes.Circle(point, size));
 
-
-
-
-
-      
-
-
-
+            
+        }
 
         public static class Shapes 
         {
@@ -500,9 +584,6 @@ namespace VoiceToPaint.Backend
                 Point P3 = Point.Subtract(Point.Add(coords,new Size(coords)),new Size(P1));
                 Point P2 = CirclePointCoordinate(Convert.ToInt32((-Math.PI/2+Math.Atan(P2deltaX/P2deltaY))*360/(2*Math.PI)+Rotation),2*Math.Sqrt(Math.Pow(P2deltaX,2)+Math.Pow(P2deltaY,2)),coords);
                 Point P4 = Point.Subtract(Point.Add(coords,new Size(coords)),new Size(P2));
-
-                //Square.AddLine(P1,P3);
-                //Square.AddLine(P1,P2);
 
                 Square.AddLine(P1, P2);
                 Square.AddLine(P2, P3);
