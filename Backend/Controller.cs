@@ -22,7 +22,7 @@ namespace VoiceToPaint.Backend
         public void run(Canvas cv, Drawables draw)
         {
 
-
+            
             Commands.setupCommandsList();
             this.draw = draw;
 
