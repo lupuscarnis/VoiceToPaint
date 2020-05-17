@@ -145,6 +145,9 @@ namespace VoiceToPaint.Backend
 
 
 
+                        OnChangeViewList();
+
+
                         break;
                     }
                 case "clear":
