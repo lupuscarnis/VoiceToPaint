@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
 using VoiceToPaint.User_Interface.Forms;
+using System.Collections.Generic;
 
 namespace VoiceToPaint
 {
@@ -210,13 +211,32 @@ namespace VoiceToPaint
         private void OnChangeRichTextBox1(string[] text)
         {
             // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
-
+            Dictionary<string,string> values = new Dictionary<string, string>();
             //connect should perhaps be called edit throughtout?
             richTextBox1.Text = "Commands:  \n";
-       
+            string[] list, list2;
+            string value;
+            if(!Tools.Command.Equals("")){
+                list = Tools.Command.Split(',');
+                    foreach(string s in list)
+                {
+                    list2 = s.Split(':');
+                    values.Add(list2[0], list2[1]);
+                }
+
+            }
+            
             foreach (string s in text)
             {
-                richTextBox1.Text += s+" \n";
+
+                if(values.TryGetValue(s, out value)) { 
+                richTextBox1.Text += s+" Value: "+value+" \n";
+                }
+                else
+                {
+                    richTextBox1.Text += s + " Value: " + "-------"+ " \n";
+                }
+
             }
             
 
