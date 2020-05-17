@@ -22,19 +22,14 @@ namespace VoiceToPaint.Backend
         String LastAttribute = "";
         public void run(Canvas cv, Drawables draw)
         {
-
-
+            
             Commands.setupCommandsList();
             this.draw = draw;
 
-
-     
             
            InitiateCommand();
             this.cv = cv;
             
-       
-        
         
         }
         
@@ -62,7 +57,7 @@ namespace VoiceToPaint.Backend
                 Console.WriteLine("The Full Command: "+formCommand);
 
                 
-                 draw.createDrawble(formCommand);
+                draw.createDrawble(formCommand);
                 Tools.Command = "";
                 Tools.CommandPath = "";
                 Tools.LastCommand = "";
@@ -123,22 +118,15 @@ namespace VoiceToPaint.Backend
 
                         }
 
-
+                        
                         string attribute = Tools.LastCommand + ":" + command + ",";
                         if (!Tools.Command.Contains(command.ToLower()))
-                        {
-                            if (Tools.Command.Contains(Tools.LastCommand))
-                             Tools.Command = Tools.Command.Replace(LastAttribute, attribute);
-
-
                             Tools.Command += attribute;
-                            LastAttribute = attribute;
-                        
-                        
-                        }
-                           
                         if (Tools.CommandPath.Contains(Tools.LastCommand))
                             Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
+
+                        Console.WriteLine(Tools.CommandPath);
+                        Console.WriteLine(Tools.Command);
 
 
                         Console.WriteLine(Tools.CommandPath);
@@ -158,7 +146,7 @@ namespace VoiceToPaint.Backend
         {
 
 
-            //PushCommand("command");
+            PushCommand("command");
 
         }
 
