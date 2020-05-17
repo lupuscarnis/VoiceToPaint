@@ -165,8 +165,12 @@ namespace VoiceToPaint.Backend
                             {
                                 Tools.Command = Tools.Command.Replace(Tools.LastAttribute, attribute);
                             }
+                            else
+                            {
+                                Tools.Command += attribute;
+                            }
 
-                            Tools.Command += attribute;
+                           
                             Tools.LastAttribute = attribute;
                             
                         }
