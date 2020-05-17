@@ -158,7 +158,7 @@ namespace VoiceToPaint.Backend
         {
 
 
-            PushCommand("command");
+            //PushCommand("command");
 
         }
 

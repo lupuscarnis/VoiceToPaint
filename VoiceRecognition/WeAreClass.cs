@@ -121,8 +121,6 @@ namespace VoiceToPaint.VR
             Console.WriteLine(gBuilder.DebugShowPhrases);
             masterEngine.RecognizeAsync(RecognizeMode.Single);
 
-
-
         }
 
         public String[] addNumber(String numbers)
