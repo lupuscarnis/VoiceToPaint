@@ -82,8 +82,10 @@ namespace VoiceToPaint.Backend
                 else
                 {
                     string[] list;
-                    Commands.Commandsmap1.TryGetValue(Tools.LastCommand, out list);
-                   
+                    Commands.Commandsmap1.TryGetValue("command", out list);
+                    Tools.Command = "";
+                    Tools.CommandPath = "";
+                    Tools.LastCommand = "";
                     vr.understandArray(list);
                     vr.startListening("");
                     OnCommandList(list);
