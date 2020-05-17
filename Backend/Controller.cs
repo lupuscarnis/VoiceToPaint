@@ -102,54 +102,54 @@ namespace VoiceToPaint.Backend
                 {
                   /*  if (!Tools.Command.Contains(command))*/ {
                         int index;
-                        string[] list;
+                        string[] list = new string[0] ;
 
 
                         if (Tools.CommandPath.Contains("circle"))
                         {
                             Commands.Commandsmap1.TryGetValue("circle", out list);
                             vr.understandArray(list);
-                            OnCommandList(list);
+                          
                         }
                         else if (Tools.CommandPath.Contains("triangle"))
                         {
                             Commands.Commandsmap1.TryGetValue("triangle", out list);
                             vr.understandArray(list);
-                            OnCommandList(list);
+                  
                         }
                         else if (Tools.CommandPath.Contains("square"))
                         {
                             Commands.Commandsmap1.TryGetValue("square", out list);
                             vr.understandArray(list);
-                            OnCommandList(list);
+                         
                         }
 
                         else if (Tools.CommandPath.Contains("type"))
                         {
                             Commands.Commandsmap1.TryGetValue("type", out list);
                             vr.understandArray(list);
-                            OnCommandList(list);
+                         
                         }
 
                         else if (Tools.CommandPath.Contains("draw"))
                         {
                             Commands.Commandsmap1.TryGetValue("draw", out list);
                             vr.understandArray(list);
-                            OnCommandList(list);
+                          
 
                         }
                         else if (Tools.CommandPath.Contains("rotate"))
                         {
                             Commands.Commandsmap1.TryGetValue("rotate", out list);
                             vr.understandArray(list);
-                            OnCommandList(list);
+                           
 
                         }
                         else if (Tools.CommandPath.Contains("delete"))
                         {
                             Commands.Commandsmap1.TryGetValue("delete", out list);
                             vr.understandArray(list);
-                            OnCommandList(list);
+                            
 
                         }
 
@@ -180,7 +180,7 @@ namespace VoiceToPaint.Backend
                         Console.WriteLine(Tools.Command);
 
 
-
+                        OnCommandList(list);
                         vr.startListening("");
                    }
                 }
