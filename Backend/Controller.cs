@@ -51,6 +51,11 @@ namespace VoiceToPaint.Backend
                     formCommand += list[i] + ":" + list[i + 1]+ ",";
                     i +=2 ;
                 }
+                if (list[2] == null)
+                {
+                    list[2] = "";
+                }
+
                 Console.WriteLine(formCommand + Tools.Command);
                 formCommand += Tools.Command;
 
@@ -84,7 +89,7 @@ namespace VoiceToPaint.Backend
                 }
                 else
                 {
-                    if (!Tools.Command.Contains(command)) {
+                  /*  if (!Tools.Command.Contains(command))*/ {
                         int index;
                         string[] list;
 
@@ -120,15 +125,25 @@ namespace VoiceToPaint.Backend
 
                         
                         string attribute = Tools.LastCommand + ":" + command + ",";
+
+                                                                     
                         if (!Tools.Command.Contains(command.ToLower()))
+                        {
+                            if (Tools.Command.Contains(Tools.LastCommand))
+                            {
+                                Tools.Command = Tools.Command.Replace(LastAttribute, attribute);
+                            }
+
                             Tools.Command += attribute;
+                            LastAttribute = attribute;
+                            
+                        }
+
                         if (Tools.CommandPath.Contains(Tools.LastCommand))
+                        {
                             Tools.CommandPath = Tools.CommandPath.Replace(Tools.LastCommand, "");
-
-                        Console.WriteLine(Tools.CommandPath);
-                        Console.WriteLine(Tools.Command);
-
-
+                        }
+                            
                         Console.WriteLine(Tools.CommandPath);
                         Console.WriteLine(Tools.Command);
 

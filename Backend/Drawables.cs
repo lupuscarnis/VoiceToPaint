@@ -497,6 +497,11 @@ namespace VoiceToPaint.Backend
             //Send it to the form 
             Tools.getPen = new Pen(Commands.getColor(color));
             //graph.DrawRectangle(Tools.getPen, Shapes.Square(point,size));
+            
+            if ((size==null))
+            {
+                size = "20";
+            }
                                     
             //Send it to the form 
             graph.DrawPath(Tools.getPen, Shapes.Square(point, size, "100", "90", rotation));
@@ -511,7 +516,11 @@ namespace VoiceToPaint.Backend
             Graphics graph = control.CreateGraphics();
             //Send it to the form 
             Tools.getPen = new Pen(Commands.getColor(color));
-                               
+
+            if ((size == null))
+            {
+                size = "20";
+            }
             //Send it to the form 
             graph.DrawPath(Tools.getPen, Shapes.Triangle(point, size, rotation));
 
@@ -524,7 +533,11 @@ namespace VoiceToPaint.Backend
             Graphics graph = control.CreateGraphics();
             //Send it to the form 
             Tools.getPen = new Pen(Commands.getColor(color));
-                               
+
+            if ((size == null))
+            {
+                size = "20";
+            }
             //Send it to the form 
             graph.DrawPath(Tools.getPen, Shapes.Circle(point, size));
 
@@ -560,6 +573,7 @@ namespace VoiceToPaint.Backend
                 Tools.getCenterMap.TryGetValue(pointOnCentermap, out coords);
 
                 int Size;
+                Console.WriteLine(nearRightHandSide+" driller");
                 int.TryParse(nearRightHandSide, out Size);
 
                 int Rotation;

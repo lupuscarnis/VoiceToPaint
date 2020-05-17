@@ -15,7 +15,7 @@ namespace VoiceToPaint.Backend
 
         static public Color getColor(string color)
         {
-            color = color.ToLower();
+            //color = color.ToLower();
             Color output = Color.Red ;
             
             switch (color)
@@ -66,7 +66,7 @@ namespace VoiceToPaint.Backend
                     }
                 default:
                     {
-                        output = Color.Black;
+                        output = Color.Purple;
                         Console.WriteLine("Could not find the color:" + color);
                         break;
                     }
@@ -95,7 +95,7 @@ namespace VoiceToPaint.Backend
             //If it just says int i don't know the assume max 100 for now
 
             //strings
-            Commandsmap.Add("command", new string[] { "draw", "connect", "edit", "delete", "done", "rotate", "clear" });
+            Commandsmap.Add("command", new string[] { "draw", "delete", "rotate", "clear" });
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
             Commandsmap.Add("draw", new string[] {"type"});
             //
@@ -120,7 +120,7 @@ namespace VoiceToPaint.Backend
             //
             Commandsmap.Add("point", new string[] { "0", "360" });
             //all string
-            Commandsmap.Add("type", new string[] { "square", "rectangle", "circle", "triangle" });
+            Commandsmap.Add("type", new string[] { "square", "circle", "triangle" });
             //all string
             Commandsmap.Add("square", new string[] { "size", "color", "point", "rotation", "done" });
             //all string

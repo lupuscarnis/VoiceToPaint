@@ -217,7 +217,7 @@ namespace VoiceToPaint
             //connect should perhaps be called edit throughtout?
             richTextBox1.Text = "Commands: \n \n";
             richTextBox1.Text += "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
-            richTextBox1.Text += "Connect, object number \n \n";
+            
 
             String tempInput = "";
             String[] prettyStrings = tempInput.Split(' ');
@@ -259,7 +259,7 @@ namespace VoiceToPaint
                 richTextBox1.Text = "Commands: \n \n";
                 
                 richTextBox1.Text += "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
-                richTextBox1.Text += "Connect, object number \n \n";
+               
 
                 this.richTextBox1.SelectionStart = 0;
                 this.richTextBox1.SelectionLength = 9;
