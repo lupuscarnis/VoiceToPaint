@@ -120,8 +120,6 @@ namespace VoiceToPaint.VR
             //masterEngine.RecognizeAsync(RecognizeMode.Multiple);
             masterEngine.RecognizeAsync(RecognizeMode.Single);
 
-
-
         }
 
         public String[] addNumber(String numbers)

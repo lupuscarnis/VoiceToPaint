@@ -166,11 +166,12 @@ namespace VoiceToPaint.Backend
                         SetObject(objectKey, drawCommand);
 
                         Dictionary<int,string[]> Drawings = GetObjectDict();
-                        
+                        string[] s;
+                        int counter = 0;
                         for(int i=0;i<200;i++)  {
                             if(Drawings.ContainsKey(i)) {
-                                string[] s = GetObject(i);
-                                //Debug.WriteLine(s[i]);
+                                counter++;
+                                s = GetObject(i);
                                 if (s[1].Equals("square")) {
                                     DrawSquare(s);
                                 }
@@ -184,6 +185,8 @@ namespace VoiceToPaint.Backend
                                 }
                             }
                         }
+
+                        OnChangeViewList();
 
                         break;
                     }
@@ -206,7 +209,31 @@ namespace VoiceToPaint.Backend
 
 
                         string object1 = args[1];
+                        int objectKey = int.Parse(object1);
+                        RemoveObject(objectKey);
 
+                        OnClear();
+
+                        Dictionary<int,string[]> Drawings = GetObjectDict();
+                        string[] s;
+                        int counter = 0;
+                        for(int i=0;i<200;i++)  {
+                            if(Drawings.ContainsKey(i)) {
+                                counter++;
+                                s = GetObject(i);
+                                if (s[1].Equals("square")) {
+                                    DrawSquare(s);
+                                }
+
+                                if (s[1].Equals("triangle")) {
+                                    DrawTriangle(s);
+                                }
+
+                                if (s[1].Equals("circle")) {
+                                    DrawCircle(s);
+                                }
+                            }
+                        }
 
                         //Update the List // clears it 
                         OnChangeViewList();

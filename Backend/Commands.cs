@@ -95,11 +95,11 @@ namespace VoiceToPaint.Backend
             //If it just says int i don't know the assume max 100 for now
 
             //strings
-            Commandsmap.Add("command", new string[] { "Draw", "Connect", "Edit", "Delete", "Done", "Rotate" });
+            Commandsmap.Add("command", new string[] { "draw", "connect", "edit", "delete", "done", "rotate", "clear" });
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
-            Commandsmap.Add("draw", new string[] {"Type"});
+            Commandsmap.Add("draw", new string[] {"type"});
             //
-            Commandsmap.Add("rotate", new string[] { "objectkey", "Rotation" });
+            Commandsmap.Add("rotate", new string[] { "objectkey", "rotation" });
             //
             Commandsmap.Add("size", new string[] { "0", "100",  });
             //Object1 = int, Object2 = int
@@ -120,15 +120,15 @@ namespace VoiceToPaint.Backend
             //
             Commandsmap.Add("point", new string[] { "0", "360" });
             //all string
-            Commandsmap.Add("type", new string[] { "Square", "Rectangle", "Circle", "Triangle" });
+            Commandsmap.Add("type", new string[] { "square", "rectangle", "circle", "triangle" });
             //all string
-            Commandsmap.Add("square", new string[] { "Size", "Color", "Point", "Rotation", "Done" });
+            Commandsmap.Add("square", new string[] { "size", "color", "point", "rotation", "done" });
             //all string
-            Commandsmap.Add("circle", new string[] { "Size", "Color", "Point", "Rotation", "Done" });
+            Commandsmap.Add("circle", new string[] { "size", "color", "point", "rotation", "done" });
             //all string
-            Commandsmap.Add("triangle", new string[] { "Size", "Color", "Point", "Rotation", "Done" });
+            Commandsmap.Add("triangle", new string[] { "size", "color", "point", "rotation", "done" });
             //all string
-            Commandsmap.Add("color", new string[] { "Black", "Red", "Blue", "Green", "Yellow", "Green", "Purple"});
+            Commandsmap.Add("color", new string[] { "black", "red", "blue", "green", "yellow", "green", "purple"});
 
         }
 
