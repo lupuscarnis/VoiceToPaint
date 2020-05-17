@@ -50,8 +50,9 @@ namespace VoiceToPaint.Backend
         {
             vr = new VoiceRecognizer();
             vr.NewCommand += PushCommand;
-            if (command.ToLower().Equals("done"))
+            if (command.ToLower().Equals("done")|| command.ToLower().Equals("return"))
             {
+                if (command.ToLower().Equals("done")) { 
                 string[] list;
                 string formCommand = "";
 
@@ -77,7 +78,17 @@ namespace VoiceToPaint.Backend
                 Tools.CommandPath = "";
                 Tools.LastCommand = "";
                 InitiateCommand();
-                
+                }
+                else
+                {
+                    string[] list;
+                    Commands.Commandsmap1.TryGetValue(Tools.LastCommand, out list);
+                   
+                    vr.understandArray(list);
+                    vr.startListening("");
+                    OnCommandList(list);
+                }
+
             }
             else
             {
@@ -94,9 +105,10 @@ namespace VoiceToPaint.Backend
                     
 
                     Console.WriteLine("GotCommand: "+ command);
-                    OnCommandList(list);
+                    
                     vr.understandArray(list);
                     vr.startListening("");
+                    OnCommandList(list);
                 }
                 else
                 {
@@ -152,13 +164,7 @@ namespace VoiceToPaint.Backend
                             
 
                         }
-                        else if (Tools.CommandPath.Contains("return"))
-                        {
-                            Commands.Commandsmap1.TryGetValue(Tools.LastCommand, out list);
-                            vr.understandArray(list);
-
-
-                        }
+                     
 
 
 
