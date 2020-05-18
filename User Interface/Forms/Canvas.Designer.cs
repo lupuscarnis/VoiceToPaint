@@ -91,7 +91,7 @@ namespace VoiceToPaint
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "Draw, type, color, point, size, rotation \\n \\nDelete, object number, \\n \\nClear \\" +
     "n \\nRotate, object number";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            
             // 
             // Canvas
             // 
