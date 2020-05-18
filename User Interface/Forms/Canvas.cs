@@ -213,7 +213,8 @@ namespace VoiceToPaint
             // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
             Dictionary<string,string> values = new Dictionary<string, string>();
             //connect should perhaps be called edit throughtout?
-            richTextBox1.Text = "<b>"+ "Commands:  \n" +"</b>";
+            richTextBox1.Text = @"\b " + "Commands:  \n" + @"\b0 ";
+
             string[] list, list2;
             string value; 
             if (!Tools.Command.Equals("")){
