@@ -30,7 +30,7 @@ namespace VoiceToPaint.Backend
             this.draw = draw;
 
             
-         InitiateCommand();
+        // InitiateCommand();
             this.cv = cv;
             
         
