@@ -150,10 +150,10 @@ namespace VoiceToPaint
             Sketch scrat = new Sketch();
             cont.run(this, draw);
 
+            richTextBox1.Text += "Commands:  \n";
+            richTextBox1.Text += "Objects: \n \n";
 
-            OnChangeRichTextBox1(new string[] {"Draw", "Rotate", "Delete", });
 
-         
 
             cont.CommandListChanged += OnChangeRichTextBox1;
             draw.ListChanged += OnChangeRichTextBox1;
@@ -213,7 +213,7 @@ namespace VoiceToPaint
             // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
             Dictionary<string,string> values = new Dictionary<string, string>();
             //connect should perhaps be called edit throughtout?
-            richTextBox1.Text = @"\b " + "Commands:  \n" + @"\b0 ";
+            richTextBox1.Text =  "Commands:  \n"  ;
 
             string[] list, list2;
             string value; 
@@ -256,7 +256,7 @@ namespace VoiceToPaint
                 i++;
             }
             
-            richTextBox1.Text += "<b>"+ "Objects: \n \n" + "</b>";
+            richTextBox1.Text +=  "Objects: \n \n"  ;
             richTextBox1.Text += tempInput.ToLower();
 
             
@@ -270,6 +270,12 @@ namespace VoiceToPaint
             //richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
             //richTextBox1.Text += "Connect, object number \n \n";
 
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            richTextBox1.Text += "Commands:  \n";
+            richTextBox1.Text += "Objects: \n \n";
         }
 
         void view_DrawItem(object sender, DrawListViewItemEventArgs e)

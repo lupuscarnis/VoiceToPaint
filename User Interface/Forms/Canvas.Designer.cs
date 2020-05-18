@@ -58,7 +58,6 @@ namespace VoiceToPaint
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
-           
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // listView1
@@ -91,7 +90,7 @@ namespace VoiceToPaint
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "Draw, type, color, point, size, rotation \\n \\nDelete, object number, \\n \\nClear \\" +
     "n \\nRotate, object number";
-            
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // Canvas
             // 
