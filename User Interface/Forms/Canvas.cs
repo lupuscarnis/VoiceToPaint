@@ -12,6 +12,7 @@ using VoiceToPaint.Backend;
 using VoiceToPaint.User_Interface.Forms;
 using System.Collections.Generic;
 using VoiceToPaint.VoiceRecognition;
+using System.Speech.Recognition;
 
 namespace VoiceToPaint
 {
@@ -147,17 +148,20 @@ namespace VoiceToPaint
         private void Canvas_Shown(object sender, EventArgs e)
         {
 
-            Controller cont = new Controller();
+            //Controller cont = new Controller();
             Sketch scrat = new Sketch();
-            //  cont.run(this, draw);
+            //cont.run(this, draw);
             VoiceRegTest vr = new VoiceRegTest();
-            vr.Test();
+            vr.SetGrammer(new string[] {"hello" });
+            vr.startListening();
+    
+        
 
             richTextBox1.Text = "Commands: \n \n";
 
          
 
-            cont.CommandListChanged += OnChangeRichTextBox1;
+            //cont.CommandListChanged += OnChangeRichTextBox1;
             draw.ListChanged += OnChangeRichTextBox1;
             draw.GraphicsCleared += UpdateDraw;
             // what happends when the Canvas is shown

@@ -30,7 +30,10 @@ namespace VoiceToPaint.VR
             masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             inputListener = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             commands = new Choices();
-          
+            foreach (RecognizerInfo ri in SpeechRecognitionEngine.InstalledRecognizers())
+            {
+                Console.WriteLine(ri.Description);
+            }
         }
 
         //probably just use startListening all the time
