@@ -11,7 +11,6 @@ using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
 using VoiceToPaint.User_Interface.Forms;
 using System.Collections.Generic;
-using System.Speech.Recognition;
 
 namespace VoiceToPaint
 {
@@ -150,14 +149,11 @@ namespace VoiceToPaint
             Controller cont = new Controller();
             Sketch scrat = new Sketch();
             cont.run(this, draw);
-            foreach(RecognizerInfo ri in SpeechRecognitionEngine.InstalledRecognizers())
-      {
-                Console.WriteLine(ri.Name);
-            }
-            richTextBox1.Text += "Commands:  \n";
-            richTextBox1.Text += "Objects: \n \n";
 
 
+            richTextBox1.Text = "Commands: \n \n";
+
+         
 
             cont.CommandListChanged += OnChangeRichTextBox1;
             draw.ListChanged += OnChangeRichTextBox1;
@@ -217,11 +213,10 @@ namespace VoiceToPaint
             // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
             Dictionary<string,string> values = new Dictionary<string, string>();
             //connect should perhaps be called edit throughtout?
-            richTextBox1.Text =  "Commands:  \n"  ;
-
+            richTextBox1.Text = "Commands:  \n";
             string[] list, list2;
-            string value; 
-            if (!Tools.Command.Equals("")){
+            string value;
+            if(!Tools.Command.Equals("")){
                 list = Tools.Command.Split(',');
                     foreach(string s in list)
                 {
@@ -259,14 +254,61 @@ namespace VoiceToPaint
                
                 i++;
             }
-            
-            richTextBox1.Text +=  "Objects: \n \n"  ;
+            Font drawFont = new Font("Arial", 16);
+                        
+
+            richTextBox1.Text += "Objects: \n \n";
             richTextBox1.Text += tempInput.ToLower();
 
-            
+            this.richTextBox1.SelectionStart = 133;
+            this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
+
+            richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+            this.richTextBox1.SelectionStart = 56;
+            this.richTextBox1.SelectionLength = 13;//this.richTextBox1.Text.Length + 50;
+
+            richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.SelectionLength = 9;
+            richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+            // richTextBox1.SelectionColor = System.Drawing.Color.Red;
+
         }
 
-       
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.richTextBox1.SelectionStart = 10;
+            this.richTextBox1.SelectionLength = 20;
+            
+           
+            if (richTextBox1.Text.Equals(""))
+            {
+               
+                richTextBox1.Text = "Commands: \n \n";
+                richTextBox1.Text += "Draw\nRotate\nDelete \n \n";
+
+
+
+
+                this.richTextBox1.SelectionStart = 0;
+                this.richTextBox1.SelectionLength = 9;
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+                this.richTextBox1.SelectionStart = 150;
+                this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
+
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+
+                this.richTextBox1.SelectionStart = 56;
+                this.richTextBox1.SelectionLength = 13;//this.richTextBox1.Text.Length + 50;
+
+                richTextBox1.SelectionFont = new Font("Arial", 10, FontStyle.Bold);
+            }
+            
+
+        }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -274,12 +316,6 @@ namespace VoiceToPaint
             //richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
             //richTextBox1.Text += "Connect, object number \n \n";
 
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            richTextBox1.Text += "Commands:  \n";
-            richTextBox1.Text += "Objects: \n \n";
         }
 
         void view_DrawItem(object sender, DrawListViewItemEventArgs e)
