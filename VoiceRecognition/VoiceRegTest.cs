@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
+using System.Collections;
+
 namespace VoiceToPaint.VoiceRecognition
 {
     class VoiceRegTest
@@ -15,8 +17,7 @@ namespace VoiceToPaint.VoiceRecognition
 
         SpeechRecognitionEngine masterEngine;
     
-        public String command = "";
-        Boolean commandReady = false;
+     
 
 
         Choices commands;
@@ -37,64 +38,46 @@ namespace VoiceToPaint.VoiceRecognition
             if (info == null) Console.WriteLine("Din't have languagepack"); ;
             Console.WriteLine("found this Langugepack: "+ info.Description
 );             masterEngine = new SpeechRecognitionEngine(info);
+           
+            
   
             commands = new Choices();
 
         }
 
-        //probably just use startListening all the time
-        private String getCommand(Boolean finishedRequired)
+
+        public void SetGrammer(string[] grammer)
         {
+            bool isInt = false;
+            ArrayList commands = new ArrayList();
 
-
-            if (finishedRequired && (!commandReady))
+            foreach (string s in grammer)
             {
-
-                return "Not ready";
-            }
-
-            return command;
-        }
-
-        public void understandArray(String[] newCommands)
-        {
-            Boolean isInputInt = false;
-
-            for (int i = 0; i < 10; i++)
-            {
-                if (newCommands.Contains("" + i))
-                {
-                    isInputInt = true;
-                    break;
+                int b;
+                commands.Add(s);
+                if (int.TryParse(s, out b)) {
+                    isInt = true;
                 }
-            }
 
-            if (isInputInt)
+
+            }
+            if (isInt)
             {
-                String[] tempString = new String[int.Parse(newCommands[1])];
-                commands.Add((newCommands));
-                for (int i = 0; i < int.Parse(newCommands[1]); i++)
+
+
+                for (int i = 0; i < int.Parse(grammer[1]); i++)
                 {
-                    tempString[i] = "" + i;
+                    commands.Add("" + i);
 
                 }
 
-                commands.Add(tempString);
-            }
-            else
-            {
-                commands.Add(newCommands);
+
             }
 
-        }
-        public void SetGrammer(string[] frammer)
-        {
-            
-            
             GrammarBuilder gBuilder = new GrammarBuilder();
             Choices choice = new Choices();
-            choice.Add(frammer);
-
+            string[] stringArray = (string[])commands.ToArray(typeof(string));
+            choice.Add(stringArray);
             gBuilder.Append(choice);
             Grammar gram = new Grammar(gBuilder);
             masterEngine.UnloadAllGrammars();
@@ -129,58 +112,33 @@ namespace VoiceToPaint.VoiceRecognition
         private void SpeechDetectedHandler(object sender, SpeechDetectedEventArgs e)
         {
             
-            Console.WriteLine(" In SpeechDetectedHandler:");
-            Console.WriteLine(" - AudioPosition = {0}", e.AudioPosition);
+           // Console.WriteLine(" In SpeechDetectedHandler:");
+           // Console.WriteLine(" - AudioPosition = {0}", e.AudioPosition);
         }
         // Handle the SpeechHypothesized event.  
         //Raised when input creates an ambiguous match with one of the active grammars.
         private void SpeechHypothesizedHandler(
           object sender, SpeechHypothesizedEventArgs e)
         {
-            Console.WriteLine("Think this might be a thing");
+            
+           // Console.WriteLine("confidence lvl: " + e.Result.Confidence);
         }
         //Raised when the recognizer finalizes a recognition operation.
         private void masterEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
 
-
-            // += not needed when only doing single words
-            command = e.Result.Text;
-            if (command.Equals("hi"))
+           if( e.Result.Confidence >= 0.8)
             {
-                GrammarBuilder gBuilder = new GrammarBuilder();
-                Choices choice = new Choices();
-                choice.Add("hello");
-                Console.WriteLine("I heard " + command);
-                Console.WriteLine("Now Looking for hello");
-                gBuilder.Append(choice);
-                Grammar gram = new Grammar(gBuilder);
-                masterEngine.UnloadAllGrammars();
-                masterEngine.RequestRecognizerUpdate();
-                masterEngine.LoadGrammarAsync(gram);
-                masterEngine.RequestRecognizerUpdate();
-            }
-            if (command.Equals("hello"))
-            {
-                Console.WriteLine("I heard " + command);
-                Console.WriteLine("Now looking for hi");
-                GrammarBuilder gBuilder = new GrammarBuilder();
-                Choices choice = new Choices();
-                choice.Add("hi");
+                // += not needed when only doing single words
+               
 
-                gBuilder.Append(choice);
-                Grammar gram = new Grammar(gBuilder);
-                masterEngine.UnloadAllGrammars();
-                masterEngine.RequestRecognizerUpdate();
-                masterEngine.LoadGrammarAsync(gram);
-                masterEngine.RequestRecognizerUpdate();
 
+
+                //sends new string to show on screen
+
+                OnNewCommand(e.Result.Text);
             }
 
-            
-            //sends new string to show on screen
-
-            //sendCommand(command);
 
         }
 

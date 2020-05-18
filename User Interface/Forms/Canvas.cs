@@ -148,12 +148,11 @@ namespace VoiceToPaint
         private void Canvas_Shown(object sender, EventArgs e)
         {
 
-            //Controller cont = new Controller();
+            Controller cont = new Controller();
             Sketch scrat = new Sketch();
-            //cont.run(this, draw);
-            VoiceRegTest vr = new VoiceRegTest();
-            vr.SetGrammer(new string[] {"hello" });
-            vr.startListening();
+            cont.run(this, draw);
+          
+           
     
         
 
@@ -161,7 +160,7 @@ namespace VoiceToPaint
 
          
 
-            //cont.CommandListChanged += OnChangeRichTextBox1;
+            cont.CommandListChanged += OnChangeRichTextBox1;
             draw.ListChanged += OnChangeRichTextBox1;
             draw.GraphicsCleared += UpdateDraw;
             // what happends when the Canvas is shown
