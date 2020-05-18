@@ -36,7 +36,7 @@ namespace VoiceToPaint.VoiceRecognition
                 }
             }
             if (info == null) Console.WriteLine("Din't have languagepack"); ;
-            Console.WriteLine("found this Langugepack: "+ info.Description
+            Console.WriteLine("Found this Langugepack: "+ info.Description
 );             masterEngine = new SpeechRecognitionEngine(info);
            
             
