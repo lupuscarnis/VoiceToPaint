@@ -11,6 +11,7 @@ using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
 using VoiceToPaint.User_Interface.Forms;
 using System.Collections.Generic;
+using System.Speech.Recognition;
 
 namespace VoiceToPaint
 {
@@ -149,7 +150,10 @@ namespace VoiceToPaint
             Controller cont = new Controller();
             Sketch scrat = new Sketch();
             cont.run(this, draw);
-
+            foreach(RecognizerInfo ri in SpeechRecognitionEngine.InstalledRecognizers())
+      {
+                Console.WriteLine(ri.Name);
+            }
             richTextBox1.Text += "Commands:  \n";
             richTextBox1.Text += "Objects: \n \n";
 
