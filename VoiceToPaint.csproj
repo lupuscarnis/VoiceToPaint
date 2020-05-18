@@ -75,6 +75,7 @@
       <DependentUpon>Sketch.cs</DependentUpon>
     </Compile>
     <Compile Include="User Interface\UI_backend\Setup.cs" />
+    <Compile Include="VoiceRecognition\VoiceRegTest.cs" />
     <Compile Include="VoiceRecognition\WeAreClass.cs" />
     <EmbeddedResource Include="User Interface\Forms\Canvas.resx">
       <DependentUpon>Canvas.cs</DependentUpon>

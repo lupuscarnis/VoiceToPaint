@@ -11,6 +11,7 @@ using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
 using VoiceToPaint.User_Interface.Forms;
 using System.Collections.Generic;
+using VoiceToPaint.VoiceRecognition;
 
 namespace VoiceToPaint
 {
@@ -148,8 +149,9 @@ namespace VoiceToPaint
 
             Controller cont = new Controller();
             Sketch scrat = new Sketch();
-            cont.run(this, draw);
-
+            //  cont.run(this, draw);
+            VoiceRegTest vr = new VoiceRegTest();
+            vr.Test();
 
             richTextBox1.Text = "Commands: \n \n";
 
