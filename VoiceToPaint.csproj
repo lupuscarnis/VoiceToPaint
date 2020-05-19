@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backend\Controller.cs" />
+    <Compile Include="Backend\DrawObject.cs" />
     <Compile Include="Backend\Shapes\Circle.cs" />
     <Compile Include="Backend\Shapes\Square.cs" />
     <Compile Include="Backend\Tools.cs" />

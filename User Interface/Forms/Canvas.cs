@@ -250,14 +250,14 @@ namespace VoiceToPaint
            
 
             String tempInput = "";
-            string[] args;
+           DrawObject args;
 
 
             for (int i = 0; i < Tools.getObjects.Count; i++)
             {
                 
                 Tools.getObjects.TryGetValue(i, out args);
-                tempInput += "\nNumber: " + i+ "\nType: " + args[1] + "\nColor: " + args[2] + "\nPoint: " + args[3] + "\nSize: " + args[4] + "\nrotation: " + args[5]    ;
+                tempInput += "\nNumber: " + i+ args.ToString();
             }
             Font drawFont = new Font("Arial", 16);
                         

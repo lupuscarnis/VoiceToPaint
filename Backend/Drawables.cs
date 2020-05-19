@@ -16,7 +16,7 @@ namespace VoiceToPaint.Backend
     class Drawables
     {
         Control control;
-        private IDictionary<int, string[]> ObjectStorage;
+        private IDictionary<int, DrawObject> ObjectStorage;
 
         public Drawables(Control control)
         {
@@ -29,19 +29,19 @@ namespace VoiceToPaint.Backend
         public delegate void UpdateGraphicEventHandler(object source, EventArgs e);
         public event UpdateGraphicEventHandler GraphicsCleared;
 
-        public Dictionary<int, string[]> GetObjectDict() {
+        public Dictionary<int, DrawObject> GetObjectDict() {
             return  Tools.getObjects;
         }
 
-        public string[] GetObject(int key) {
-            string[] Output; 
+        public DrawObject GetObject(int key) {
+            DrawObject Output; 
             ObjectStorage.TryGetValue(key, out Output);
             return Output;
         }
 
 
-        public void SetObject(int key, string[] args) {
-            string[] drawing;
+        public void SetObject(int key, DrawObject args) {
+            DrawObject drawing;
             if (ObjectStorage.TryGetValue(key, out drawing))
             {
                 ObjectStorage[key] = args;
@@ -98,13 +98,13 @@ namespace VoiceToPaint.Backend
                            
                             case "square":
                                 {
-                                    string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+                                    DrawObject drawObject = new DrawObject(args[1], args[2], int.Parse(args[3]), int.Parse(args[4]), int.Parse(args[5]));
 
-                                    DrawSquare(args);
+                                    DrawSquare(drawObject);
                                      //store the object in a sorted list
                                     int ListKeyMod = 0;
                                     do{
-                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
+                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod, drawObject);}
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
 
@@ -117,12 +117,13 @@ namespace VoiceToPaint.Backend
 
                             case "circle":
                                 {
-                                    string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+                                    DrawObject drawObject = new DrawObject(args[1], args[2], int.Parse(args[3]), int.Parse(args[4]), int.Parse(args[5]));
+                                   
 
-                                    DrawCircle(args);
+                                    DrawCircle(drawObject);
                                     int ListKeyMod = 0;
                                     do{
-                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
+                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod, drawObject);}
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));                                    
                                   
@@ -134,12 +135,13 @@ namespace VoiceToPaint.Backend
 
                             case "triangle":
                                 {
-                                    string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+                                    DrawObject drawObject = new DrawObject(args[1], args[2], int.Parse(args[3]), int.Parse(args[4]), int.Parse(args[5]));
 
-                                    DrawTriangle(args);
+
+                                    DrawTriangle(drawObject);
                                     int ListKeyMod = 0;
                                     do{
-                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
+                                        if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod, drawObject);}
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
              
@@ -156,15 +158,20 @@ namespace VoiceToPaint.Backend
 
                 case "connect":
                     {
+
+        
                         int key1, key2;
                         
                         int.TryParse(args[1], out key1);
                         int.TryParse(args[2], out key2);
                         
-                        string[] object1, object2;
+                              DrawObject object1, object2;
 
                         object1 = GetObject(key1);
                         object2 = GetObject(key2);
+
+
+               
 
 
 
@@ -185,26 +192,26 @@ namespace VoiceToPaint.Backend
                         //requires object info, because to rotate you must redraw the object with new rotation.
                         OnClear();
                         int objectKey = int.Parse(object1);
-                        string[] drawCommand = GetObject(objectKey);
-                        drawCommand[5] = rotation;
+                        DrawObject drawCommand = GetObject(objectKey);
+                      drawCommand.Rotation = int.Parse(rotation);
                         SetObject(objectKey, drawCommand);
 
-                        Dictionary<int,string[]> Drawings = GetObjectDict();
-                        string[] s;
+                        Dictionary<int,DrawObject> Drawings = GetObjectDict();
+                        DrawObject s;
                         int counter = 0;
                         for(int i=0;i<200;i++)  {
                             if(Drawings.ContainsKey(i)) {
                                 counter++;
                                 s = GetObject(i);
-                                if (s[1].Equals("square")) {
+                                if (s.Type.Equals("square")) {
                                     DrawSquare(s);
                                 }
 
-                                if (s[1].Equals("triangle")) {
+                                if (s.Type.Equals("triangle")) {
                                     DrawTriangle(s);
                                 }
 
-                                if (s[1].Equals("circle")) {
+                                if (s.Type.Equals("circle")) {
                                     DrawCircle(s);
                                 }
                             }
@@ -241,22 +248,22 @@ namespace VoiceToPaint.Backend
 
                         OnClear();
 
-                        Dictionary<int,string[]> Drawings = GetObjectDict();
-                        string[] s;
+                        Dictionary<int,DrawObject> Drawings = GetObjectDict();
+                        DrawObject s;
                         int counter = 0;
                         for(int i=0;i<200;i++)  {
                             if(Drawings.ContainsKey(i)) {
                                 counter++;
                                 s = GetObject(i);
-                                if (s[1].Equals("square")) {
+                                if (s.Type.Equals("square")) {
                                     DrawSquare(s);
                                 }
 
-                                if (s[1].Equals("triangle")) {
+                                if (s.Type.Equals("triangle")) {
                                     DrawTriangle(s);
                                 }
 
-                                if (s[1].Equals("circle")) {
+                                if (s.Type.Equals("circle")) {
                                     DrawCircle(s);
                                 }
                             }
@@ -298,6 +305,12 @@ namespace VoiceToPaint.Backend
                         arg[3] = "square";
                         arg[4] = "10";
                         arg[5] = "0";
+                        arg[6] = "0";
+                        arg[7] = "0";
+                        arg[8] = "0";
+                        arg[9] = "0";
+                      
+                       
                         if (text == null || text == "")
                         {
                             Console.WriteLine("An empty String");
@@ -334,6 +347,14 @@ namespace VoiceToPaint.Backend
                             commandvalues.TryGetValue("size", out arg[4]);
 
                             commandvalues.TryGetValue("rotation", out arg[5]);
+
+                        }
+                        for(int i = 0; i < 10; i++)
+                        {
+                            if(arg[i] == null)
+                            {
+                                arg[i] = "0";
+                            }
 
                         }
 
@@ -509,15 +530,15 @@ namespace VoiceToPaint.Backend
         }
      
 
-        private void DrawSquare(string[] args) {
-            string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+        private void DrawSquare(DrawObject args) {
+            string type = args.Type, color = args.Color, point = args.Point + "", size = args.Size + "", rotation = args.Rotation + "";
             //create the object to draw 
             Graphics graph = control.CreateGraphics();
             //Send it to the form 
             Tools.getPen = new Pen(Commands.getColor(color));
             //graph.DrawRectangle(Tools.getPen, Shapes.Square(point,size));
             
-            if ((size==null))
+            if ((size==null) || size.Equals("0"))
             {
                 size = "20";
             }
@@ -529,14 +550,14 @@ namespace VoiceToPaint.Backend
             
         }
 
-        private void DrawTriangle(string[] args) {
-            string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+        private void DrawTriangle(DrawObject args) {
+            string type = args.Type, color = args.Color, point = args.Point + "", size = args.Size + "", rotation = args.Rotation + "";
             //create the object to draw 
             Graphics graph = control.CreateGraphics();
             //Send it to the form 
             Tools.getPen = new Pen(Commands.getColor(color));
 
-            if ((size == null))
+            if ((size == null) || size.Equals("0"))
             {
                 size = "20";
             }
@@ -546,14 +567,14 @@ namespace VoiceToPaint.Backend
             
         }
 
-        private void DrawCircle(string[] args) {
-            string type = args[1], color = args[2], point = args[3], size = args[4], rotation = args[5];
+        private void DrawCircle(DrawObject args) {
+            string type = args.Type, color = args.Color, point = args.Point+"", size = args.Size+"", rotation = args.Rotation+"";
             //create the object to draw 
             Graphics graph = control.CreateGraphics();
             //Send it to the form 
             Tools.getPen = new Pen(Commands.getColor(color));
 
-            if ((size == null))
+            if ((size == null) || size.Equals("0"))
             {
                 size = "20";
             }
