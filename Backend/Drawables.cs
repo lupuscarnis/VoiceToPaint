@@ -11,6 +11,8 @@ using VoiceToPaint.User_Interface;
 using System.IO;
 using System.Drawing.Drawing2D;
 
+   
+
 namespace VoiceToPaint.Backend
 {
     class Drawables
@@ -158,31 +160,76 @@ namespace VoiceToPaint.Backend
 
                 case "connect":
                     {
-
+                        Point onObject;
+                        LinkedList<Point> result = new LinkedList<Point>();
                         double vectorlenght;
                         int key1, key2,coordsize1, coordsize2;
-                        Point point1,point2, center;
+                        Point point1,point2, vector1, vector2;
                         int.TryParse(args[1], out key1);
                         int.TryParse(args[2], out key2);
                         
-                        DrawObject object1, object2;
+                        DrawObject[] objects = new DrawObject[2];
                        
-                        object1 = GetObject(key1);
-                        object2 = GetObject(key2);
-                        Tools.getCenterMap.TryGetValue(object1.Point, out point1);
-                        Tools.getCenterMap.TryGetValue(object2.Point, out point2);
+                        objects[0] = GetObject(key1);
+                        objects[1] = GetObject(key2);
+                        Tools.getCenterMap.TryGetValue(objects[0].Point, out point1);
+                        Tools.getCenterMap.TryGetValue(objects[1].Point, out point2);
+                        /*
+                         foreach (DrawObject s in objects)
+                         { 
+                         switch (s.Type)
+                         {
+                             case "circle":
+                                 {
+                                     Point center;double angle;
 
-                      
-                        
+                                     vector1 = new Point(point1.X - point2.X, point1.Y - point2.Y);
+                                     Tools.getCenterMap.TryGetValue(s.Point, out center);
+                                     vector2 = new Point(center.X - (center.X + s.Size), center.Y - (center.Y + s.Size));
+                                     angle = Shapes.AngleBetween(vector1, vector2);
+                                     onObject =  Shapes.PointOnCircle(s.Size, (float)angle, center);
+                                     result.AddFirst(onObject);
 
-                        GraphicsPath connection = new GraphicsPath();
-                       
-                        connection.AddLine(point1, point2);
+                                     break;
+                                 }
+                             case "square":
+                                 {
 
+
+
+
+                                     break;
+                                 }
+                             case "triangle":
+                                 {
+
+
+
+
+                                     break;
+                                 }
+
+
+                         }
+                         }
+
+                         //create the object to draw 
+
+                         //Send it to the form 
+                         Point[] points = new Point[2];
+                         int i = 0;
+                         while(i < 2)
+                         {
+                             points[i] = result.First();
+                             result.RemoveFirst();
+                             i++;
+                         }
+                         */
                         Graphics graph = control.CreateGraphics();
-                       
-
-                        graph.DrawPath(Tools.getPen, connection);
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddLine(point1, point2);
+                        //Send it to the form 
+                        graph.DrawPath(Tools.getPen,path );
 
 
                         break;
@@ -338,18 +385,31 @@ namespace VoiceToPaint.Backend
                                 }
 
                             }
-                          
-                            commandvalues.TryGetValue("command", out arg[0]);
 
-                            commandvalues.TryGetValue("type", out arg[1]);
+                            if (!commandvalues.TryGetValue("command", out arg[0]))
+                            {
+                            
+                            }
 
-                            commandvalues.TryGetValue("color", out arg[2]);
+                            if (!commandvalues.TryGetValue("type", out arg[1])){
 
-                            commandvalues.TryGetValue("point", out arg[3]);
+                            }
 
-                            commandvalues.TryGetValue("size", out arg[4]);
+                            if (!commandvalues.TryGetValue("color", out arg[2])){
 
-                            commandvalues.TryGetValue("rotation", out arg[5]);
+                            }
+
+                            if (!commandvalues.TryGetValue("point", out arg[3])){
+
+                            }
+
+                            if (!commandvalues.TryGetValue("size", out arg[4])){
+                                arg[4] = "20";
+                            }
+
+                            if (!commandvalues.TryGetValue("rotation", out arg[5])){
+
+                            }
 
                         }
                         for(int i = 0; i < 10; i++)
@@ -721,6 +781,26 @@ namespace VoiceToPaint.Backend
             private static Point CirclePointCoordinate(int angle, double size, Point center) {
                 
                 return  new Point(center.X + Convert.ToInt32(Math.Cos((double)angle/360*2*Math.PI)*size/2), center.Y + Convert.ToInt32(Math.Sin((double)angle/360*2*Math.PI)*size/2));
+            }
+
+
+            public static double AngleBetween(Point vector1, Point vector2)
+            {
+                double ALen = Math.Sqrt(Math.Pow(vector1.X, 2) + Math.Pow(vector1.Y, 2));
+                double BLen = Math.Sqrt(Math.Pow(vector2.X, 2) + Math.Pow(vector2.Y, 2));
+                double dotProduct = vector1.X * vector2.X + vector1.Y * vector2.Y;
+                double theta = (180 / Math.PI) * Math.Acos(dotProduct / (ALen * BLen));
+                return theta;
+            }
+
+            //https://stackoverflow.com/questions/839899/how-do-i-calculate-a-point-on-a-circle-s-circumference      
+            public static Point PointOnCircle(float radius, float angleInDegrees, Point origin)
+            {
+                // Convert from degrees to radians via multiplication by PI/180        
+                float x = (float)(radius * Math.Cos(angleInDegrees * Math.PI / 180F)) + origin.X;
+                float y = (float)(radius * Math.Sin(angleInDegrees * Math.PI / 180F)) + origin.Y;
+
+                return new Point((int)x,(int)y);
             }
 
 

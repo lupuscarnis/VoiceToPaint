@@ -344,7 +344,7 @@ namespace VoiceToPaint
 
             if (tasks == null||tasks.IsCompleted)
             {
-                Console.WriteLine("createing new Task");
+                
                 tasks = new Task(action, "sleep");
                 tasks.Start();
             }
