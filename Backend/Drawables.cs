@@ -159,27 +159,25 @@ namespace VoiceToPaint.Backend
                 case "connect":
                     {
 
-        
+
                         int key1, key2;
-                        
+                       Point point1,point2;
                         int.TryParse(args[1], out key1);
                         int.TryParse(args[2], out key2);
                         
-                              DrawObject object1, object2;
+                        DrawObject object1, object2;
 
                         object1 = GetObject(key1);
                         object2 = GetObject(key2);
+                        Tools.getCenterMap.TryGetValue(object1.Point, out point1);
+                        Tools.getCenterMap.TryGetValue(object2.Point, out point2);
+                        GraphicsPath connection = new GraphicsPath();
+                        connection.AddLine(point1,point2);
 
+                        Graphics graph = control.CreateGraphics();
+                       
 
-               
-
-
-
-
-
-
-
-
+                        graph.DrawPath(Tools.getPen, connection);
 
 
                         break;

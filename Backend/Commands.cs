@@ -95,7 +95,7 @@ namespace VoiceToPaint.Backend
             //If it just says int i don't know the assume max 100 for now
 
             //strings
-            Commandsmap.Add("command", new string[] { "draw","rotate","delete", "connect"});
+            Commandsmap.Add("command", new string[] { "draw","rotate","delete", "connect", "clear"});
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
             Commandsmap.Add("draw", new string[] { "type", "return" });
             //
@@ -104,7 +104,7 @@ namespace VoiceToPaint.Backend
             //
             Commandsmap.Add("size", new string[] { "0", "100",  });
             //Object1 = int, Object2 = int
-            Commandsmap.Add("connect", new string[] { "object1", "object2", "return" });
+            Commandsmap.Add("connect", new string[] { "object1", "object2", "return", "done" });
             //subset
             Commandsmap.Add("objectkey", new string[] { "0", "200",  });
             //subset
@@ -117,7 +117,7 @@ namespace VoiceToPaint.Backend
             Commandsmap.Add("delete", new string[] {"objectkey","done", "return" });
             //
             Commandsmap.Add("rotation", new string[] { "0", "360" });
-            
+            Commandsmap.Add("clear", new string[] { "return", "done" });
             //
             Commandsmap.Add("point", new string[] { "0", "360" });
             //all string

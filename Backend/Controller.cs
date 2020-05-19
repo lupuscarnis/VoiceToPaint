@@ -115,7 +115,7 @@ namespace VoiceToPaint.Backend
                 else
                 {
                   /*  if (!Tools.Command.Contains(command))*/ {
-                        int index;
+                        
                         string[] list = new string[0] ;
 
 
@@ -166,7 +166,14 @@ namespace VoiceToPaint.Backend
 
 
                         }
-                     
+                        else if (Tools.CommandPath.Contains("connect"))
+                        {
+                            Commands.Commandsmap1.TryGetValue("connect", out list);
+                            vr.SetGrammer(list);
+
+
+                        }
+
 
 
 
