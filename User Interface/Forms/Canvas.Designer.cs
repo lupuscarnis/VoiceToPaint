@@ -58,6 +58,7 @@ namespace VoiceToPaint
             this.textBox1.AccessibleDescription = "Blue";
             this.textBox1.Location = new System.Drawing.Point(377, 542);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
@@ -97,11 +98,13 @@ namespace VoiceToPaint
             // pictureBox1
             // 
             this.pictureBox1.Image = global::VoiceToPaint.Properties.Resources.voice_Icon;
-            this.pictureBox1.Location = new System.Drawing.Point(361, 542);
+            this.pictureBox1.Location = new System.Drawing.Point(351, 542);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            this.pictureBox1.VisibleChanged += new System.EventHandler(this.pictureBox1_VisibleChanged);
             // 
             // Canvas
             // 

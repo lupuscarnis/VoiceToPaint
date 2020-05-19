@@ -115,19 +115,14 @@ namespace VoiceToPaint.VoiceRecognition
         // Raised when the recognizer detects input that it can identify as speech.
         private void SpeechDetectedHandler(object sender, SpeechDetectedEventArgs e)
         {
-            
-           // Console.WriteLine(" In SpeechDetectedHandler:");
-           // Console.WriteLine(" - AudioPosition = {0}", e.AudioPosition);
+            OnAudioInputCommand();
+          
         }
         // Handle the SpeechHypothesized event.  
         //Raised when input creates an ambiguous match with one of the active grammars.
         private void SpeechHypothesizedHandler(
           object sender, SpeechHypothesizedEventArgs e)
         {
-            if(e.Result.Confidence >= 8)
-            {
-                OnInputCommand(e.Result.Text);
-            }
            
            
         }
@@ -142,12 +137,12 @@ namespace VoiceToPaint.VoiceRecognition
            if( e.Result.Confidence >= 0.8)
             {
                 // += not needed when only doing single words
-               
+
 
 
 
                 //sends new string to show on screen
-
+                OnInputCommand(e.Result.Text);
                 OnNewCommand(e.Result.Text);
             }
 
@@ -157,7 +152,7 @@ namespace VoiceToPaint.VoiceRecognition
         private void SpeechRecognitionRejectedHandler(
       object sender, SpeechRecognitionRejectedEventArgs e)
         {
-            OnInputCommand("I Don't Understand");
+            OnInputCommand(e.Result.Text);
         }
 
         public String[] addNumber(String numbers)

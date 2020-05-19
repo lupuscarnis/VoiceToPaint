@@ -13,6 +13,7 @@ using VoiceToPaint.User_Interface.Forms;
 using System.Collections.Generic;
 using VoiceToPaint.VoiceRecognition;
 using System.Speech.Recognition;
+using System.Threading.Tasks;
 
 namespace VoiceToPaint
 {
@@ -20,11 +21,12 @@ namespace VoiceToPaint
 
     public partial class Canvas : Form
     {
-        Thread voice = null;
+        Task tasks;
         bool drw;
         int beginX, beginY; 
         Drawables draw;
         Size boardSize = new Size(10*50+120, 10*50);
+        private delegate void SafeCallDelegate(bool s);
         public Canvas()
         {
             InitializeComponent();
@@ -158,7 +160,7 @@ namespace VoiceToPaint
 
             richTextBox1.Text = "Commands: \n \n";
 
-
+            vr.NewAudioInput += OnPictureBox1VisibleChanged;
             vr.NewInput += OntextBox1_TextChanged;
             cont.CommandListChanged += OnChangeRichTextBox1;
             draw.ListChanged += OnChangeRichTextBox1;
@@ -322,13 +324,49 @@ namespace VoiceToPaint
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
-            //richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
-            //richTextBox1.Text += "Connect, object number \n \n";
+
+            textBox1.Text +="";
 
         }
+        private void OnPictureBox1VisibleChanged()
+        {
+            pictureBox1.Visible = true;
+        }
+        private void pictureBox1_VisibleChanged(object sender, EventArgs e)
+        {
 
-       
+            Action<object> action = (object obj) =>
+            {
+
+                Thread.Sleep(1000);
+                VisabilitySafe(false);
+            };
+
+            if (tasks == null||tasks.IsCompleted)
+            {
+                Console.WriteLine("createing new Task");
+                tasks = new Task(action, "sleep");
+                tasks.Start();
+            }
+                
+
+           
+
+
+        }
+        private void VisabilitySafe(bool s)
+        {
+            if (pictureBox1.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(VisabilitySafe);
+                pictureBox1.Invoke(d, new object[] {s});
+            }
+            else
+            {
+                pictureBox1.Visible = s;
+            }
+        }
+
         void view_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
             Font drawFont = new Font("Arial", 16);
