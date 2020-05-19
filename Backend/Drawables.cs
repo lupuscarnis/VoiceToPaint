@@ -16,10 +16,11 @@ namespace VoiceToPaint.Backend
     class Drawables
     {
         Control control;
-        private IDictionary<int, string[]> ObjectStorage = new Dictionary<int, string[]>();
+        private IDictionary<int, string[]> ObjectStorage;
 
         public Drawables(Control control)
         {
+            ObjectStorage = Tools.getObjects;
             this.control = control;
         }
 
@@ -29,7 +30,7 @@ namespace VoiceToPaint.Backend
         public event UpdateGraphicEventHandler GraphicsCleared;
 
         public Dictionary<int, string[]> GetObjectDict() {
-            return (Dictionary<int, string[]>) ObjectStorage;
+            return  Tools.getObjects;
         }
 
         public string[] GetObject(int key) {
@@ -107,7 +108,7 @@ namespace VoiceToPaint.Backend
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
 
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+                                   
 
                                     OnChangeViewList();
                                    
@@ -124,7 +125,7 @@ namespace VoiceToPaint.Backend
                                         if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));                                    
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+                                  
 
                                     OnChangeViewList();
                                     
@@ -141,7 +142,7 @@ namespace VoiceToPaint.Backend
                                         if(!ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod)) {ObjectStorage.Add(ObjectStorage.Count+ListKeyMod,args);}
                                         ListKeyMod++;
                                     }while(ObjectStorage.ContainsKey(ObjectStorage.Count+ListKeyMod));
-                                    Tools.getObjects.AddLast("Command: " + command + " Color: " + color + " Point: " + point + " Type: " + type + " Size: " + size);
+             
 
                                     OnChangeViewList();
                                     
@@ -155,7 +156,24 @@ namespace VoiceToPaint.Backend
 
                 case "connect":
                     {
-                        string object1= args[1], object2 = args[2];
+                        int key1, key2;
+                        
+                        int.TryParse(args[1], out key1);
+                        int.TryParse(args[2], out key2);
+                        
+                        string[] object1, object2;
+
+                        object1 = GetObject(key1);
+                        object2 = GetObject(key2);
+
+
+
+
+
+
+
+
+
 
                         break;
                     }
@@ -192,7 +210,7 @@ namespace VoiceToPaint.Backend
                             }
                         }
 
-                        OnChangeViewList();
+                      
 
                         OnChangeViewList();
 

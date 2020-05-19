@@ -123,6 +123,10 @@ namespace VoiceToPaint.VoiceRecognition
             
            // Console.WriteLine("confidence lvl: " + e.Result.Confidence);
         }
+      
+        
+        
+        
         //Raised when the recognizer finalizes a recognition operation.
         private void masterEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {

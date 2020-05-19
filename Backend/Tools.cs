@@ -13,7 +13,7 @@ namespace VoiceToPaint.Backend
     {
         
         static Dictionary<int, Point> CenterMap = new Dictionary<int, Point>();
-        static LinkedList<string> Objects = new LinkedList<string>();
+        static IDictionary<int, string[]> Objects = new Dictionary<int, string[]>();
         static Pen pen = new Pen(Color.Blue, 4);
         static Brush brush = null;
         static bool debug = false;
@@ -27,7 +27,7 @@ namespace VoiceToPaint.Backend
         static string lastCommand = "";
         static string lastAttribute ="";
         public static Dictionary<int, Point> getCenterMap { get => CenterMap; set => CenterMap = value; }
-        public static LinkedList<string> getObjects { get => Objects; set => Objects = value; }
+        public static Dictionary<int, string[]> getObjects { get => (Dictionary<int, string[]>)Objects; set => Objects = value; }
         public static Pen getPen { get => pen; set => pen = value; }
         public static Brush getBrush { get => brush; set => brush = value; }
         public static bool Debug { get => debug; set => debug = value; }
