@@ -147,10 +147,10 @@ namespace VoiceToPaint
 
         private void Canvas_Shown(object sender, EventArgs e)
         {
-
+           VoiceRegTest vr = new VoiceRegTest();
             Controller cont = new Controller();
             Sketch scrat = new Sketch();
-            cont.run(this, draw);
+            cont.run(this, draw,vr);
           
            
     
@@ -158,8 +158,8 @@ namespace VoiceToPaint
 
             richTextBox1.Text = "Commands: \n \n";
 
-         
 
+            vr.NewInput += OntextBox1_TextChanged;
             cont.CommandListChanged += OnChangeRichTextBox1;
             draw.ListChanged += OnChangeRichTextBox1;
             draw.GraphicsCleared += UpdateDraw;
@@ -314,7 +314,12 @@ namespace VoiceToPaint
             
 
         }
+        private void OntextBox1_TextChanged(string text)
+        {
 
+            textBox1.Text = "I Heard: "+text;
+
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             
@@ -323,6 +328,7 @@ namespace VoiceToPaint
 
         }
 
+       
         void view_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
             Font drawFont = new Font("Arial", 16);

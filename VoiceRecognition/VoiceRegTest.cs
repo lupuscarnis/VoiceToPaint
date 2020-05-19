@@ -11,7 +11,11 @@ namespace VoiceToPaint.VoiceRecognition
     class VoiceRegTest
     {
         public delegate void NewCommandEventHandler(string text);
-        public event NewCommandEventHandler NewCommand;
+        public event NewCommandEventHandler NewCommand; 
+        public delegate void NewInputEventHandler(string text);
+        public event NewInputEventHandler NewInput;
+          public delegate void NewAudioInputEventHandler();
+        public event NewAudioInputEventHandler NewAudioInput;
 
 
 
@@ -120,8 +124,12 @@ namespace VoiceToPaint.VoiceRecognition
         private void SpeechHypothesizedHandler(
           object sender, SpeechHypothesizedEventArgs e)
         {
-            
-           // Console.WriteLine("confidence lvl: " + e.Result.Confidence);
+            if(e.Result.Confidence >= 8)
+            {
+                OnInputCommand(e.Result.Text);
+            }
+           
+           
         }
       
         
@@ -149,7 +157,7 @@ namespace VoiceToPaint.VoiceRecognition
         private void SpeechRecognitionRejectedHandler(
       object sender, SpeechRecognitionRejectedEventArgs e)
         {
-            Console.WriteLine("I don't understand you Bitch");
+            OnInputCommand("I Don't Understand");
         }
 
         public String[] addNumber(String numbers)
@@ -176,6 +184,22 @@ namespace VoiceToPaint.VoiceRecognition
             if (NewCommand != null)
             {
                 NewCommand(text);
+            }
+
+        }
+        protected virtual void OnInputCommand(string text)
+        {
+            if (NewInput != null)
+            {
+                NewInput(text);
+            }
+
+        }
+        protected virtual void OnAudioInputCommand()
+        {
+            if (NewAudioInput != null)
+            {
+                NewAudioInput();
             }
 
         }

@@ -23,13 +23,13 @@ namespace VoiceToPaint.Backend
         public delegate void CommandListEventHandler(string[] text);
         public event CommandListEventHandler CommandListChanged ;
 
-        public void run(Canvas cv, Drawables draw)
+        public void run(Canvas cv, Drawables draw,VoiceRegTest vr)
         {
             
             Commands.setupCommandsList();
             this.draw = draw;
 
-            vr = new VoiceRegTest();
+            this.vr = vr;
             PushCommand("command");
             vr.startListening();
             vr.NewCommand += PushCommand;
