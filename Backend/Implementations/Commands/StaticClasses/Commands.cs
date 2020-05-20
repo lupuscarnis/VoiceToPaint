@@ -9,9 +9,9 @@ namespace VoiceToPaint.Backend
 {
      static class Commands
     {
-       private static Dictionary<string, string[]> Commandsmap = new Dictionary<string, string[]>();
+       private static Dictionary<string, string[]> commandsmap = new Dictionary<string, string[]>();
 
-        public static Dictionary<string, string[]> Commandsmap1 { get => Commandsmap; set => Commandsmap = value; }
+        public static Dictionary<string, string[]> Commandsmap { get => commandsmap; set => commandsmap = value; }
 
         static public Color getColor(string color)
         {
@@ -95,40 +95,41 @@ namespace VoiceToPaint.Backend
             //If it just says int i don't know the assume max 100 for now
 
             //strings
-            Commandsmap.Add("command", new string[] { "draw", });
+            commandsmap.Add("command", new string[] { "draw","rotate","delete", "connect", "clear","edit"});
             //type = string, Size =  0-100, color = string, point = int rotation  = 0 - 360, done = string 
-            Commandsmap.Add("draw", new string[] {"type"});
+            commandsmap.Add("draw", new string[] { "type", "return" });
             //
-            Commandsmap.Add("rotate", new string[] { "objectkey", "rotation" });
+            commandsmap.Add("type", new string[] { "square", "circle", "triangle", "return" });
+            commandsmap.Add("rotate", new string[] { "objectkey", "rotation", "done", "return" });
             //
-            Commandsmap.Add("size", new string[] { "0", "100",  });
+            commandsmap.Add("size", new string[] { "0", "100",  });
             //Object1 = int, Object2 = int
-            Commandsmap.Add("connect", new string[] { "object1", "object2" });
+            commandsmap.Add("connect", new string[] { "object1", "object2", "return", "done" });
             //subset
-            Commandsmap.Add("objectkey", new string[] { "0", "200" });
+            commandsmap.Add("objectkey", new string[] { "0", "200",  });
             //subset
-            Commandsmap.Add("object1", new string[] { "0", "100",});
+            commandsmap.Add("object1", new string[] { "0", "100",});
             //subset
-            Commandsmap.Add("object2", new string[] { "0", "100",});
+            commandsmap.Add("object2", new string[] { "0", "100",});
             //Object = int
-            Commandsmap.Add("edit", new string[] { "0", "100"  });
+           
             //Object = int
-            Commandsmap.Add("delete", new string[] {"0","100" });
+            commandsmap.Add("delete", new string[] {"objectkey","done", "return" });
             //
-            Commandsmap.Add("rotation", new string[] { "0", "360" });
-            
+            commandsmap.Add("rotation", new string[] { "0", "360" });
+            commandsmap.Add("clear", new string[] { "return", "done" });
             //
-            Commandsmap.Add("point", new string[] { "0", "360" });
+            commandsmap.Add("point", new string[] { "0", "360" });
             //all string
-            Commandsmap.Add("type", new string[] { "square", "circle", "triangle" });
+            commandsmap.Add("edit", new string[] {"objectkey", "done", "return" });
             //all string
-            Commandsmap.Add("square", new string[] { "size", "color", "point", "rotation", "done" });
+            commandsmap.Add("square", new string[] { "size", "color", "point", "rotation", "done", "return" });
             //all string
-            Commandsmap.Add("circle", new string[] { "size", "color", "point", "rotation", "done" });
+            commandsmap.Add("circle", new string[] { "size", "color", "point", "rotation", "done", "return" });
             //all string
-            Commandsmap.Add("triangle", new string[] { "size", "color", "point", "rotation", "done" });
+            commandsmap.Add("triangle", new string[] { "size", "color", "point", "rotation", "done", "return" });
             //all string
-            Commandsmap.Add("color", new string[] { "black", "red", "blue", "green", "yellow", "green", "purple"});
+            commandsmap.Add("color", new string[] { "black", "red", "blue", "green", "yellow", "green", "purple"});
 
         }
 

@@ -4,16 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
+using VoiceToPaint.VoiceRecognition;
 
 namespace VoiceToPaint.VR
 {
 
     
-    public unsafe class VoiceRecognizer
+    public unsafe class VoiceRecognizer : IVoiceRecognition
     {
         public delegate void NewCommandEventHandler(string text);
         public event NewCommandEventHandler NewCommand;
-
+        public delegate void NewInputEventHandler(string text);
+        public event NewInputEventHandler NewInput;
+        public delegate void NewAudioInputEventHandler();
+        public event NewAudioInputEventHandler NewAudioInput;
 
 
         SpeechRecognitionEngine masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
@@ -30,7 +34,49 @@ namespace VoiceToPaint.VR
             masterEngine = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             inputListener = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             commands = new Choices();
-          
+            foreach (RecognizerInfo ri in SpeechRecognitionEngine.InstalledRecognizers())
+            {
+                Console.WriteLine(ri.Description);
+            }
+        }
+
+        event VoiceRegTest.NewCommandEventHandler IVoiceRecognition.NewCommand
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        event VoiceRegTest.NewAudioInputEventHandler IVoiceRecognition.NewAudioInput
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        event VoiceRegTest.NewInputEventHandler IVoiceRecognition.NewInput
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
         }
 
         //probably just use startListening all the time
@@ -194,12 +240,36 @@ namespace VoiceToPaint.VR
        //might not need to be separate from reset
         public void stopListening()
         {
+            masterEngine.UnloadAllGrammars();
             masterEngine.RecognizeAsyncStop();
             commands = new Choices();
             command = "";
            
         }
 
+        public void SetGrammer(string[] grammer)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void startListening()
+        {
+            throw new NotImplementedException();
+        }
+
+        string[] IVoiceRecognition.addNumber(string numbers)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IVoiceRecognition.SetGrammer(string[] grammer)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IVoiceRecognition.startListening()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

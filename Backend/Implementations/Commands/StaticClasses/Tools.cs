@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace VoiceToPaint.Backend
     {
         
         static Dictionary<int, Point> CenterMap = new Dictionary<int, Point>();
-        static LinkedList<string> Objects = new LinkedList<string>();
+        static IDictionary Objects = new Dictionary<int,DrawObject>();
         static Pen pen = new Pen(Color.Blue, 4);
         static Brush brush = null;
         static bool debug = false;
@@ -25,8 +26,9 @@ namespace VoiceToPaint.Backend
         static string commandPath = "";
         static string command = "";
         static string lastCommand = "";
+        static string lastAttribute ="";
         public static Dictionary<int, Point> getCenterMap { get => CenterMap; set => CenterMap = value; }
-        public static LinkedList<string> getObjects { get => Objects; set => Objects = value; }
+        public static Dictionary<int, DrawObject> getObjects { get => (Dictionary<int, DrawObject>)Objects; set => Objects = value; }
         public static Pen getPen { get => pen; set => pen = value; }
         public static Brush getBrush { get => brush; set => brush = value; }
         public static bool Debug { get => debug; set => debug = value; }
@@ -38,5 +40,6 @@ namespace VoiceToPaint.Backend
         public static string Command { get => command; set => command = value; }
         public static string CommandPath { get => commandPath; set => commandPath = value; }
         public static string LastCommand { get => lastCommand; set => lastCommand = value; }
+        public static string LastAttribute { get => lastAttribute; set => lastAttribute = value; }
     }
 }

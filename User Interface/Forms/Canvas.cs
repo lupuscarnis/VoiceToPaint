@@ -9,7 +9,10 @@ using System.Threading;
 using System.Windows.Forms;
 using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
-using VoiceToPaint.User_Interface.Forms;
+using System.Collections.Generic;
+using VoiceToPaint.VoiceRecognition;
+using System.Speech.Recognition;
+using System.Threading.Tasks;
 
 namespace VoiceToPaint
 {
@@ -17,11 +20,14 @@ namespace VoiceToPaint
 
     public partial class Canvas : Form
     {
-        Thread voice = null;
+        Task tasks;
         bool drw;
         int beginX, beginY; 
-        Drawables draw;
-        Size boardSize = new Size(10*50+120, 10*50);
+        IDrawables draw;
+        IVoiceRecognition vr;
+        IController cont;
+       Size boardSize = new Size(10*50+120, 10*50);
+        private delegate void SafeCallDelegate(bool s);
         public Canvas()
         {
             InitializeComponent();
@@ -127,30 +133,15 @@ namespace VoiceToPaint
 
         private void Canvas_Load(object sender, EventArgs e)
         {
-            draw = new Drawables(this);
-            Controller cont = new Controller();
-            Sketch scrat = new Sketch();
+           
 
          
 
-            cont.run(this, draw);
 
-
-            draw.ListChanged += OnListViewChange;
-            draw.GraphicsCleared += UpdateDraw;
-
-
-            richTextBox1.Text = "Commands: \n \n";
-
-            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
-
-            richTextBox1.Text += "TextBox only:\n \n";
-
-            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
 
         }
 
-      
+
         private void Canvas_Layout(object sender, LayoutEventArgs e)
         {
 
@@ -158,7 +149,23 @@ namespace VoiceToPaint
 
         private void Canvas_Shown(object sender, EventArgs e)
         {
-            
+            draw = new Drawables(this);
+            vr = new VoiceRegTest();
+            cont = new Controller();
+            cont.run(this, draw, vr);
+
+
+
+
+
+
+            richTextBox1.Text = "Commands: \n \n";
+
+            vr.NewAudioInput += OnPictureBox1VisibleChanged;
+            vr.NewInput += OntextBox1_TextChanged;
+            cont.CommandListChanged += OnChangeRichTextBox1;
+            draw.ListChanged += OnChangeRichTextBox1;
+            draw.GraphicsCleared += UpdateDraw;
             // what happends when the Canvas is shown
             UpdateDraw(null,null);
           
@@ -207,43 +214,64 @@ namespace VoiceToPaint
 
         }
 
-        private void OnListViewChange(object source, EventArgs e)
-        {
-          
-            changeRichTextBox1(source, e);
+     
 
-        }
-            
-
-        private void changeRichTextBox1(object sender, EventArgs e)
+        private void OnChangeRichTextBox1(string[] text)
         {
             // command: draw,color: blue,point: 33,type: square,size: 55,rotation:87
-
+            Dictionary<string,string> values = new Dictionary<string, string>();
             //connect should perhaps be called edit throughtout?
-            richTextBox1.Text = "Commands: \n \n";
+            richTextBox1.Text = "Commands:  \n";
+            string[] list, list2;
+            string value;
+            if(!Tools.Command.Equals("")){
+                list = Tools.Command.Split(',');
+                    foreach(string s in list)
+                {
 
-            richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+                    list2 = s.Split(':');
+                    if(list2.Length >= 2)
+                    values.Add(list2[0], list2[1]);
+                }
 
-            richTextBox1.Text += "TextBox only:\n \n";
+            }
+            
+            foreach (string s in text)
+            {
 
-            richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
+                if(values.TryGetValue(s, out value)) { 
+                richTextBox1.Text += s+" Value: "+value+" \n";
+                }
+                else
+                {
+                    richTextBox1.Text += s + " \n";
+                }
 
+            }
+            
+
+           
 
             String tempInput = "";
-            String[] prettyStrings = tempInput.Split(' ');
-           
-            int i = 0;
-            foreach (string s in Tools.getObjects)
+           DrawObject args;
+
+            IDictionaryEnumerator myEnumerator =
+                Tools.getObjects.GetEnumerator();
+            myEnumerator.Reset();
+            while (myEnumerator.MoveNext())
             {
-                tempInput += s.Remove(0, 14) + "\n" + "Number: " + i + "\n" + "\n";
+
+                args = (DrawObject)myEnumerator.Value;
                
-                i++;
+                tempInput += "\nNumber: " + args.Id + args.ToString() + "\n";
+
             }
+
             Font drawFont = new Font("Arial", 16);
                         
 
             richTextBox1.Text += "Objects: \n \n";
-            richTextBox1.Text += tempInput;
+            richTextBox1.Text += tempInput.ToLower();
 
             this.richTextBox1.SelectionStart = 133;
             this.richTextBox1.SelectionLength = 12;//this.richTextBox1.Text.Length + 50;
@@ -272,12 +300,10 @@ namespace VoiceToPaint
             {
                
                 richTextBox1.Text = "Commands: \n \n";
-                
-                richTextBox1.Text += "Draw, type, color, point, size, rotation \n \n";
+                richTextBox1.Text += "draw\nrotate\ndelete \n \n";
 
-                richTextBox1.Text += "TextBox only:\n \n";
 
-                richTextBox1.Text += "Delete, object number, \n \nClear \n \nRotate, object number \n \n";
+
 
                 this.richTextBox1.SelectionStart = 0;
                 this.richTextBox1.SelectionLength = 9;
@@ -296,13 +322,55 @@ namespace VoiceToPaint
             
 
         }
+        private void OntextBox1_TextChanged(string text)
+        {
 
+            textBox1.Text = "I Heard: "+text;
+
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
-            //richTextBox1.Text = "Draw, type, color, point, size, rotation \n \nDelete, object number, \n \nClear \n \nRotate, object number \n \n";
-            //richTextBox1.Text += "Connect, object number \n \n";
 
+            textBox1.Text +="";
+
+        }
+        private void OnPictureBox1VisibleChanged()
+        {
+            pictureBox1.Visible = true;
+        }
+        private void pictureBox1_VisibleChanged(object sender, EventArgs e)
+        {
+
+            Action<object> action = (object obj) =>
+            {
+
+                Thread.Sleep(1000);
+                VisabilitySafe(false);
+            };
+
+            if (tasks == null||tasks.IsCompleted)
+            {
+                
+                tasks = new Task(action, "sleep");
+                tasks.Start();
+            }
+                
+
+           
+
+
+        }
+        private void VisabilitySafe(bool s)
+        {
+            if (pictureBox1.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(VisabilitySafe);
+                pictureBox1.Invoke(d, new object[] {s});
+            }
+            else
+            {
+                pictureBox1.Visible = s;
+            }
         }
 
         void view_DrawItem(object sender, DrawListViewItemEventArgs e)

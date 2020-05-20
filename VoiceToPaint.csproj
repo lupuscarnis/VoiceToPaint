@@ -52,14 +52,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend\Controller.cs" />
-    <Compile Include="Backend\Shapes\Circle.cs" />
-    <Compile Include="Backend\Shapes\Square.cs" />
-    <Compile Include="Backend\Tools.cs" />
-    <Compile Include="Backend\Commands.cs" />
-    <Compile Include="Backend\Drawables.cs" />
-    <Compile Include="Backend\Interfaces\I_Commands.cs" />
-    <Compile Include="Backend\Interfaces\I_Drawables.cs" />
+    <Compile Include="Backend\Implementations\Commands\Clear.cs" />
+    <Compile Include="Backend\Implementations\Commands\Connect.cs" />
+    <Compile Include="Backend\Implementations\Commands\Delete.cs" />
+    <Compile Include="Backend\Implementations\Commands\Draw.cs" />
+    <Compile Include="Backend\Implementations\Commands\Edit.cs" />
+    <Compile Include="Backend\Implementations\Commands\Rotate.cs" />
+    <Compile Include="Backend\Implementations\Controller.cs" />
+    <Compile Include="Backend\Implementations\DrawObject.cs" />
+    <Compile Include="Backend\Interfaces\IDrawObject.cs" />
+    <Compile Include="Backend\Interfaces\IDrawables.cs" />
+    <Compile Include="Backend\Interfaces\IController.cs" />
+    <Compile Include="Backend\Implementations\Commands\StaticClasses\Tools.cs" />
+    <Compile Include="Backend\Implementations\Commands\StaticClasses\Commands.cs" />
+    <Compile Include="Backend\Implementations\Drawables.cs" />
     <Compile Include="User Interface\Forms\Canvas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,14 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User Interface\Forms\Sketch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="User Interface\Forms\Sketch.Designer.cs">
-      <DependentUpon>Sketch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="User Interface\UI_backend\Setup.cs" />
-    <Compile Include="VoiceRecognition\WeAreClass.cs" />
+    <Compile Include="VoiceRecognition\Interfaces\IVoiceRecognition.cs" />
+    <Compile Include="VoiceRecognition\Implementations\VoiceRegTest.cs" />
+    <Compile Include="VoiceRecognition\Implementations\WeAreClass.cs" />
     <EmbeddedResource Include="User Interface\Forms\Canvas.resx">
       <DependentUpon>Canvas.cs</DependentUpon>
     </EmbeddedResource>
@@ -87,6 +88,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -102,6 +104,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\voice Icon.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
