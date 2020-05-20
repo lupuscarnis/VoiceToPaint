@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace VoiceToPaint.Backend.Implementations.Commands
 {
@@ -24,14 +25,15 @@ namespace VoiceToPaint.Backend.Implementations.Commands
             Tools.getObjects.Add(objectKey, drawCommand);
 
             DrawObject s;
-            for (int i = 0; i < Tools.getObjects.Count; i++)
-            {
-                if (Tools.getObjects.ContainsKey(i))
-                {
 
-                    if (Tools.getObjects.TryGetValue(i, out s))
+            IDictionaryEnumerator myEnumerator =
+                   Tools.getObjects.GetEnumerator();
+           while(myEnumerator.MoveNext())
+            {
+                
+                    s = (DrawObject)myEnumerator.Value;
                         Draw.Execute(s, control);
-                }
+                
             }
 
         }

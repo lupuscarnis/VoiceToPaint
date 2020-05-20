@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -31,13 +32,14 @@ namespace VoiceToPaint.Backend
                         int ListKeyMod = 0;
                         do
                         {
-                            if (!Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod)) { Tools.getObjects.Add(Tools.getObjects.Count + ListKeyMod, drawObject); }
+                            if (!Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod)) { drawObject.Id = Tools.getObjects.Count + ListKeyMod; Tools.getObjects.Add(Tools.getObjects.Count + ListKeyMod, drawObject); drawObject.Id = ListKeyMod; }
                             ListKeyMod++;
                         } while (Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod));
-                        drawObject.Id = ListKeyMod;
+                        
+                        
 
 
-                     
+
 
                         break;
                     }
@@ -51,10 +53,10 @@ namespace VoiceToPaint.Backend
                         int ListKeyMod = 0;
                         do
                         {
-                            if (!Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod)) { Tools.getObjects.Add(Tools.getObjects.Count + ListKeyMod, drawObject); }
+                            if (!Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod)) { drawObject.Id = Tools.getObjects.Count + ListKeyMod; Tools.getObjects.Add(Tools.getObjects.Count + ListKeyMod, drawObject); }
                             ListKeyMod++;
                         } while (Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod));
-                        drawObject.Id = ListKeyMod;
+             
 
 
 
@@ -70,10 +72,10 @@ namespace VoiceToPaint.Backend
                         int ListKeyMod = 0;
                         do
                         {
-                            if (!Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod)) { Tools.getObjects.Add(Tools.getObjects.Count + ListKeyMod, drawObject); }
+                            if (!Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod)) { drawObject.Id = Tools.getObjects.Count + ListKeyMod; Tools.getObjects.Add(Tools.getObjects.Count + ListKeyMod, drawObject); }
                             ListKeyMod++;
                         } while (Tools.getObjects.ContainsKey(Tools.getObjects.Count + ListKeyMod));
-                        drawObject.Id = ListKeyMod;
+                    
 
 
 

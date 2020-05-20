@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace VoiceToPaint.Backend
     {
         
         static Dictionary<int, Point> CenterMap = new Dictionary<int, Point>();
-        static IDictionary<int, DrawObject> Objects = new Dictionary<int,DrawObject>();
+        static IDictionary Objects = new Dictionary<int,DrawObject>();
         static Pen pen = new Pen(Color.Blue, 4);
         static Brush brush = null;
         static bool debug = false;
