@@ -38,6 +38,7 @@ namespace VoiceToPaint.Backend
         private int point;
         private int size;
         private int rotation;
+        private int id;
 
         public string Type { get => type; set => type = value; }
         public string Color { get => color; set => color = value; }
@@ -45,8 +46,7 @@ namespace VoiceToPaint.Backend
         public int Size { get => size; set => size = value; }
         public int Rotation { get => rotation; set => rotation = value; }
         public string Inputtext { get => inputtext; set => inputtext = value; }
-
-
+        public int Id { get => id; set => id = value; }
 
         override public string ToString()
         {

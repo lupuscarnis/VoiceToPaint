@@ -52,13 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\Implementations\Commands\Clear.cs" />
+    <Compile Include="Backend\Implementations\Commands\Connect.cs" />
+    <Compile Include="Backend\Implementations\Commands\Delete.cs" />
+    <Compile Include="Backend\Implementations\Commands\Draw.cs" />
+    <Compile Include="Backend\Implementations\Commands\Edit.cs" />
+    <Compile Include="Backend\Implementations\Commands\Rotate.cs" />
     <Compile Include="Backend\Implementations\Controller.cs" />
     <Compile Include="Backend\Implementations\DrawObject.cs" />
     <Compile Include="Backend\Interfaces\IDrawObject.cs" />
     <Compile Include="Backend\Interfaces\IDrawables.cs" />
     <Compile Include="Backend\Interfaces\IController.cs" />
-    <Compile Include="Backend\StaticClasses\Tools.cs" />
-    <Compile Include="Backend\StaticClasses\Commands.cs" />
+    <Compile Include="Backend\Implementations\Commands\StaticClasses\Tools.cs" />
+    <Compile Include="Backend\Implementations\Commands\StaticClasses\Commands.cs" />
     <Compile Include="Backend\Implementations\Drawables.cs" />
     <Compile Include="User Interface\Forms\Canvas.cs">
       <SubType>Form</SubType>

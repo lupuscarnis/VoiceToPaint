@@ -9,8 +9,9 @@ using System.Diagnostics;
 using VoiceToPaint;
 using System.IO;
 using System.Drawing.Drawing2D;
+using VoiceToPaint.Backend.Implementations.Commands;
 
-   
+
 
 namespace VoiceToPaint.Backend
 {
@@ -91,7 +92,8 @@ namespace VoiceToPaint.Backend
             string[] args;
 
             extract(text, out args);
-            string command = args[0];
+
+            string command = extractCommand(text); 
 
 
             switch (command)
@@ -99,146 +101,17 @@ namespace VoiceToPaint.Backend
                 case "draw":
                     {
 
-                        switch (args[1])
-                        {
 
-                            case "square":
-                                {
-                                    DrawObject drawObject = new DrawObject(args[1], args[2], int.Parse(args[3]), int.Parse(args[4]), int.Parse(args[5]), text);
-
-                                    DrawSquare(drawObject);
-                                    //store the object in a sorted list
-                                    int ListKeyMod = 0;
-                                    do
-                                    {
-                                        if (!ObjectStorage.ContainsKey(ObjectStorage.Count + ListKeyMod)) { ObjectStorage.Add(ObjectStorage.Count + ListKeyMod, drawObject); }
-                                        ListKeyMod++;
-                                    } while (ObjectStorage.ContainsKey(ObjectStorage.Count + ListKeyMod));
-
-
-
-                                    OnChangeViewList();
-
-                                    break;
-                                }
-
-                            case "circle":
-                                {
-                                    DrawObject drawObject = new DrawObject(args[1], args[2], int.Parse(args[3]), int.Parse(args[4]), int.Parse(args[5]), text);
-
-
-                                    DrawCircle(drawObject);
-                                    int ListKeyMod = 0;
-                                    do
-                                    {
-                                        if (!ObjectStorage.ContainsKey(ObjectStorage.Count + ListKeyMod)) { ObjectStorage.Add(ObjectStorage.Count + ListKeyMod, drawObject); }
-                                        ListKeyMod++;
-                                    } while (ObjectStorage.ContainsKey(ObjectStorage.Count + ListKeyMod));
-
-
-                                    OnChangeViewList();
-
-                                    break;
-                                }
-
-                            case "triangle":
-                                {
-                                    DrawObject drawObject = new DrawObject(args[1], args[2], int.Parse(args[3]), int.Parse(args[4]), int.Parse(args[5]), text);
-
-
-                                    DrawTriangle(drawObject);
-                                    int ListKeyMod = 0;
-                                    do
-                                    {
-                                        if (!ObjectStorage.ContainsKey(ObjectStorage.Count + ListKeyMod)) { ObjectStorage.Add(ObjectStorage.Count + ListKeyMod, drawObject); }
-                                        ListKeyMod++;
-                                    } while (ObjectStorage.ContainsKey(ObjectStorage.Count + ListKeyMod));
-
-
-                                    OnChangeViewList();
-
-                                    break;
-                                }
-
-                        }
+                        Draw.Execute(text, control);
+                        OnChangeViewList();
 
                         break;
                     }
 
                 case "connect":
                     {
-                        Point onObject;
-                        LinkedList<Point> result = new LinkedList<Point>();
-                        double vectorlenght;
-                        int key1, key2, coordsize1, coordsize2;
-                        Point point1, point2, vector1, vector2;
-                        int.TryParse(args[1], out key1);
-                        int.TryParse(args[2], out key2);
 
-                        DrawObject[] objects = new DrawObject[2];
-
-                        objects[0] = GetObject(key1);
-                        objects[1] = GetObject(key2);
-                        Tools.getCenterMap.TryGetValue(objects[0].Point, out point1);
-                        Tools.getCenterMap.TryGetValue(objects[1].Point, out point2);
-                        /*
-                         foreach (DrawObject s in objects)
-                         { 
-                         switch (s.Type)
-                         {
-                             case "circle":
-                                 {
-                                     Point center;double angle;
-
-                                     vector1 = new Point(point1.X - point2.X, point1.Y - point2.Y);
-                                     Tools.getCenterMap.TryGetValue(s.Point, out center);
-                                     vector2 = new Point(center.X - (center.X + s.Size), center.Y - (center.Y + s.Size));
-                                     angle = Shapes.AngleBetween(vector1, vector2);
-                                     onObject =  Shapes.PointOnCircle(s.Size, (float)angle, center);
-                                     result.AddFirst(onObject);
-
-                                     break;
-                                 }
-                             case "square":
-                                 {
-
-
-
-
-                                     break;
-                                 }
-                             case "triangle":
-                                 {
-
-
-
-
-                                     break;
-                                 }
-
-
-                         }
-                         }
-
-                         //create the object to draw 
-
-                         //Send it to the form 
-                         Point[] points = new Point[2];
-                         int i = 0;
-                         while(i < 2)
-                         {
-                             points[i] = result.First();
-                             result.RemoveFirst();
-                             i++;
-                         }
-                         */
-                        Graphics graph = control.CreateGraphics();
-                        GraphicsPath path = new GraphicsPath();
-                        path.AddLine(point1, point2);
-                        //Send it to the form 
-                        graph.DrawPath(Tools.getPen, path);
-
-
+                        Connect.Execute(text, control);
                         break;
                     }
 
@@ -289,14 +162,11 @@ namespace VoiceToPaint.Backend
 
                 case "clear":
                     {
-
-                        //clears the list of object
-                        Tools.getObjects.Clear();
+                        Clear.Execute();
                         //clears the borad and redraws it with a delegate
                         OnClear();
                         //Update the List // clears it 
                         OnChangeViewList();
-
                         break;
                     }
 
@@ -304,37 +174,9 @@ namespace VoiceToPaint.Backend
                     {
 
 
-                        string object1 = args[1];
-                        int objectKey = int.Parse(object1);
-                        RemoveObject(objectKey);
-
+                        // only clears the Canvas not thing stored
                         OnClear();
-
-                        Dictionary<int, DrawObject> Drawings = GetObjectDict();
-                        DrawObject s;
-                        int counter = 0;
-                        for (int i = 0; i < 200; i++)
-                        {
-                            if (Drawings.ContainsKey(i))
-                            {
-                                counter++;
-                                s = GetObject(i);
-                                if (s.Type.Equals("square"))
-                                {
-                                    DrawSquare(s);
-                                }
-
-                                if (s.Type.Equals("triangle"))
-                                {
-                                    DrawTriangle(s);
-                                }
-
-                                if (s.Type.Equals("circle"))
-                                {
-                                    DrawCircle(s);
-                                }
-                            }
-                        }
+                        Delete.Execute(text, control);
 
                         //Update the List // clears it 
                         OnChangeViewList();
@@ -457,22 +299,6 @@ namespace VoiceToPaint.Backend
                         }
                         else
                         {
-                            list = text.Split(',');
-                            foreach (string s in list)
-                            {
-                                if (s != "")
-                                {
-
-                                    list2 = s.Split(':');
-                                    if (list2.Contains("command"))
-                                        arg[0] = list2[1];
-                                    if (list2.Contains("objectkey"))
-                                        arg[1] = list2[1];
-
-                                }
-
-                            }
-
                         }
 
                         break;
@@ -513,64 +339,13 @@ namespace VoiceToPaint.Backend
                     }
                 case "connect":
                     {
-                        arg = new string[10];
-                        if (text == null || text == "")
-                        {
-                            Console.WriteLine("An empty String");
-                            Console.WriteLine("Using Default");
-
-                        }
-                        else
-                        {
-                            list = text.Split(',');
-                            foreach (string s in list)
-                            {
-                                if (s != "")
-                                {
-
-                                    list2 = s.Split(':');
-                                    if (list2.Contains("command"))
-                                        arg[0] = list2[1];
-                                    if (list2.Contains("object1"))
-                                        arg[1] = list2[1];
-                                    if (list2.Contains("object2"))
-                                        arg[2] = list2[1];
-
-                                }
-
-                            }
-
-                        }
+                       
 
                         break;
                     }
                 case "clear":
                     {
-                        arg = new string[10];
-                        if (text == null || text == "")
-                        {
-                            Console.WriteLine("An empty String");
-                            Console.WriteLine("Using Default");
-
-                        }
-                        else
-                        {
-
-                            list = text.Split(',');
-                            foreach (string s in list)
-                            {
-                                if (s != "")
-                                {
-
-                                    list2 = s.Split(':');
-                                    if (list2.Contains("command"))
-                                        arg[0] = list2[1];
-
-                                }
-
-                            }
-
-                        }
+                      
 
                         break;
                     }
