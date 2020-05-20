@@ -257,6 +257,7 @@ namespace VoiceToPaint
 
             IDictionaryEnumerator myEnumerator =
                 Tools.getObjects.GetEnumerator();
+            myEnumerator.Reset();
             while (myEnumerator.MoveNext())
             {
 
@@ -265,7 +266,7 @@ namespace VoiceToPaint
                 tempInput += "\nNumber: " + args.Id + args.ToString() + "\n";
 
             }
-            myEnumerator.Reset();
+
             Font drawFont = new Font("Arial", 16);
                         
 
