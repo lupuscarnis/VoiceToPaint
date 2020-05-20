@@ -120,6 +120,19 @@ namespace VoiceToPaint.Backend
 
                         break;
                     }
+                case "edit":
+                    {
+
+
+                        // only clears the Canvas not thing stored
+                        OnClear();
+                        Delete.Execute(text, control);
+
+                        //Update the List // clears it 
+                        OnChangeViewList();
+
+                        break;
+                    }
 
             }
 
