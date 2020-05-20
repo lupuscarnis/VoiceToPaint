@@ -67,7 +67,7 @@ namespace VoiceToPaint.Backend
                         int objectkey;
                         int.TryParse(list[1], out objectkey);
                         Tools.getObjects.TryGetValue(objectkey, out Object);
-                        Tools.getObjects.Remove(objectkey);
+                        draw.createDrawble("command:delete,objectkey:"+objectkey+",");
 
                         Commands.Commandsmap.TryGetValue(Object.Type, out list);
                         Tools.Command = Object.Inputtext;

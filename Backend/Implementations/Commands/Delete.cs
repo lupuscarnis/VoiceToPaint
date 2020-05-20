@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,18 +21,18 @@ namespace VoiceToPaint.Backend.Implementations.Commands
             int objectKey = int.Parse(object1);
             Tools.getObjects.Remove(objectKey);
 
-            
+
 
 
             DrawObject s;
-            for (int i = 0; i < Tools.getObjects.Count; i++)
+            IDictionaryEnumerator myEnumerator =
+                  Tools.getObjects.GetEnumerator();
+            while (myEnumerator.MoveNext())
             {
-                if (Tools.getObjects.ContainsKey(i))
-                {
 
-                    if (Tools.getObjects.TryGetValue(i, out s))
-                    Draw.Execute(s,control);
-                }
+                s = (DrawObject)myEnumerator.Value;
+                Draw.Execute(s, control);
+
             }
 
 
