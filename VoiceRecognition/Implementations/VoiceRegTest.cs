@@ -8,20 +8,20 @@ using System.Collections;
 
 namespace VoiceToPaint.VoiceRecognition
 {
-    class VoiceRegTest
+    class VoiceRegTest : IVoiceRecognition
     {
         public delegate void NewCommandEventHandler(string text);
-        public event NewCommandEventHandler NewCommand; 
+        public event NewCommandEventHandler NewCommand;
         public delegate void NewInputEventHandler(string text);
         public event NewInputEventHandler NewInput;
-          public delegate void NewAudioInputEventHandler();
+        public delegate void NewAudioInputEventHandler();
         public event NewAudioInputEventHandler NewAudioInput;
 
 
 
         SpeechRecognitionEngine masterEngine;
-    
-     
+
+
 
 
         Choices commands;
@@ -40,11 +40,11 @@ namespace VoiceToPaint.VoiceRecognition
                 }
             }
             if (info == null) Console.WriteLine("Din't have languagepack"); ;
-            Console.WriteLine("Found this Langugepack: "+ info.Description
-);             masterEngine = new SpeechRecognitionEngine(info);
-           
-            
-  
+            Console.WriteLine("Found this Langugepack: " + info.Description
+); masterEngine = new SpeechRecognitionEngine(info);
+
+
+
             commands = new Choices();
 
         }
@@ -59,7 +59,8 @@ namespace VoiceToPaint.VoiceRecognition
             {
                 int b;
                 commands.Add(s);
-                if (int.TryParse(s, out b)) {
+                if (int.TryParse(s, out b))
+                {
                     isInt = true;
                 }
 
@@ -94,7 +95,7 @@ namespace VoiceToPaint.VoiceRecognition
 
         public void startListening()
         {
-           
+
             //set input device
             masterEngine.SetInputToDefaultAudioDevice();
 
@@ -106,35 +107,35 @@ namespace VoiceToPaint.VoiceRecognition
 
             //Indicates whether to perform one or multiple recognition operations.
             masterEngine.RecognizeAsync(RecognizeMode.Multiple);
-        
-        
+
+
         }
-      
+
 
         // Handle the SpeechDetected event.  
         // Raised when the recognizer detects input that it can identify as speech.
         private void SpeechDetectedHandler(object sender, SpeechDetectedEventArgs e)
         {
             OnAudioInputCommand();
-          
+
         }
         // Handle the SpeechHypothesized event.  
         //Raised when input creates an ambiguous match with one of the active grammars.
         private void SpeechHypothesizedHandler(
           object sender, SpeechHypothesizedEventArgs e)
         {
-           
-           
+
+
         }
-      
-        
-        
-        
+
+
+
+
         //Raised when the recognizer finalizes a recognition operation.
         private void masterEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
 
-           if( e.Result.Confidence >= 0.8)
+            if (e.Result.Confidence >= 0.8)
             {
                 // += not needed when only doing single words
 

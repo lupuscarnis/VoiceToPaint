@@ -9,7 +9,6 @@ using System.Threading;
 using System.Windows.Forms;
 using VoiceToPaint.VR;
 using VoiceToPaint.Backend;
-using VoiceToPaint.User_Interface.Forms;
 using System.Collections.Generic;
 using VoiceToPaint.VoiceRecognition;
 using System.Speech.Recognition;
@@ -24,8 +23,10 @@ namespace VoiceToPaint
         Task tasks;
         bool drw;
         int beginX, beginY; 
-        Drawables draw;
-        Size boardSize = new Size(10*50+120, 10*50);
+        IDrawables draw;
+        IVoiceRecognition vr;
+        IController cont;
+       Size boardSize = new Size(10*50+120, 10*50);
         private delegate void SafeCallDelegate(bool s);
         public Canvas()
         {
@@ -132,7 +133,6 @@ namespace VoiceToPaint
 
         private void Canvas_Load(object sender, EventArgs e)
         {
-            draw = new Drawables(this);
            
 
          
@@ -149,14 +149,15 @@ namespace VoiceToPaint
 
         private void Canvas_Shown(object sender, EventArgs e)
         {
-           VoiceRegTest vr = new VoiceRegTest();
-            Controller cont = new Controller();
-            Sketch scrat = new Sketch();
-            cont.run(this, draw,vr);
-          
-           
-    
-        
+            draw = new Drawables(this);
+            vr = new VoiceRegTest();
+            cont = new Controller();
+            cont.run(this, draw, vr);
+
+
+
+
+
 
             richTextBox1.Text = "Commands: \n \n";
 
@@ -259,7 +260,7 @@ namespace VoiceToPaint
             {
                 
                 Tools.getObjects.TryGetValue(i, out args);
-                tempInput += "\nNumber: " + i+ args.ToString();
+                tempInput += "\nNumber: " + i+ args.ToString()+"\n";
             }
             Font drawFont = new Font("Arial", 16);
                         
@@ -294,7 +295,7 @@ namespace VoiceToPaint
             {
                
                 richTextBox1.Text = "Commands: \n \n";
-                richTextBox1.Text += "Draw\nRotate\nDelete \n \n";
+                richTextBox1.Text += "draw\nrotate\ndelete \n \n";
 
 
 
