@@ -98,6 +98,7 @@ namespace VoiceToPaint
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::VoiceToPaint.Properties.Resources.voice_Icon;
             this.pictureBox1.Location = new System.Drawing.Point(351, 542);
             this.pictureBox1.Name = "pictureBox1";
