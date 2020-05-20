@@ -31,11 +31,6 @@ namespace VoiceToPaint.Backend
         public delegate void UpdateGraphicEventHandler(object source, EventArgs e);
         public event UpdateGraphicEventHandler GraphicsCleared;
 
-        public Dictionary<int, DrawObject> GetObjectDict()
-        {
-            return Tools.getObjects;
-        }
-
 
 
 
@@ -61,7 +56,7 @@ namespace VoiceToPaint.Backend
 
         public void createDrawble(string text)
         {
-            string[] args;
+            
 
             
 
