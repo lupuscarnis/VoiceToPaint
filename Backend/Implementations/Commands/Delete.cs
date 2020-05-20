@@ -20,7 +20,7 @@ namespace VoiceToPaint.Backend.Implementations.Commands
             int objectKey = int.Parse(object1);
             Tools.getObjects.Remove(objectKey);
 
-            
+
 
 
             DrawObject s;
@@ -30,7 +30,7 @@ namespace VoiceToPaint.Backend.Implementations.Commands
                 {
 
                     if (Tools.getObjects.TryGetValue(i, out s))
-                    Draw.Execute(s,control);
+                        Draw.Execute(s, control);
                 }
             }
 

@@ -8,9 +8,6 @@ namespace VoiceToPaint.Backend
         event Drawables.UpdateViewListEventHandler ListChanged;
 
         void createDrawble(string text);
-        DrawObject GetObject(int key);
-        Dictionary<int, DrawObject> GetObjectDict();
-        void RemoveObject(int key);
-        void SetObject(int key, DrawObject args);
+       
     }
 }
